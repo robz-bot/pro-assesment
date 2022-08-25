@@ -1,0 +1,83 @@
+<div class="bg-light rounded-3 text-dark">
+  <div class="container container-fluid">
+    <h3 class="fw-bold">Welcome Robin Rajesh!</h3>
+    <div class="bd-example">
+      <details>
+        <summary>More Details</summary>
+        <div class="row w-50">
+          <div class="col-5">Employee Code</div>
+          <div class="col-1">:</div>
+          <div class="col-6">TC5-156</div>
+        </div>
+        <div class="row w-50">
+          <div class="col-5">Manager</div>
+          <div class="col-1">:</div>
+          <div class="col-6">Kamal Purushothaman</div>
+        </div>
+        <div class="row w-50">
+          <div class="col-5">Assessment Start DateTime</div>
+          <div class="col-1">:</div>
+          <div class="col-6">25/08/2022 11.00PM</div>
+        </div>
+        <div class="row w-50">
+          <div class="col-5">Team Name</div>
+          <div class="col-1">:</div>
+          <div class="col-6">Java</div>
+        </div>
+        <div class="row w-50">
+          <div class="col-5">Category Name</div>
+          <div class="col-1">:</div>
+          <div class="col-6">Java,Spring boot, Angular</div>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <ul class="nav nav-pills d-flex justify-content-center">
+    <li class="nav-item" *ngFor="let item of questionList;let i =index">
+      <a class="nav-link" [attr.href]="'/assessment#question'+i">{{i+1}}</a>
+    </li>
+  </ul>
+</div>
+<div class="container">
+  <div
+    data-bs-spy="scroll"
+    data-bs-target="#navbar-example2"
+    data-bs-offset="0"
+    class="scrollspy-example"
+    tabindex="0"
+  >
+    <div class="row">
+      <div class="col-12 my-2" [attr.id]="'question'+i" *ngFor="let item of questionList;let i =index">
+        <p class="fw-bold">{{item.id}}. {{item.question}}</p>
+        <label class="checkborder" *ngFor="let option of item.options">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+             [attr.name]="'qn'+i"
+              [attr.value]="option"
+            />
+            <label class="form-check-label m-2">{{option}}</label>
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="container">
+  <ul class="nav nav-pills d-flex justify-content-center">
+    <li class="nav-item">
+      <a class="nav-link" href="/assessment#question1">1</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/assessment#question2">2</a>
+    </li>
+  </ul>
+</div> -->
+<div class="col-12">
+  <div class="d-flex justify-content-center my-1">
+    <button class="btn btn-danger px-4 py-2 fw-bold">End Assessment</button>
+  </div>
+</div>
