@@ -7,19 +7,21 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { AssessmentComponent } from './pages/assessment/assessment.component';
+import { FormatTimePipe } from './pipes/format-time.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AssessmentComponent
+    AssessmentComponent,
+    FormatTimePipe
   ],
   imports: [
     BrowserModule,
     CommonModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule,
+    HttpClientModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

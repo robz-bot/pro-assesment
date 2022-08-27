@@ -1,5 +1,5 @@
 export class questions{
-    "qn1": string;
+  "qn1": string;
   "qn10": string;
   "qn11": string;
   "qn12": string;

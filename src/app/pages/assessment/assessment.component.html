@@ -1,30 +1,30 @@
-<div class="bg-light rounded-3 text-dark">
+<div class="bg-light rounded-3 text-dark d-lg-none d-md-block">
   <div class="container container-fluid">
     <h3 class="fw-bold">Welcome Robin Rajesh!</h3>
     <div class="bd-example">
       <details>
         <summary>More Details</summary>
-        <div class="row w-50">
+        <div class="row">
           <div class="col-5">Employee Code</div>
           <div class="col-1">:</div>
           <div class="col-6">TC5-156</div>
         </div>
-        <div class="row w-50">
+        <div class="row">
           <div class="col-5">Manager</div>
           <div class="col-1">:</div>
           <div class="col-6">Kamal Purushothaman</div>
         </div>
-        <div class="row w-50">
+        <div class="row">
           <div class="col-5">Assessment Start DateTime</div>
           <div class="col-1">:</div>
           <div class="col-6">25/08/2022 11.00PM</div>
         </div>
-        <div class="row w-50">
+        <div class="row">
           <div class="col-5">Team Name</div>
           <div class="col-1">:</div>
           <div class="col-6">Java</div>
         </div>
-        <div class="row w-50">
+        <div class="row">
           <div class="col-5">Category Name</div>
           <div class="col-1">:</div>
           <div class="col-6">Java,Spring boot, Angular</div>
@@ -33,51 +33,275 @@
     </div>
   </div>
 </div>
-<div class="container">
-  <ul class="nav nav-pills d-flex justify-content-center">
-    <li class="nav-item" *ngFor="let item of questionList;let i =index">
-      <a class="nav-link" [attr.href]="'/assessment#question'+i">{{i+1}}</a>
-    </li>
-  </ul>
-</div>
-<div class="container">
-  <div
-    data-bs-spy="scroll"
-    data-bs-target="#navbar-example2"
-    data-bs-offset="0"
-    class="scrollspy-example"
-    tabindex="0"
-  >
-    <div class="row">
-      <div class="col-12 my-2" [attr.id]="'question'+i" *ngFor="let item of questionList;let i =index">
-        <p class="fw-bold">{{item.id}}. {{item.question}}</p>
-        <label class="checkborder" *ngFor="let option of item.options">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-             [attr.name]="'qn'+i"
-              [attr.value]="option"
-            />
-            <label class="form-check-label m-2">{{option}}</label>
+<div class="row my-2">
+  <div class="col-lg-9">
+    <form [formGroup]="answerForm" (ngSubmit)="onSubmit()">
+      <!-- Section A -->
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-success fw-bold btn-center" readonly>
+          Section - A (General Questions)
+        </button>
+      </div>
+      <!-- Navigation based on Questions numbers -->
+      <div class="container d-lg-none d-md-block">
+        <ul class="nav nav-pills d-flex justify-content-center">
+          <li
+            class="nav-item"
+            *ngFor="let item of generalQnList; let i = index"
+          >
+            <a class="nav-link" [attr.href]="'/assessment#genquestion' + i">{{
+              i + 1
+            }}</a>
+          </li>
+        </ul>
+      </div>
+      <!-- List of Questions in Section A -->
+      <div class="container">
+        <div
+          data-bs-spy="scroll"
+          data-bs-target="#navbar-example2"
+          data-bs-offset="0"
+          class="scrollspy-example"
+          tabindex="0"
+        >
+          <div class="row">
+            <!-- Qn 1 -->
+            <div class="col-12 my-2" id="genquestion0">
+              <p class="fw-bold">1. {{ generalQnList[0].question }}</p>
+              <label
+                class="checkborder"
+                *ngFor="let option of generalQnList[0].options"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    [attr.value]="option"
+                    name="qn0"
+                    formControlName="qn0"
+                  />
+                  <label class="form-check-label m-2">{{ option }}</label>
+                </div>
+              </label>
+            </div>
+            <!-- Qn 2 -->
+            <div class="col-12 my-2" id="genquestion1">
+              <p class="fw-bold">2. {{ generalQnList[1].question }}</p>
+              <label
+                class="checkborder"
+                *ngFor="let option of generalQnList[1].options"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    [attr.value]="option"
+                    name="qn1"
+                    formControlName="qn1"
+                  />
+                  <label class="form-check-label m-2">{{ option }}</label>
+                </div>
+              </label>
+            </div>
+            <!-- Qn 3 -->
+            <div class="col-12 my-2" id="genquestion2">
+              <p class="fw-bold">3. {{ generalQnList[2].question }}</p>
+              <label
+                class="checkborder"
+                *ngFor="let option of generalQnList[2].options"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    [attr.value]="option"
+                    name="qn2"
+                    formControlName="qn2"
+                  />
+                  <label class="form-check-label m-2">{{ option }}</label>
+                </div>
+              </label>
+            </div>
+            <!-- Qn 4 -->
+            <div class="col-12 my-2" id="genquestion3">
+              <p class="fw-bold">4. {{ generalQnList[3].question }}</p>
+              <label
+                class="checkborder"
+                *ngFor="let option of generalQnList[3].options"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    [attr.value]="option"
+                    name="qn3"
+                    formControlName="qn3"
+                  />
+                  <label class="form-check-label m-2">{{ option }}</label>
+                </div>
+              </label>
+            </div>
+            <!-- Qn 5 -->
+            <div class="col-12 my-2" id="genquestion4">
+              <p class="fw-bold">5. {{ generalQnList[4].question }}</p>
+              <label
+                class="checkborder"
+                *ngFor="let option of generalQnList[4].options"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    [attr.value]="option"
+                    name="qn4"
+                    formControlName="qn4"
+                  />
+                  <label class="form-check-label m-2">{{ option }}</label>
+                </div>
+              </label>
+            </div>
           </div>
-        </label>
+        </div>
+      </div>
+      <!-- Section B -->
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-success fw-bold btn-center" readonly>
+          Section - B (Technical Questions)
+        </button>
+      </div>
+      <!-- Navigation based on Questions numbers -->
+      <div class="container d-lg-none d-md-block">
+        <ul class="nav nav-pills d-flex justify-content-center">
+          <li
+            class="nav-item"
+            *ngFor="let item of technicalQnList; let i = index"
+          >
+            <a class="nav-link" [attr.href]="'/assessment#techquestion' + i">{{
+              i + 1
+            }}</a>
+          </li>
+        </ul>
+      </div>
+      <!-- List of Questions in Section B -->
+      <div class="container">
+        <div
+          data-bs-spy="scroll"
+          data-bs-target="#navbar-example2"
+          data-bs-offset="0"
+          class="scrollspy-example"
+          tabindex="0"
+        >
+          <div class="row">
+            <div
+              class="col-12 my-2"
+              [attr.id]="'techquestion' + i"
+              *ngFor="let item of technicalQnList; let i = index"
+            >
+              <p class="fw-bold">{{ i + 1 }}. {{ item.question }}</p>
+              <label class="checkborder" *ngFor="let option of item.options">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    [attr.name]="i + 6"
+                    [attr.value]="option"
+                    [attr.formControlName]="i + 6"
+                  />
+                  <label class="form-check-label m-2">{{ option }}</label>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Submit Assessment Button -->
+      <div class="col-12">
+        <div class="d-flex justify-content-center m-4">
+          <button type="submit" class="btn btn-danger px-4 py-2 fw-bold">
+            End Assessment
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-lg-3 fixed-top sticky-div d-none d-lg-block">
+    <div class="bg-light rounded-3 text-dark">
+      <div class="container container-fluid">
+        <h3 class="fw-bold">
+          Welcome <br />
+          Robin Rajesh!
+        </h3>
+        <p>{{ timeLeft | formatTime }}</p>
+        <div class="bd-example">
+          <details>
+            <summary>More Details</summary>
+            <div class="row">
+              <div class="col-5">Employee Code</div>
+              <div class="col-1">:</div>
+              <div class="col-6">TC5-156</div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-5">Manager</div>
+              <div class="col-1">:</div>
+              <div class="col-6">Kamal Purushothaman</div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-5">Assessment Start DateTime</div>
+              <div class="col-1">:</div>
+              <div class="col-6">25/08/2022 11.00PM</div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-5">Team Name</div>
+              <div class="col-1">:</div>
+              <div class="col-6">Java</div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-5">Category Name</div>
+              <div class="col-1">:</div>
+              <div class="col-6">Java,Spring boot, Angular</div>
+            </div>
+          </details>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<!-- <div class="container">
-  <ul class="nav nav-pills d-flex justify-content-center">
-    <li class="nav-item">
-      <a class="nav-link" href="/assessment#question1">1</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/assessment#question2">2</a>
-    </li>
-  </ul>
-</div> -->
-<div class="col-12">
-  <div class="d-flex justify-content-center my-1">
-    <button class="btn btn-danger px-4 py-2 fw-bold">End Assessment</button>
+    <!-- Section A -->
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-success fw-bold btn-center" readonly>
+        Section - A (General Questions)
+      </button>
+    </div>
+    <!-- Navigation based on Questions numbers -->
+    <div class="container">
+      <ul class="nav nav-pills d-flex justify-content-center">
+        <li class="nav-item" *ngFor="let item of generalQnList; let i = index">
+          <a class="nav-link" [attr.href]="'/assessment#genquestion' + i">{{
+            i + 1
+          }}</a>
+        </li>
+      </ul>
+    </div>
+    <!-- Section B -->
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-success fw-bold btn-center" readonly>
+        Section - B (Technical Questions)
+      </button>
+    </div>
+    <!-- Navigation based on Questions numbers -->
+    <div class="container">
+      <ul class="nav nav-pills d-flex justify-content-center">
+        <li
+          class="nav-item"
+          *ngFor="let item of technicalQnList; let i = index"
+        >
+          <a class="nav-link" [attr.href]="'/assessment#techquestion' + i">{{
+            i + 1
+          }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
