@@ -8,13 +8,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { AssessmentComponent } from './pages/assessment/assessment.component';
 import { FormatTimePipe } from './pipes/format-time.pipe';
+import { UserDetailsComponent } from './shared-components/user-details/user-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AssessmentComponent,
-    FormatTimePipe
+    FormatTimePipe,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,

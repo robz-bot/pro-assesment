@@ -1,41 +1,13 @@
 <div class="bg-light rounded-3 text-dark d-lg-none d-md-block">
   <div class="container container-fluid">
     <h3 class="fw-bold">Welcome Robin Rajesh!</h3>
-    <div class="bd-example">
-      <details>
-        <summary>More Details</summary>
-        <div class="row">
-          <div class="col-5">Employee Code</div>
-          <div class="col-1">:</div>
-          <div class="col-6">TC5-156</div>
-        </div>
-        <div class="row">
-          <div class="col-5">Manager</div>
-          <div class="col-1">:</div>
-          <div class="col-6">Kamal Purushothaman</div>
-        </div>
-        <div class="row">
-          <div class="col-5">Assessment Start DateTime</div>
-          <div class="col-1">:</div>
-          <div class="col-6">25/08/2022 11.00PM</div>
-        </div>
-        <div class="row">
-          <div class="col-5">Team Name</div>
-          <div class="col-1">:</div>
-          <div class="col-6">Java</div>
-        </div>
-        <div class="row">
-          <div class="col-5">Category Name</div>
-          <div class="col-1">:</div>
-          <div class="col-6">Java,Spring boot, Angular</div>
-        </div>
-      </details>
-    </div>
+    <p>{{ timeLeft | formatTime }}</p>
+    <app-user-details></app-user-details>
   </div>
 </div>
 <div class="row my-2">
   <div class="col-lg-9">
-    <form [formGroup]="answerForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="answerForm">
       <!-- Section A -->
       <div class="d-flex justify-content-center">
         <button class="btn btn-success fw-bold btn-center" readonly>
@@ -65,96 +37,20 @@
           tabindex="0"
         >
           <div class="row">
-            <!-- Qn 1 -->
-            <div class="col-12 my-2" id="genquestion0">
-              <p class="fw-bold">1. {{ generalQnList[0].question }}</p>
-              <label
-                class="checkborder"
-                *ngFor="let option of generalQnList[0].options"
-              >
+            <div
+              class="col-12 my-2"
+              [attr.id]="'genquestion' + i"
+              *ngFor="let item of generalQnList; let i = index"
+            >
+              <p class="fw-bold">{{ i + 1 }}. {{ item.question }}</p>
+              <label class="checkborder" *ngFor="let option of item.options">
                 <div class="form-check">
                   <input
-                    class="form-check-input"
                     type="radio"
-                    [attr.value]="option"
-                    name="qn0"
-                    formControlName="qn0"
-                  />
-                  <label class="form-check-label m-2">{{ option }}</label>
-                </div>
-              </label>
-            </div>
-            <!-- Qn 2 -->
-            <div class="col-12 my-2" id="genquestion1">
-              <p class="fw-bold">2. {{ generalQnList[1].question }}</p>
-              <label
-                class="checkborder"
-                *ngFor="let option of generalQnList[1].options"
-              >
-                <div class="form-check">
-                  <input
                     class="form-check-input"
-                    type="radio"
-                    [attr.value]="option"
-                    name="qn1"
-                    formControlName="qn1"
-                  />
-                  <label class="form-check-label m-2">{{ option }}</label>
-                </div>
-              </label>
-            </div>
-            <!-- Qn 3 -->
-            <div class="col-12 my-2" id="genquestion2">
-              <p class="fw-bold">3. {{ generalQnList[2].question }}</p>
-              <label
-                class="checkborder"
-                *ngFor="let option of generalQnList[2].options"
-              >
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    [attr.value]="option"
-                    name="qn2"
-                    formControlName="qn2"
-                  />
-                  <label class="form-check-label m-2">{{ option }}</label>
-                </div>
-              </label>
-            </div>
-            <!-- Qn 4 -->
-            <div class="col-12 my-2" id="genquestion3">
-              <p class="fw-bold">4. {{ generalQnList[3].question }}</p>
-              <label
-                class="checkborder"
-                *ngFor="let option of generalQnList[3].options"
-              >
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    [attr.value]="option"
-                    name="qn3"
-                    formControlName="qn3"
-                  />
-                  <label class="form-check-label m-2">{{ option }}</label>
-                </div>
-              </label>
-            </div>
-            <!-- Qn 5 -->
-            <div class="col-12 my-2" id="genquestion4">
-              <p class="fw-bold">5. {{ generalQnList[4].question }}</p>
-              <label
-                class="checkborder"
-                *ngFor="let option of generalQnList[4].options"
-              >
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    [attr.value]="option"
-                    name="qn4"
-                    formControlName="qn4"
+                    [value]="option"
+                    [formControlName]="'qn' + i"
+                    [name]="'qn' + i"
                   />
                   <label class="form-check-label m-2">{{ option }}</label>
                 </div>
@@ -203,9 +99,9 @@
                   <input
                     class="form-check-input"
                     type="radio"
-                    [attr.name]="i + 6"
-                    [attr.value]="option"
-                    [attr.formControlName]="i + 6"
+                    [value]="option"
+                    [formControlName]="'qn' + (i + 6)"
+                    [name]="'qn' + (i + 6)"
                   />
                   <label class="form-check-label m-2">{{ option }}</label>
                 </div>
@@ -217,7 +113,11 @@
       <!-- Submit Assessment Button -->
       <div class="col-12">
         <div class="d-flex justify-content-center m-4">
-          <button type="submit" class="btn btn-danger px-4 py-2 fw-bold">
+          <button
+            type="submit"
+            class="btn btn-danger px-4 py-2 fw-bold"
+            (click)="onSubmit()"
+          >
             End Assessment
           </button>
         </div>
@@ -232,45 +132,12 @@
           Robin Rajesh!
         </h3>
         <p>{{ timeLeft | formatTime }}</p>
-        <div class="bd-example">
-          <details>
-            <summary>More Details</summary>
-            <div class="row">
-              <div class="col-5">Employee Code</div>
-              <div class="col-1">:</div>
-              <div class="col-6">TC5-156</div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col-5">Manager</div>
-              <div class="col-1">:</div>
-              <div class="col-6">Kamal Purushothaman</div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col-5">Assessment Start DateTime</div>
-              <div class="col-1">:</div>
-              <div class="col-6">25/08/2022 11.00PM</div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col-5">Team Name</div>
-              <div class="col-1">:</div>
-              <div class="col-6">Java</div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col-5">Category Name</div>
-              <div class="col-1">:</div>
-              <div class="col-6">Java,Spring boot, Angular</div>
-            </div>
-          </details>
-        </div>
+        <app-user-details></app-user-details>
       </div>
     </div>
     <!-- Section A -->
     <div class="d-flex justify-content-center">
-      <button class="btn btn-success fw-bold btn-center" readonly>
+      <button class="btn btn-success fw-bold btn-center cursor-auto" readonly>
         Section - A (General Questions)
       </button>
     </div>
@@ -286,7 +153,7 @@
     </div>
     <!-- Section B -->
     <div class="d-flex justify-content-center">
-      <button class="btn btn-success fw-bold btn-center" readonly>
+      <button class="btn btn-success fw-bold btn-center cursorAuto" readonly>
         Section - B (Technical Questions)
       </button>
     </div>
@@ -303,5 +170,56 @@
         </li>
       </ul>
     </div>
+  </div>
+</div>
+
+<!-- Canvas  -->
+<button
+  class="btn btn-primary d-none"
+  type="button"
+  data-bs-toggle="offcanvas"
+  #completeBtn
+  data-bs-target="#completeCanvas"
+  aria-controls="completeCanvas"
+  (click)="showSummary()"
+>
+  Assessment Complete
+</button>
+
+<div
+  class="offcanvas offcanvas-top h-auto"
+  tabindex="-1"
+  id="completeCanvas"
+  aria-labelledby="completeCanvasLabel"
+>
+  <div
+    class="offcanvas-header d-flex justify-content-center align-items-center"
+  >
+    <h5 class="btn btn-warning cursor-auto" disabled>Assessment Summary</h5>
+    <!-- <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button> -->
+  </div>
+  <div class="offcanvas-body d-flex justify-content-center align-items-center">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <tr>
+          <th scope="row" class="p-3">Total No. of Questions</th>
+          <td class="p-3">:</td>
+          <td class="p-3">{{ totalNoOfQns }}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="p-3">No. of Questions Answered</th>
+          <td class="p-3">:</td>
+          <td class="p-3">{{ noOfQnsAnswered }}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="p-3">No. of Questions not answered</th>
+          <td class="p-3">:</td>
+          <td class="p-3">{{ noOfQnsUnAnswered }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="offcanvas-footer d-flex justify-content-center align-items-center my-3">
+    <button class="btn btn-success">OK</button>
   </div>
 </div>
