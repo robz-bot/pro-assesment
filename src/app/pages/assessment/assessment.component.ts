@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
+import { FormControl, FormGroup } from "@angular/forms";
 
 import { AssessmentService } from "./assessment.service";
 import { question } from "./question";
@@ -142,6 +142,152 @@ export class AssessmentComponent implements OnInit {
         options: ["ArrayList", "Abstract class", "Object class", "String"],
         answer: "Object class",
       },
+      {
+        id: 11,
+        question: "What is .subscribe?",
+        options: [
+          "Streams data in asynchronously",
+          "Streams data in synchronously",
+          "Both",
+          "None of above",
+        ],
+        answer: "None of above",
+      },
+      {
+        id: 12,
+        question: "What does AOT stand for?",
+        options: [
+          "Ahead-Of-Time Compilation",
+          "Angular Object Templates",
+          "Both",
+          "None of above",
+        ],
+        answer: "Ahead-Of-Time Compilation",
+      },
+      {
+        id: 13,
+        question: "Router is part of which of the following module?",
+        options: ["@angular/core", "@angular/router", "Both", "None of above"],
+        answer: "@angular/router",
+      },
+      {
+        id: 14,
+        question: "RxJS can be used for?",
+        options: ["Browser", "Server Side", "Both", "None of above"],
+        answer: "Both",
+      },
+      {
+        id: 15,
+        question:
+          "Which angular decorator allows us to define the pipe name that is globally available for use in any template in the across application?",
+        options: ["pipeName", "pipeDeco", "Pipe", "None of above"],
+        answer: "Pipe",
+      },
+      {
+        id: 16,
+        question: "Which of the following is not a DDL command?",
+        options: ["TRUNCATE", "ALTER", "CREATE", "UPDATE"],
+        answer: "UPDATE",
+      },
+      {
+        id: 17,
+        question:
+          "Which statement is used to delete all rows in a table without having the action logged?",
+        options: ["DELETE", "REMOVE", "DROP", "TRUNCATE"],
+        answer: "TRUNCATE",
+      },
+      {
+        id: 18,
+        question: "Which datatype can store unstructured data in a column?",
+        options: ["CHAR", "RAW", "NUMERIC", "VARCHAR"],
+        answer: "RAW",
+      },
+      {
+        id: 19,
+        question:
+          "How many byte counter in BSON is starting with a random value ?",
+        options: ["4", "2", "3", "1"],
+        answer: "3",
+      },
+      {
+        id: 20,
+        question: "Which of the following format is supported by MongoDB ?",
+        options: ["XML", "BSON", "SQL", "ALL"],
+        answer: "BSON",
+      },
+      {
+        id: 21,
+        question:
+          "MongoDB is a _________ database that provides high performance, high availability, and easy scalability.",
+        options: ["Graph", "Key value", "Document", "ALL"],
+        answer: "Document",
+      },
+      {
+        id: 22,
+        question: "Which of the following is used to start server in MongoDB?",
+        options: ["mongod", "mongo", "start-mongo", "start-mongo.sh"],
+        answer: "mongod",
+      },
+      {
+        id: 23,
+        question: "When a java script object is sent to java, the runtime engine creates a java wrapper of type_______",
+        options: ["JSobject", "java script file", "jquary", "java wrapper"],
+        answer: "JSobject",
+      },
+      {
+        id: 24,
+        question: "When a java script object is sent to java, the runtime engine creates a java wrapper of type_______",
+        options: ["JSobject", "java script file", "jquary", "java wrapper"],
+        answer: "JSobject",
+      },
+      {
+        id: 25,
+        question: "What is .subscribe?",
+        options: [
+          "Streams data in asynchronously",
+          "Streams data in synchronously",
+          "Both",
+          "None of above",
+        ],
+        answer: "None of above",
+      },
+      {
+        id: 26,
+        question: "What does AOT stand for?",
+        options: [
+          "Ahead-Of-Time Compilation",
+          "Angular Object Templates",
+          "Both",
+          "None of above",
+        ],
+        answer: "Ahead-Of-Time Compilation",
+      },
+      {
+        id: 27,
+        question: "Router is part of which of the following module?",
+        options: ["@angular/core", "@angular/router", "Both", "None of above"],
+        answer: "@angular/router",
+      },
+      {
+        id: 28,
+        question: "RxJS can be used for?",
+        options: ["Browser", "Server Side", "Both", "None of above"],
+        answer: "Both",
+      },
+      {
+        id: 29,
+        question:
+          "Which angular decorator allows us to define the pipe name that is globally available for use in any template in the across application?",
+        options: ["pipeName", "pipeDeco", "Pipe", "None of above"],
+        answer: "Pipe",
+      },
+      {
+        id: 30,
+        question:
+          "Which angular decorator allows us to define the pipe name that is globally available for use in any template in the across application?",
+        options: ["pipeName", "pipeDeco", "Pipe", "None of above"],
+        answer: "Pipe",
+      },
     ];
 
     //Calculating time based on questions
@@ -155,7 +301,7 @@ export class AssessmentComponent implements OnInit {
 
     //Load technicalQnList
     this.questionList.forEach((element: any, index: any) => {
-      if (index >= 5 && index < 10) this.technicalQnList.push(element);
+      if (index >= 5 && index <= 29) this.technicalQnList.push(element);
     });
 
     //Start the timer
@@ -174,6 +320,7 @@ export class AssessmentComponent implements OnInit {
 
   answeredQn: any = [];
   onSubmit() {
+    this.answerArray = [];
     this.questionList.forEach((element: any) => {
       this.answerArray.push(element.answer);
     });
@@ -181,6 +328,9 @@ export class AssessmentComponent implements OnInit {
     console.log(this.answerValue);
     this.answeredQnByUser(this.answerValue);
 
+    console.log("Original Answer: ");
+    console.log(this.answerArray);
+    console.log("User Answer: ");
     console.log(this.answeredQn);
   }
 
@@ -198,6 +348,23 @@ export class AssessmentComponent implements OnInit {
 
     console.log("noOfQnsUnAnswered: " + this.noOfQnsUnAnswered);
     console.log("noOfQnsAnswered: " + this.noOfQnsAnswered);
+
+    this.evaluateQns();
+  }
+
+  totalMarkEarned: number = 0;
+  totalMark: number = 0;
+  evaluateQns() {
+    this.totalMarkEarned = 0;
+    this.totalMark = this.totalNoOfQns * 2;
+    this.answerArray.forEach((element: any, index: any) => {
+      console.log("index: " + index);
+      console.log(this.answeredQn[index]);
+      console.log(element);
+      if (this.answeredQn[index] === element) {
+        this.totalMarkEarned += 2;
+      }
+    });
   }
 
   //assigning the answered qn of user in an array
