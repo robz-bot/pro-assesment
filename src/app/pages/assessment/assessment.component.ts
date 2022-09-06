@@ -230,13 +230,15 @@ export class AssessmentComponent implements OnInit {
       },
       {
         id: 23,
-        question: "When a java script object is sent to java, the runtime engine creates a java wrapper of type_______",
+        question:
+          "When a java script object is sent to java, the runtime engine creates a java wrapper of type_______",
         options: ["JSobject", "java script file", "jquary", "java wrapper"],
         answer: "JSobject",
       },
       {
         id: 24,
-        question: "When a java script object is sent to java, the runtime engine creates a java wrapper of type_______",
+        question:
+          "When a java script object is sent to java, the runtime engine creates a java wrapper of type_______",
         options: ["JSobject", "java script file", "jquary", "java wrapper"],
         answer: "JSobject",
       },
@@ -291,7 +293,7 @@ export class AssessmentComponent implements OnInit {
     ];
 
     //Calculating time based on questions
-    //let say, 1 question = 1 min
+    //let say, 1 min for each qn
     this.timeLeft = this.questionList.length * 60;
 
     //Load General questionList
@@ -308,8 +310,11 @@ export class AssessmentComponent implements OnInit {
     this.startTimer();
   }
 
+  progressPercentage:number =0;
   startTimer() {
+    console.log("timeLeft: " + this.timeLeft);
     this.interval = setInterval(() => {
+      this.progressPercentage = (this.timeLeft/1800)*100
       this.timeLeft--;
       if (this.timeLeft <= 1) {
         clearInterval(this.interval);

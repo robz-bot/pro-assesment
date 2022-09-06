@@ -127,49 +127,59 @@
   <div class="col-lg-3 fixed-top sticky-div d-none d-lg-block">
     <div class="bg-light rounded-3 text-dark">
       <div class="container container-fluid">
-        <h3 class="fw-bold">
-          Welcome <br />
-          Robin Rajesh!
-        </h3>
-        <p>{{ timeLeft | formatTime }}</p>
+        <p class="fw-bold">Welcome, Robin Rajesh!</p>
+        <p>
+          {{ timeLeft | formatTime }} / {{ timeLeft }} /
+          {{ (timeLeft / 1799) * 100 }}
+        </p>
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped bg-danger"
+            role="progressbar"
+            [style]="'width:'{{progressPercentage}}'%'"
+          ></div>
+        </div>
         <app-user-details></app-user-details>
       </div>
     </div>
     <!-- Section A -->
     <div class="d-flex justify-content-center">
-      <button class="btn btn-success fw-bold btn-center cursor-auto" readonly>
+      <button
+        class="btn btn-sm btn-success fw-bold btn-center cursor-auto"
+        readonly
+      >
         Section - A (General Questions)
       </button>
     </div>
     <!-- Navigation based on Questions numbers -->
-    <div class="container">
-      <ul class="nav nav-pills d-flex justify-content-center">
-        <li class="nav-item" *ngFor="let item of generalQnList; let i = index">
-          <a class="nav-link" [attr.href]="'/assessment#genquestion' + i">{{
-            i + 1
-          }}</a>
-        </li>
-      </ul>
-    </div>
+    <!-- <div class="container"> -->
+    <ul class="nav nav-pills d-flex justify-content-center">
+      <li class="nav-item" *ngFor="let item of generalQnList; let i = index">
+        <a class="nav-link" [attr.href]="'/assessment#genquestion' + i">{{
+          i + 1
+        }}</a>
+      </li>
+    </ul>
+    <!-- </div> -->
     <!-- Section B -->
     <div class="d-flex justify-content-center">
-      <button class="btn btn-success fw-bold btn-center cursorAuto" readonly>
+      <button
+        class="btn btn-sm btn-success fw-bold btn-center cursorAuto"
+        readonly
+      >
         Section - B (Technical Questions)
       </button>
     </div>
     <!-- Navigation based on Questions numbers -->
-    <div class="container">
-      <ul class="nav nav-pills d-flex justify-content-center">
-        <li
-          class="nav-item"
-          *ngFor="let item of technicalQnList; let i = index"
-        >
-          <a class="nav-link" [attr.href]="'/assessment#techquestion' + i">{{
-            i + 1
-          }}</a>
-        </li>
-      </ul>
-    </div>
+    <!-- <div class="container"> -->
+    <ul class="nav nav-pills d-flex justify-content-center">
+      <li class="nav-item" *ngFor="let item of technicalQnList; let i = index">
+        <a class="nav-link" [attr.href]="'/assessment#techquestion' + i">{{
+          i + 1
+        }}</a>
+      </li>
+    </ul>
+    <!-- </div> -->
   </div>
 </div>
 
