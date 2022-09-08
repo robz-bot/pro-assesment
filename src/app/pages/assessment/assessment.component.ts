@@ -310,12 +310,19 @@ export class AssessmentComponent implements OnInit {
     this.startTimer();
   }
 
-  progressPercentage:number =0;
+  progressPercentage: number = 0;
+  progressColor: string = "";
   startTimer() {
     console.log("timeLeft: " + this.timeLeft);
     this.interval = setInterval(() => {
-      this.progressPercentage = (this.timeLeft/1800)*100
+      this.progressPercentage = Math.trunc((this.timeLeft / 1800) * 100);
       this.timeLeft--;
+      this.progressColor = "progress-bar progress-bar-striped ";
+      if (this.progressPercentage >= 50) {
+        this.progressColor += "bg-success";
+      } else if (this.progressPercentage < 20) {
+        this.progressColor += "bg-danger";
+      }
       if (this.timeLeft <= 1) {
         clearInterval(this.interval);
         this.showSummary();

@@ -111,7 +111,7 @@
         </div>
       </div>
       <!-- Submit Assessment Button -->
-      <div class="col-12">
+      <!-- <div class="col-12">
         <div class="d-flex justify-content-center m-4">
           <button
             type="submit"
@@ -121,22 +121,21 @@
             End Assessment
           </button>
         </div>
-      </div>
+      </div> -->
     </form>
   </div>
   <div class="col-lg-3 fixed-top sticky-div d-none d-lg-block">
     <div class="bg-light rounded-3 text-dark">
       <div class="container container-fluid">
         <p class="fw-bold">Welcome, Robin Rajesh!</p>
-        <p>
-          {{ timeLeft | formatTime }} / {{ timeLeft }} /
-          {{ (timeLeft / 1799) * 100 }}
-        </p>
+        <h3 class="badge bg-danger fs-1 align-items-center text-center">
+          {{ timeLeft | formatTime }}
+        </h3>
         <div class="progress">
           <div
-            class="progress-bar progress-bar-striped bg-danger"
+            [attr.class]="progressColor"
             role="progressbar"
-            [style]="'width:'{{progressPercentage}}'%'"
+            [style.width.%]="progressPercentage"
           ></div>
         </div>
         <app-user-details></app-user-details>
@@ -205,12 +204,18 @@
   <div
     class="offcanvas-header d-flex justify-content-center align-items-center"
   >
-    <h5 class="btn btn-warning cursor-auto" disabled>Assessment Summary</h5>
     <!-- <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button> -->
   </div>
   <div class="offcanvas-body d-flex justify-content-center align-items-center">
     <div class="table-responsive">
       <table class="table table-hover">
+        <tr class="text-center">
+          <td scope="row" class="p-3" colspan="3">
+            <h5 class="btn btn-warning cursor-auto bg-warning" disabled>
+              Assessment Summary
+            </h5>
+          </td>
+        </tr>
         <tr>
           <th scope="row" class="p-3">Total No. of Questions</th>
           <td class="p-3">:</td>
@@ -231,12 +236,15 @@
           <td class="p-3">:</td>
           <td class="p-3">{{ totalMarkEarned }} / {{ totalMark }}</td>
         </tr>
+        <tr class="text-center">
+          <td scope="row" class="p-3" colspan="3">
+            <button class="btn btn-success bg-success">OK</button>
+          </td>
+        </tr>
       </table>
     </div>
   </div>
   <div
     class="offcanvas-footer d-flex justify-content-center align-items-center my-3"
-  >
-    <button class="btn btn-success">OK</button>
-  </div>
+  ></div>
 </div>

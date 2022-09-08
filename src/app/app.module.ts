@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -9,6 +9,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { AssessmentComponent } from './pages/assessment/assessment.component';
 import { FormatTimePipe } from './pipes/format-time.pipe';
 import { UserDetailsComponent } from './shared-components/user-details/user-details.component';
+import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+import { AddGenQnComponent } from './pages/add-gen-qn/add-gen-qn.component';
+import { AddTechQnComponent } from './pages/add-tech-qn/add-tech-qn.component';
+import { AdminHeaderComponent } from './pages/admin-header/admin-header.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +21,12 @@ import { UserDetailsComponent } from './shared-components/user-details/user-deta
     HomeComponent,
     AssessmentComponent,
     FormatTimePipe,
-    UserDetailsComponent
+    UserDetailsComponent,
+    AdminLoginComponent,
+    AdminDashboardComponent,
+    AddGenQnComponent,
+    AddTechQnComponent,
+    AdminHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +36,6 @@ import { UserDetailsComponent } from './shared-components/user-details/user-deta
     HttpClientModule 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

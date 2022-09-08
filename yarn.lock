@@ -1591,6 +1591,11 @@
     "require-from-string" "^2.0.2"
     "uri-js" "^4.2.2"
 
+"alertifyjs@^1.13.1":
+  "integrity" "sha512-CckZE2dZDsEEXglOXKxT00vUDV5A6udZom+bn1XHdIWlbSFZgYq7UXCBlwkShhIH3Li/1VxLmr55GOQFQ12WSg=="
+  "resolved" "https://registry.npmjs.org/alertifyjs/-/alertifyjs-1.13.1.tgz"
+  "version" "1.13.1"
+
 "ansi-colors@4.1.1":
   "integrity" "sha512-JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA=="
   "resolved" "https://registry.npmjs.org/ansi-colors/-/ansi-colors-4.1.1.tgz"
@@ -4092,13 +4097,6 @@
   "resolved" "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   "version" "2.6.2"
 
-"ngx-countdown@^14.0.0":
-  "integrity" "sha512-XZyRQM7lT174phm15WiqnenYShZ9+RkaSYNsFvM5GREPgAnWE9Yl7tjC6aH4tijdnYPsbAqSIyqhzg/TERiKjQ=="
-  "resolved" "https://registry.npmjs.org/ngx-countdown/-/ngx-countdown-14.0.0.tgz"
-  "version" "14.0.0"
-  dependencies:
-    "tslib" "^2.3.0"
-
 "node-forge@^0.10.0":
   "integrity" "sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY62+5oOjDEMHRnd0Y7HQ+x7uzxOzC6JA=="
   "resolved" "https://registry.npmjs.org/node-forge/-/node-forge-0.10.0.tgz"
@@ -5720,6 +5718,11 @@
   "version" "8.1.1"
   dependencies:
     "has-flag" "^4.0.0"
+
+"sweetalert2@^11.4.32":
+  "integrity" "sha512-fcXWPzWjqYoLqlfPLL4GHpZDZr4Lm7opkaADKAD1LDM4KHJ5ZHN/8/Les5HWP7+yl+0mrqHHkbsSxjXdvDHHlg=="
+  "resolved" "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.4.32.tgz"
+  "version" "11.4.32"
 
 "symbol-observable@4.0.0":
   "integrity" "sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ=="

@@ -1,4 +1,8 @@
 export class team {
+  "createdOn": string;
   "id": string;
-  "teamName": string;
+  "message": string;
+  "status": 0;
+  "team": string;
+  "updatedOn": string;
 }
