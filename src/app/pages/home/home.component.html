@@ -221,7 +221,7 @@
                       ></label>
                       <select
                         class="form-select form-select-sm"
-                        formControlName="teamId"
+                        formControlName="team"
                         aria-label="Default select example"
                       >
                         <option value="">Select Team</option>
@@ -232,9 +232,9 @@
 
                       <div
                         *ngIf="
-                          !registerForm.controls['teamId'].valid &&
-                          (registerForm.controls['teamId'].dirty ||
-                            registerForm.controls['teamId'].touched)
+                          !registerForm.controls['team'].valid &&
+                          (registerForm.controls['team'].dirty ||
+                            registerForm.controls['team'].touched)
                         "
                         class="bg-danger"
                       >

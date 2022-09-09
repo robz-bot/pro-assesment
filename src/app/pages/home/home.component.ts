@@ -21,13 +21,14 @@ export class HomeComponent implements OnInit {
   isEmailValid: boolean = true;
   teamList: any;
   ngOnInit() {
+    sessionStorage.clear();
     this.registerForm = new FormGroup({
       firstName: new FormControl("", [Validators.required]),
       lastName: new FormControl("", [Validators.required]),
       empCode: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.required]),
       manager: new FormControl("", [Validators.required]),
-      teamId: new FormControl("", [Validators.required]),
+      team: new FormControl("", [Validators.required]),
     });
 
     this.getAllTeams();
@@ -62,23 +63,22 @@ export class HomeComponent implements OnInit {
     }
 
     this.registerValue.empCode = this.registerValue.empCode.toUpperCase();
-    this.registerValue.email = this.registerValue.email.trim();
+    this.registerValue.email = this.registerValue.email.trim().toLowerCase();
     Swal.fire({
-      title: "Terms and conditions",
-      html: `1. There are 30 overall questions<br>
-             2. Each question carries 1 mark<br>
-             3. Once an assessment has begun, it cannot be stopped`,
-      input: "checkbox",
-      inputPlaceholder: "I agree with the terms and conditions",
+      title: "Read Instruction",
+      html: `There are 30 overall questions.
+      Each question carries 1 mark.
+      Once an assessment has begun, it cannot be stopped`,
       showDenyButton: true,
-      confirmButtonText: "Accept",
+      confirmButtonText: "Start",
+      denyButtonText: `Cancel`,
     }).then((result) => {
       if (result.isConfirmed) {
         if (result.value) {
           this.saveUser();
         } else {
           this.submitBtnValue = buttonValue.START_ASSESS;
-          Swal.fire({ icon: "error", text: "You are not accepted :(" });
+          Swal.fire({ icon: "error", text: "You are not accepted." });
         }
       } else {
         this.submitBtnValue = buttonValue.START_ASSESS;
@@ -95,16 +95,23 @@ export class HomeComponent implements OnInit {
         console.log(this.resData);
         if (this.resData.status == 0) {
           this.route.navigateByUrl("/assessment");
-          this.savedInSession(this.registerValue);
+          this.savedInSession(this.registerValue, this.resData);
           Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: this.resData.message,
             showConfirmButton: false,
             timer: 1500,
           });
         } else {
-          this.errMsg = this.resData.message;
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: this.resData.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          // this.errMsg = this.resData.message;
           this.submitBtnValue = buttonValue.START_ASSESS;
           this.registerForm.reset();
         }
@@ -112,15 +119,23 @@ export class HomeComponent implements OnInit {
       (err) => {
         console.log("Error :");
         console.log(err);
-        this.errMsg = message.SOMETHING_WRONG;
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: message.SOMETHING_WRONG,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        // this.errMsg =
         this.submitBtnValue = buttonValue.START_ASSESS;
       }
     );
   }
 
-  savedInSession(form: register) {
+  savedInSession(form: register, resultData: any) {
     sessionStorage.setItem("email", form.email);
     sessionStorage.setItem("empcode", form.empCode);
-    sessionStorage.setItem("teamId", form.teamId);
+    sessionStorage.setItem("teamId", form.team);
+    sessionStorage.setItem("userId", resultData.id);
   }
 }

@@ -1,7 +1,16 @@
 <div class="bg-light rounded-3 text-dark d-lg-none d-md-block">
   <div class="container container-fluid">
-    <h3 class="fw-bold">Welcome Robin Rajesh!</h3>
-    <p>{{ timeLeft | formatTime }}</p>
+    <p class="fw-bold">Welcome, {{questionList[0].firstName}} {{questionList[0].lastName}} !</p>
+    <h3 class="badge bg-danger fs-1 align-items-center text-center">
+      {{ timeLeft | formatTime }}
+    </h3>
+    <div class="progress">
+      <div
+        [attr.class]="progressColor"
+        role="progressbar"
+        [style.width.%]="progressPercentage"
+      ></div>
+    </div>
     <app-user-details></app-user-details>
   </div>
 </div>
@@ -127,7 +136,7 @@
   <div class="col-lg-3 fixed-top sticky-div d-none d-lg-block">
     <div class="bg-light rounded-3 text-dark">
       <div class="container container-fluid">
-        <p class="fw-bold">Welcome, Robin Rajesh!</p>
+        <p class="fw-bold">Welcome, {{questionList[0].firstName}} {{questionList[0].lastName}} !</p>
         <h3 class="badge bg-danger fs-1 align-items-center text-center">
           {{ timeLeft | formatTime }}
         </h3>

@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { AlertifyService } from "src/app/shared-service/alertify.service";
 import { HomeService } from "../home/home.service";
 import { generalQn } from "./gen-qn";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+import { GeneralService } from "./general.service";
 
 @Component({
   selector: "app-add-gen-qn",
@@ -11,7 +12,10 @@ import Swal from 'sweetalert2';
   styleUrls: ["./add-gen-qn.component.css"],
 })
 export class AddGenQnComponent implements OnInit {
-  constructor(private homeService: HomeService,private alertify:AlertifyService) {}
+  constructor(
+    private homeService: HomeService,
+    private genService: GeneralService
+  ) {}
   teamList: any;
   genQnForm!: FormGroup;
   genQnValue: generalQn = new generalQn();
@@ -24,7 +28,6 @@ export class AddGenQnComponent implements OnInit {
       option3: new FormControl("", [Validators.required]),
       option4: new FormControl("", [Validators.required]),
       answer: new FormControl("", [Validators.required]),
-      teamId: new FormControl("", [Validators.required]),
     });
 
     this.getAllTeams();
@@ -57,19 +60,20 @@ export class AddGenQnComponent implements OnInit {
   onSubmit() {
     this.genQnValue = this.genQnForm.value;
     console.log(this.genQnValue);
-    Swal.fire({
-      title: 'Do you want to save the changes?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Save',
-      denyButtonText: `Don't save`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire('Saved!', '', 'success')
-      } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
-      }
-    })
   }
 }
+
+// Swal.fire({
+//   title: 'Do you want to save the changes?',
+//   showDenyButton: true,
+//   showCancelButton: true,
+//   confirmButtonText: 'Save',
+//   denyButtonText: `Don't save`,
+// }).then((result) => {
+//   /* Read more about isConfirmed, isDenied below */
+//   if (result.isConfirmed) {
+//     Swal.fire('Saved!', '', 'success')
+//   } else if (result.isDenied) {
+//     Swal.fire('Changes are not saved', '', 'info')
+//   }
+// })

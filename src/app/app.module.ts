@@ -14,6 +14,10 @@ import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard
 import { AddGenQnComponent } from './pages/add-gen-qn/add-gen-qn.component';
 import { AddTechQnComponent } from './pages/add-tech-qn/add-tech-qn.component';
 import { AdminHeaderComponent } from './pages/admin-header/admin-header.component';
+import { GenQnListComponent } from './pages/gen-qn-list/gen-qn-list.component';
+import { TechQnListComponent } from './pages/tech-qn-list/tech-qn-list.component';
+import { UpdateGenQnComponent } from './pages/update-gen-qn/update-gen-qn.component';
+import { UpdateTechQnComponent } from './pages/update-tech-qn/update-tech-qn.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { AdminHeaderComponent } from './pages/admin-header/admin-header.componen
     AdminDashboardComponent,
     AddGenQnComponent,
     AddTechQnComponent,
-    AdminHeaderComponent
+    AdminHeaderComponent,
+    GenQnListComponent,
+    TechQnListComponent,
+    UpdateGenQnComponent,
+    UpdateTechQnComponent
   ],
   imports: [
     BrowserModule,
