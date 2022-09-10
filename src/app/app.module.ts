@@ -18,6 +18,7 @@ import { GenQnListComponent } from './pages/gen-qn-list/gen-qn-list.component';
 import { TechQnListComponent } from './pages/tech-qn-list/tech-qn-list.component';
 import { UpdateGenQnComponent } from './pages/update-gen-qn/update-gen-qn.component';
 import { UpdateTechQnComponent } from './pages/update-tech-qn/update-tech-qn.component';
+import { MainComponent } from './pages/main/main.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { UpdateTechQnComponent } from './pages/update-tech-qn/update-tech-qn.com
     GenQnListComponent,
     TechQnListComponent,
     UpdateGenQnComponent,
-    UpdateTechQnComponent
+    UpdateTechQnComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,

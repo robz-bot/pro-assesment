@@ -1,17 +1,55 @@
 import { Injectable } from "@angular/core";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 @Injectable({
   providedIn: "root",
 })
 export class AlertifyService {
   constructor() {}
 
-  default(){
+  customErrMsgTitle(message: string) {
     Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Something went wrong!',
-      footer: '<a routerLink="/">Why do I have this issue?</a>'
-    })
+      title: message,
+      icon: "error",
+    });
+  }
+  customErrMsgWithoutBtn(message: string) {
+    Swal.fire({
+      title: message,
+      icon: "error",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  }
+  customWarningMsgWithoutBtn(message: string) {
+    Swal.fire({
+      title: message,
+      icon: "warning",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  }
+  customSuccessMsgWithoutBtn(message: string) {
+    Swal.fire({
+      title: message,
+      icon: "success",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  }
+  showLoading() {
+    Swal.fire({
+      title: "Loading...",
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+  }
+  hideLoading() {
+    Swal.fire({
+      didClose: () => {
+        Swal.disableButtons();
+      },
+      timer: 1200,
+    });
   }
 }

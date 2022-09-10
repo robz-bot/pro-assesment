@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { message } from "src/app/common";
+import { AlertifyService } from "src/app/shared-service/alertify.service";
 import Swal from "sweetalert2";
 import { generalQn } from "../add-gen-qn/gen-qn";
 import { GeneralService } from "../add-gen-qn/general.service";
@@ -10,7 +11,10 @@ import { GeneralService } from "../add-gen-qn/general.service";
   styleUrls: ["./gen-qn-list.component.css"],
 })
 export class GenQnListComponent implements OnInit {
-  constructor(private genService: GeneralService) {}
+  constructor(
+    private genService: GeneralService,
+    private alert: AlertifyService
+  ) {}
 
   ngOnInit(): void {
     this.getAllGeneralQuestions();
@@ -36,5 +40,43 @@ export class GenQnListComponent implements OnInit {
         });
       }
     );
+  }
+  swalWithBootstrapButtons: any = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
+  deleteGeneralQuestionById(qnId: string) {
+    this.swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result: any) => {
+        if (result.isConfirmed) {
+          this.callingDeleteService(qnId);
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.swalWithBootstrapButtons.fire(
+            "Cancelled",
+            "Question is safe :)",
+            "error"
+          );
+        }
+      });
+  }
+
+  callingDeleteService(qnId: string) {
+    this.genService.deleteGeneralQuestionById(qnId).subscribe((data) => {
+      console.log(data);
+      this.alert.customSuccessMsgWithoutBtn("Deleted!");
+      this.getAllGeneralQuestions();
+    });
   }
 }

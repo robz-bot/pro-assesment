@@ -221,7 +221,7 @@
                       ></label>
                       <select
                         class="form-select form-select-sm"
-                        formControlName="team"
+                        formControlName="teamId"
                         aria-label="Default select example"
                       >
                         <option value="">Select Team</option>
@@ -232,9 +232,9 @@
 
                       <div
                         *ngIf="
-                          !registerForm.controls['team'].valid &&
-                          (registerForm.controls['team'].dirty ||
-                            registerForm.controls['team'].touched)
+                          !registerForm.controls['teamId'].valid &&
+                          (registerForm.controls['teamId'].dirty ||
+                            registerForm.controls['teamId'].touched)
                         "
                         class="bg-danger"
                       >
@@ -268,6 +268,14 @@
                 </button>
               </fieldset>
             </form>
+            <div class="text-center my-2">
+              <a
+                href="javascccript:void(0)"
+                class="btn btn-sm text-dark"
+                (click)="openAlertToGetEmail()"
+                >Already Registered?</a
+              >
+            </div>
           </div>
           <div class="card-footer">
             <fieldset class="text-center my-2">

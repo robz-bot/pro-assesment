@@ -7,6 +7,8 @@ import { AssessmentService } from "./assessment.service";
 import { question } from "./question";
 
 import { questions } from "./questions";
+import { report } from "./report";
+import { ReportService } from "./report.service";
 
 @Component({
   selector: "app-assessment",
@@ -18,6 +20,7 @@ export class AssessmentComponent implements OnInit {
   SS_TeamId: any = "";
   constructor(
     private assessmentService: AssessmentService,
+    private reportService: ReportService,
     private router: Router
   ) {}
 
@@ -323,6 +326,10 @@ export class AssessmentComponent implements OnInit {
     //   },
     // ];
 
+    if (this.SS_UserId == null || this.SS_TeamId == null) {
+      this.router.navigateByUrl("/");
+      return;
+    }
     this.getAllAssessmentQns(this.SS_UserId, this.SS_TeamId);
   }
 
@@ -389,6 +396,8 @@ export class AssessmentComponent implements OnInit {
     this.answerValue = this.answerForm.value;
     console.log(this.answerValue);
     this.answeredQnByUser(this.answerValue);
+    this.getSubmittedQnDet();
+    this.saveUserReport();
 
     console.log("Original Answer: ");
     console.log(this.answerArray);
@@ -429,6 +438,29 @@ export class AssessmentComponent implements OnInit {
     });
   }
 
+  reportForm: report = new report();
+  saveUserReport() {
+    this.reportForm.noOfQuestionsAnswered = this.noOfQnsAnswered.toString();
+    this.reportForm.noOfQuestionsNotAnswered =
+      this.noOfQnsUnAnswered.toString();
+
+    this.reportForm.percentage =
+      Math.ceil((this.totalMarkEarned / this.totalMark) * 100).toString() +
+      " %";
+
+    this.reportForm.status = this.totalMarkEarned > 14 ? "Pass" : "Fail";
+
+    this.reportForm.teamId = this.SS_TeamId;
+    this.reportForm.totalMarks = this.totalMarkEarned.toString();
+    this.reportForm.totalNoOfQuestions = this.totalMark.toString();
+    this.reportForm.userId = this.SS_UserId;
+
+    console.log(this.reportForm);
+    this.reportService.addReports(this.reportForm).subscribe((data) => {
+      console.log(data);
+    });
+  }
+
   //assigning the answered qn of user in an array
   answeredQnByUser(answerValue: questions) {
     this.answeredQn[0] = answerValue.qn0;
@@ -465,9 +497,10 @@ export class AssessmentComponent implements OnInit {
 
   showSummary() {
     this.onSubmit();
-    this.getSubmittedQnDet();
+    
     let el: HTMLElement = this.completeBtn.nativeElement as HTMLElement;
-    el.click();
+    el.click()
+    
     sessionStorage.clear();
   }
 }

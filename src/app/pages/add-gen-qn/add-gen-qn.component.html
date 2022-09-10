@@ -1,15 +1,21 @@
 <app-admin-header></app-admin-header>
 <div class="container">
   <div class="card">
-    <div class="card-header">
-      <h4 class="text-center">Add General Question(s)</h4>
-      <div class="form-check form-switch float-end">
-        <input class="form-check-input bg-warning" type="checkbox" />
-        <label class="form-check-label">Add Multiple questions</label>
+    <form class="row g-3" [formGroup]="genQnForm" (ngSubmit)="onSubmit()">
+      <div class="card-header">
+        <h4 class="text-center">Add General Question(s)</h4>
+        <div class="form-check form-switch float-end">
+          <input
+            class="form-check-input bg-warning"
+            type="checkbox"
+            formControlName="mulQn"
+          
+          />
+          <label class="form-check-label">Add Multiple questions</label>
+        </div>
       </div>
-    </div>
-    <div class="card-body">
-      <form class="row g-3" [formGroup]="genQnForm" (ngSubmit)="onSubmit()">
+      <div class="card-body">
+        <div class="row g-3">
         <div class="col-12">
           <label class="form-label">Question</label>
           <textarea
@@ -96,8 +102,9 @@
         <div class="col-md-12 text-center">
           <button type="submit" class="btn btn-sm btn-success">Save</button>
         </div>
-      </form>
-    </div>
+      </div>
+      </div>
+    </form>
     <div class="card-footer"></div>
   </div>
 </div>

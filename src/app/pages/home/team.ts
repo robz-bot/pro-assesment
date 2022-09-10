@@ -3,6 +3,6 @@ export class team {
   "id": string;
   "message": string;
   "status": 0;
-  "team": string;
+  "teamId": string;
   "updatedOn": string;
 }

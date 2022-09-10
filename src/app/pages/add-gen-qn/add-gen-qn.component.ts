@@ -3,8 +3,9 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { AlertifyService } from "src/app/shared-service/alertify.service";
 import { HomeService } from "../home/home.service";
 import { generalQn } from "./gen-qn";
-import Swal from "sweetalert2";
 import { GeneralService } from "./general.service";
+import { commonFunctions } from "src/app/common";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-add-gen-qn",
@@ -14,7 +15,9 @@ import { GeneralService } from "./general.service";
 export class AddGenQnComponent implements OnInit {
   constructor(
     private homeService: HomeService,
-    private genService: GeneralService
+    private genService: GeneralService,
+    private alert: AlertifyService,
+    private router: Router
   ) {}
   teamList: any;
   genQnForm!: FormGroup;
@@ -28,7 +31,10 @@ export class AddGenQnComponent implements OnInit {
       option3: new FormControl("", [Validators.required]),
       option4: new FormControl("", [Validators.required]),
       answer: new FormControl("", [Validators.required]),
+      mulQn: new FormControl(false, [Validators.required]),
     });
+
+    console.log(this.genQnForm);
 
     this.getAllTeams();
   }
@@ -59,21 +65,64 @@ export class AddGenQnComponent implements OnInit {
 
   onSubmit() {
     this.genQnValue = this.genQnForm.value;
-    console.log(this.genQnValue);
+    this.genQnValue.answer = this.correctAnswerByCopyPaste;
+
+    if (this.genQnValue.question == "") {
+      this.alert.customWarningMsgWithoutBtn("Question is required!");
+      return;
+    }
+    if (this.genQnValue.option1 == "") {
+      this.alert.customWarningMsgWithoutBtn("Option 1 is required!");
+      return;
+    }
+    if (this.genQnValue.option2 == "") {
+      this.alert.customWarningMsgWithoutBtn("Option 2 is required!");
+      return;
+    }
+    if (this.genQnValue.option3 == "") {
+      this.alert.customWarningMsgWithoutBtn("Option 3 is required!");
+      return;
+    }
+    if (this.genQnValue.option4 == "") {
+      this.alert.customWarningMsgWithoutBtn("Option 4 is required!");
+      return;
+    }
+    console.log(this.genQnValue.answer);
+    if (this.genQnValue.answer == "") {
+      this.alert.customWarningMsgWithoutBtn("Answer is required!");
+      return;
+    }
+    if (this.checkDuplicateOptions(this.genQnValue)) {
+      console.log(this.genQnValue);
+
+      this.alert.showLoading();
+      this.genService
+        .addGeneralQuestion(this.genQnValue)
+        .subscribe((data: any) => {
+          this.alert.hideLoading();
+          console.log(data);
+          this.alert.customSuccessMsgWithoutBtn(data.message);
+          this.genQnForm.reset();
+        });
+    }
+    if (this.genQnForm.value.mulQn) {
+      this.router.navigateByUrl("/gen-qn-list");
+    }
+  }
+
+  checkDuplicateOptions(genQnValue: generalQn): boolean {
+    let optionsArr = [
+      genQnValue.option1,
+      genQnValue.option2,
+      genQnValue.option3,
+      genQnValue.option4,
+    ];
+
+    var resultArr = commonFunctions.FIND_DUPLICATES(optionsArr);
+    if (resultArr.length > 0) {
+      this.alert.customErrMsgTitle("One of option has duplicate value");
+      return false;
+    }
+    return true;
   }
 }
-
-// Swal.fire({
-//   title: 'Do you want to save the changes?',
-//   showDenyButton: true,
-//   showCancelButton: true,
-//   confirmButtonText: 'Save',
-//   denyButtonText: `Don't save`,
-// }).then((result) => {
-//   /* Read more about isConfirmed, isDenied below */
-//   if (result.isConfirmed) {
-//     Swal.fire('Saved!', '', 'success')
-//   } else if (result.isDenied) {
-//     Swal.fire('Changes are not saved', '', 'info')
-//   }
-// })

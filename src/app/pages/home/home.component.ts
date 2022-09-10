@@ -1,11 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { buttonValue, message, patterns } from "src/app/common";
+import { baseUrl, buttonValue, message, patterns } from "src/app/common";
 import { HomeService } from "./home.service";
 import { register } from "./register";
 import { team } from "./team";
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
+import { AlertifyService } from "src/app/shared-service/alertify.service";
 
 @Component({
   selector: "app-home",
@@ -13,7 +14,11 @@ import Swal from "sweetalert2";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  constructor(private homeService: HomeService, private route: Router) {}
+  constructor(
+    private homeService: HomeService,
+    private route: Router,
+    private alert: AlertifyService
+  ) {}
 
   registerForm!: FormGroup;
   registerValue: register = new register();
@@ -28,7 +33,7 @@ export class HomeComponent implements OnInit {
       empCode: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.required]),
       manager: new FormControl("", [Validators.required]),
-      team: new FormControl("", [Validators.required]),
+      teamId: new FormControl("", [Validators.required]),
     });
 
     this.getAllTeams();
@@ -87,9 +92,82 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  openAlertToGetEmail() {
+    Swal.fire({
+      title: "Submit your registerd Email",
+      input: "text",
+      inputAttributes: {
+        autocapitalize: "off",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Look up",
+      showLoaderOnConfirm: true,
+      preConfirm: (login) => {
+        let email = login.trim().toLowerCase();
+        return fetch(`${baseUrl.BASE_URL}/getUserByEmail/${email}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+            return response.json();
+          })
+          .catch((error) => {
+            Swal.showValidationMessage(`Request failed: ${error}`);
+          });
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.registerValue = result.value;
+        Swal.fire({
+          title: `Confirm your details below and start your test`,
+          width: 600,
+          showCancelButton: true,
+          confirmButtonText: "Start",
+          html: `
+                <table class="table text-dark">
+                  <tr>
+                    <th scope="row" class="p-3">Employee ID</th>
+                    <td class="p-3">:</td>
+                    <td class="p-3">${result.value.empCode}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="p-3">Email</th>
+                    <td class="p-3">:</td>
+                    <td class="p-3">${result.value.email}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="p-3">Full Name</th>
+                    <td class="p-3">:</td>
+                    <td class="p-3">${result.value.firstName} ${result.value.lastName}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="p-3">Manager</th>
+                    <td class="p-3">:</td>
+                    <td class="p-3">${result.value.manager}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="p-3">Team</th>
+                    <td class="p-3">:</td>
+                    <td class="p-3">${result.value.team}</td>
+                  </tr>
+              </table>
+          `,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            this.saveUser();
+          }
+        });
+      }
+    });
+  }
+
   private saveUser() {
+    this.alert.showLoading();
     this.homeService.addUser(this.registerValue).subscribe(
       (data) => {
+        this.alert.hideLoading();
         this.resData = data;
         console.log("After saving in DB(user): ");
         console.log(this.resData);
@@ -109,7 +187,7 @@ export class HomeComponent implements OnInit {
             icon: "error",
             title: this.resData.message,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 2000,
           });
           // this.errMsg = this.resData.message;
           this.submitBtnValue = buttonValue.START_ASSESS;
@@ -135,7 +213,7 @@ export class HomeComponent implements OnInit {
   savedInSession(form: register, resultData: any) {
     sessionStorage.setItem("email", form.email);
     sessionStorage.setItem("empcode", form.empCode);
-    sessionStorage.setItem("teamId", form.team);
+    sessionStorage.setItem("teamId", form.teamId);
     sessionStorage.setItem("userId", resultData.id);
   }
 }

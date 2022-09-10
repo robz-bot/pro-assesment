@@ -10,12 +10,10 @@ export class AssessmentService {
   constructor(private httpClient: HttpClient) {}
   //Home URL
   private getExamQnsUrl = baseUrl.BASE_URL + "getExamQns";
-  private addUserUrl = baseUrl.BASE_URL + "addUser";
-
 
   getExamQns(userId: string, teamId: string) {
-    return this.httpClient.get<any[]>(`${this.getExamQnsUrl}/${teamId}/${userId}`);
+    return this.httpClient.get<any[]>(
+      `${this.getExamQnsUrl}/${teamId}/${userId}`
+    );
   }
-
-  
 }
