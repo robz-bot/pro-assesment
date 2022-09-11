@@ -6,6 +6,7 @@ import { generalQn } from "./gen-qn";
 import { GeneralService } from "./general.service";
 import { commonFunctions } from "src/app/common";
 import { Router } from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-add-gen-qn",
@@ -99,14 +100,24 @@ export class AddGenQnComponent implements OnInit {
       this.genService
         .addGeneralQuestion(this.genQnValue)
         .subscribe((data: any) => {
-          this.alert.hideLoading();
+          Swal.close();
           console.log(data);
-          this.alert.customSuccessMsgWithoutBtn(data.message);
-          this.genQnForm.reset();
+
+          //After added
+          Swal.fire({
+            title: data.message,
+            showDenyButton: false,
+            showCancelButton: false,
+            allowOutsideClick: false,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              if (!this.genQnForm.value.mulQn) {
+                this.router.navigateByUrl("/gen-qn-list");
+              }
+              this.genQnForm.reset()
+            }
+          });
         });
-    }
-    if (this.genQnForm.value.mulQn) {
-      this.router.navigateByUrl("/gen-qn-list");
     }
   }
 

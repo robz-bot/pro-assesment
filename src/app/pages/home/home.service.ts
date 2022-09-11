@@ -13,6 +13,8 @@ export class HomeService {
   //Home URL
   private getAllTeamsUrl = baseUrl.BASE_URL + "getAllTeams";
   private addUserUrl = baseUrl.BASE_URL + "addUser";
+  private addTeamUrl = baseUrl.BASE_URL + "addTeam";
+  private deleteTeamByIdUrl = baseUrl.BASE_URL + "deleteTeamById";
 
   getAllTeams() {
     return this.httpClient.get<team[]>(`${this.getAllTeamsUrl}`);
@@ -20,5 +22,13 @@ export class HomeService {
 
   addUser(register: register): Observable<Object> {
     return this.httpClient.post(`${this.addUserUrl}`, register);
+  }
+
+  deleteTeamById(id: string) {
+    return this.httpClient.delete(`${this.deleteTeamByIdUrl}/${id}`);
+  }
+
+  addTeam(team: team): Observable<Object> {
+    return this.httpClient.post(`${this.addTeamUrl}`, team);
   }
 }

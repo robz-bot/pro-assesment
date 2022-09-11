@@ -9,4 +9,5 @@ export class question {
   "empCode": string;
   "email": string;
   "team": string;
+  "teamId": string;
 }

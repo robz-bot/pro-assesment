@@ -15,16 +15,26 @@ export class GeneralService {
   private addGeneralQuestionUrl = baseUrl.BASE_URL + "addGeneralQuestion";
   private deleteGeneralQuestionByIdUrl =
     baseUrl.BASE_URL + "deleteGeneralQuestionById";
+  private updateGeneralQuestionUrl = baseUrl.BASE_URL + "updateGeneralQuestion";
+  private getGeneralQuestionByIdUrl =
+    baseUrl.BASE_URL + "getGeneralQuestionById";
 
   addGeneralQuestion(genQn: generalQn): Observable<Object> {
     return this.httpClient.post(`${this.addGeneralQuestionUrl}`, genQn);
+  }
+
+  getGeneralQuestionById(id: string): Observable<Object> {
+    return this.httpClient.get(`${this.getGeneralQuestionByIdUrl}/${id}`);
+  }
+  deleteGeneralQuestionById(id: string): Observable<Object> {
+    return this.httpClient.delete(`${this.deleteGeneralQuestionByIdUrl}/${id}`);
   }
 
   getAllGeneralQuestions() {
     return this.httpClient.get(this.getAllGeneralQuestionsUrl);
   }
 
-  deleteGeneralQuestionById(id: string) {
-    return this.httpClient.delete(`${this.deleteGeneralQuestionByIdUrl}/${id}`);
+  updateGeneralQuestion(genQn: generalQn) {
+    return this.httpClient.put(`${this.updateGeneralQuestionUrl}`, genQn);
   }
 }

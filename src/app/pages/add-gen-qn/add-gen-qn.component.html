@@ -3,7 +3,7 @@
   <div class="card">
     <form class="row g-3" [formGroup]="genQnForm" (ngSubmit)="onSubmit()">
       <div class="card-header">
-        <h4 class="text-center">Add General Question(s)</h4>
+        <h4 class="text-center text-light">Add General Question(s)</h4>
         <div class="form-check form-switch float-end">
           <input
             class="form-check-input bg-warning"
@@ -11,7 +11,7 @@
             formControlName="mulQn"
           
           />
-          <label class="form-check-label">Add Multiple questions</label>
+          <label class="form-check-label text-light">Add Multiple questions</label>
         </div>
       </div>
       <div class="card-body">
@@ -29,7 +29,7 @@
             >Option 1
             <span class=""
               ><i
-                class="bi bi-check-circle btn btn-sm bg-success"
+                class="bi bi-check-circle btn btn-sm bg-success text-light"
                 title="Click here to populate the option in correct answer"
                 (click)="copyAndPopulate('option1')"
               ></i></span
@@ -45,7 +45,7 @@
             >Option 2
             <span class=""
               ><i
-                class="bi bi-check-circle btn btn-sm bg-success"
+                class="bi bi-check-circle btn btn-sm bg-success text-light"
                 title="Click here to populate the option in correct answer"
                 (click)="copyAndPopulate('option2')"
               ></i></span
@@ -61,7 +61,7 @@
             >Option 3
             <span class=""
               ><i
-                class="bi bi-check-circle btn btn-sm bg-success"
+                class="bi bi-check-circle btn btn-sm bg-success text-light"
                 title="Click here to populate the option in correct answer"
                 (click)="copyAndPopulate('option3')"
               ></i></span
@@ -77,7 +77,7 @@
             >Option 4
             <span class=""
               ><i
-                class="bi bi-check-circle btn btn-sm bg-success"
+                class="bi bi-check-circle btn btn-sm bg-success text-light"
                 title="Click here to populate the option in correct answer"
                 (click)="copyAndPopulate('option4')"
               ></i></span
@@ -89,7 +89,7 @@
           ></textarea>
         </div>
         <div class="col-md-6">
-          <label class="form-label">Correct Answer</label>
+          <label class="form-label">Correct Answer (ReadOnly)</label>
           <textarea
             rows="1"
             class="form-control form-control-sm"

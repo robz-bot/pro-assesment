@@ -102,8 +102,8 @@ export class HomeComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: "Look up",
       showLoaderOnConfirm: true,
-      preConfirm: (login) => {
-        let email = login.trim().toLowerCase();
+      preConfirm: (inputEmail) => {
+        let email = inputEmail.trim().toLowerCase();
         return fetch(`${baseUrl.BASE_URL}/getUserByEmail/${email}`)
           .then((response) => {
             if (!response.ok) {
@@ -119,12 +119,16 @@ export class HomeComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.registerValue = result.value;
-        Swal.fire({
-          title: `Confirm your details below and start your test`,
-          width: 600,
-          showCancelButton: true,
-          confirmButtonText: "Start",
-          html: `
+        console.log(result.value);
+        if (result.value.status == 1) {
+          Swal.fire(`Couldn't find your Email`, "", "info");
+        } else {
+          Swal.fire({
+            title: `Confirm your details below and start your test`,
+            width: 600,
+            showCancelButton: true,
+            confirmButtonText: "Start",
+            html: `
                 <table class="table text-dark">
                   <tr>
                     <th scope="row" class="p-3">Employee ID</th>
@@ -153,12 +157,32 @@ export class HomeComponent implements OnInit {
                   </tr>
               </table>
           `,
-        }).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            this.saveUser();
-          }
-        });
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Read Instruction",
+                html: `There are 30 overall questions.
+            Each question carries 1 mark.
+            Once an assessment has begun, it cannot be stopped`,
+                showDenyButton: true,
+                confirmButtonText: "Start",
+                denyButtonText: `Cancel`,
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  if (result.value) {
+                    this.saveUser();
+                  } else {
+                    this.submitBtnValue = buttonValue.START_ASSESS;
+                    Swal.fire({ icon: "error", text: "You are not accepted." });
+                  }
+                } else {
+                  this.submitBtnValue = buttonValue.START_ASSESS;
+                  return;
+                }
+              });
+            }
+          });
+        }
       }
     });
   }

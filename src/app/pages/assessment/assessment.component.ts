@@ -345,6 +345,7 @@ export class AssessmentComponent implements OnInit {
       );
       sessionStorage.setItem("email", this.questionList[0].email);
       sessionStorage.setItem("manager", this.questionList[0].manager);
+      sessionStorage.setItem("teamId", this.questionList[0].teamId);
       sessionStorage.setItem("team", this.questionList[0].team);
       sessionStorage.setItem("empCode", this.questionList[0].empCode);
 
@@ -379,6 +380,8 @@ export class AssessmentComponent implements OnInit {
         this.progressColor += "bg-success";
       } else if (this.progressPercentage < 20) {
         this.progressColor += "bg-danger";
+      } else if (this.progressPercentage > 20 && this.progressPercentage < 50) {
+        this.progressColor += "bg-warning";
       }
       if (this.timeLeft <= 1) {
         clearInterval(this.interval);
@@ -497,10 +500,10 @@ export class AssessmentComponent implements OnInit {
 
   showSummary() {
     this.onSubmit();
-    
+
     let el: HTMLElement = this.completeBtn.nativeElement as HTMLElement;
-    el.click()
-    
+    el.click();
+
     sessionStorage.clear();
   }
 }

@@ -17,7 +17,7 @@ export class UserDetailsComponent implements OnInit {
     this.SS_empCode = sessionStorage.getItem("empCode");
     this.SS_email = sessionStorage.getItem("email");
     this.SS_manager = sessionStorage.getItem("manager");
-    this.SS_team = sessionStorage.getItem("team");
+    this.SS_team = sessionStorage.getItem("teamId");
     const now = new Date();
     this.todayDateTime = now.toLocaleString();
   }

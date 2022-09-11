@@ -1,9 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { commonFunctions } from "src/app/common";
 import { AlertifyService } from "src/app/shared-service/alertify.service";
 import Swal from "sweetalert2";
 import { generalQn } from "../add-gen-qn/gen-qn";
+import { GeneralService } from "../add-gen-qn/general.service";
 import { HomeService } from "../home/home.service";
+import { TechService } from "./tech.service";
 
 @Component({
   selector: "app-add-tech-qn",
@@ -13,14 +17,16 @@ import { HomeService } from "../home/home.service";
 export class AddTechQnComponent implements OnInit {
   constructor(
     private homeService: HomeService,
-    private alertify: AlertifyService
+    private techService: TechService,
+    private alert: AlertifyService,
+    private router: Router
   ) {}
   teamList: any;
-  genQnForm!: FormGroup;
-  genQnValue: generalQn = new generalQn();
+  techQnForm!: FormGroup;
+  techQnValue: generalQn = new generalQn();
   correctAnswerByCopyPaste: string = "";
   ngOnInit(): void {
-    this.genQnForm = new FormGroup({
+    this.techQnForm = new FormGroup({
       question: new FormControl("", [Validators.required]),
       option1: new FormControl("", [Validators.required]),
       option2: new FormControl("", [Validators.required]),
@@ -41,38 +47,92 @@ export class AddTechQnComponent implements OnInit {
   }
 
   copyAndPopulate(choice: string) {
-    this.genQnValue = this.genQnForm.value;
+    this.techQnValue = this.techQnForm.value;
     if (choice == "option1") {
-      this.correctAnswerByCopyPaste = this.genQnValue.option1;
-      this.genQnValue.answer = this.genQnValue.option1;
+      this.correctAnswerByCopyPaste = this.techQnValue.option1;
+      this.techQnValue.answer = this.techQnValue.option1;
     } else if (choice == "option2") {
-      this.correctAnswerByCopyPaste = this.genQnValue.option2;
-      this.genQnValue.answer = this.genQnValue.option2;
+      this.correctAnswerByCopyPaste = this.techQnValue.option2;
+      this.techQnValue.answer = this.techQnValue.option2;
     } else if (choice == "option3") {
-      this.correctAnswerByCopyPaste = this.genQnValue.option3;
-      this.genQnValue.answer = this.genQnValue.option3;
+      this.correctAnswerByCopyPaste = this.techQnValue.option3;
+      this.techQnValue.answer = this.techQnValue.option3;
     } else if (choice == "option4") {
-      this.correctAnswerByCopyPaste = this.genQnValue.option4;
-      this.genQnValue.answer = this.genQnValue.option4;
+      this.correctAnswerByCopyPaste = this.techQnValue.option4;
+      this.techQnValue.answer = this.techQnValue.option4;
     }
   }
 
   onSubmit() {
-    this.genQnValue = this.genQnForm.value;
-    console.log(this.genQnValue);
-    Swal.fire({
-      title: "Do you want to save the changes?",
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: "Save",
-      denyButtonText: `Don't save`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire("Saved!", "", "success");
-      } else if (result.isDenied) {
-        Swal.fire("Changes are not saved", "", "info");
-      }
-    });
+    this.techQnValue = this.techQnForm.value;
+    this.techQnValue.answer = this.correctAnswerByCopyPaste;
+
+    if (this.techQnValue.question == "") {
+      this.alert.customWarningMsgWithoutBtn("Question is required!");
+      return;
+    }
+    if (this.techQnValue.option1 == "") {
+      this.alert.customWarningMsgWithoutBtn("Option 1 is required!");
+      return;
+    }
+    if (this.techQnValue.option2 == "") {
+      this.alert.customWarningMsgWithoutBtn("Option 2 is required!");
+      return;
+    }
+    if (this.techQnValue.option3 == "") {
+      this.alert.customWarningMsgWithoutBtn("Option 3 is required!");
+      return;
+    }
+    if (this.techQnValue.option4 == "") {
+      this.alert.customWarningMsgWithoutBtn("Option 4 is required!");
+      return;
+    }
+    console.log(this.techQnValue.answer);
+    if (this.techQnValue.answer == "") {
+      this.alert.customWarningMsgWithoutBtn("Answer is required!");
+      return;
+    }
+    if (this.checkDuplicateOptions(this.techQnValue)) {
+      console.log(this.techQnValue);
+
+      this.alert.showLoading();
+      this.techService
+        .addTechQuestion(this.techQnValue)
+        .subscribe((data: any) => {
+          Swal.close();
+          console.log(data);
+
+          //After added
+          Swal.fire({
+            title: data.message,
+            showDenyButton: false,
+            showCancelButton: false,
+            allowOutsideClick: false,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              if (!this.techQnForm.value.mulQn) {
+                this.router.navigateByUrl("/tech-qn-list");
+              }
+              this.techQnForm.reset();
+            }
+          });
+        });
+    }
+  }
+
+  checkDuplicateOptions(techQnValue: generalQn): boolean {
+    let optionsArr = [
+      techQnValue.option1,
+      techQnValue.option2,
+      techQnValue.option3,
+      techQnValue.option4,
+    ];
+
+    var resultArr = commonFunctions.FIND_DUPLICATES(optionsArr);
+    if (resultArr.length > 0) {
+      this.alert.customErrMsgTitle("One of option has duplicate value");
+      return false;
+    }
+    return true;
   }
 }

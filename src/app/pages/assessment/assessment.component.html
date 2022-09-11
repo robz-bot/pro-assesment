@@ -51,7 +51,7 @@
               [attr.id]="'genquestion' + i"
               *ngFor="let item of generalQnList; let i = index"
             >
-              <p class="fw-bold">{{ i + 1 }}. {{ item.question }}</p>
+              <p class="fw-bold text-light">{{ i + 1 }}. {{ item.question }}</p>
               <label class="checkborder" *ngFor="let option of item.options">
                 <div class="form-check">
                   <input
@@ -61,7 +61,7 @@
                     [formControlName]="'qn' + i"
                     [name]="'qn' + i"
                   />
-                  <label class="form-check-label m-2">{{ option }}</label>
+                  <label class="form-check-label m-2 text-dark">{{ option }}</label>
                 </div>
               </label>
             </div>
@@ -102,7 +102,7 @@
               [attr.id]="'techquestion' + i"
               *ngFor="let item of technicalQnList; let i = index"
             >
-              <p class="fw-bold">{{ i + 1 }}. {{ item.question }}</p>
+              <p class="fw-bold text-light">{{ i + 1 }}. {{ item.question }}</p>
               <label class="checkborder" *ngFor="let option of item.options">
                 <div class="form-check">
                   <input
@@ -112,7 +112,7 @@
                     [formControlName]="'qn' + (i + 5)"
                     [name]="'qn' + (i + 5)"
                   />
-                  <label class="form-check-label m-2">{{ option }}</label>
+                  <label class="form-check-label m-2 text-dark">{{ option }}</label>
                 </div>
               </label>
             </div>

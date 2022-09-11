@@ -11,6 +11,7 @@ export class register {
   "password": string;
   "registeredOn": string;
   "status": string;
+  "team": string;
   "teamId": string;
   "updatedBy": string;
   "updatedOn": string;

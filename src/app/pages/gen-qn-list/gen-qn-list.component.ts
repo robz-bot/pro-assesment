@@ -22,8 +22,10 @@ export class GenQnListComponent implements OnInit {
 
   generalList: any = [];
   getAllGeneralQuestions() {
+    this.alert.showLoading();
     this.genService.getAllGeneralQuestions().subscribe(
       (data) => {
+        Swal.close();
         console.log(data);
         this.generalList = data;
       },
@@ -48,6 +50,7 @@ export class GenQnListComponent implements OnInit {
     },
     buttonsStyling: false,
   });
+
   deleteGeneralQuestionById(qnId: string) {
     this.swalWithBootstrapButtons
       .fire({
@@ -66,17 +69,24 @@ export class GenQnListComponent implements OnInit {
           this.swalWithBootstrapButtons.fire(
             "Cancelled",
             "Question is safe :)",
-            "error"
+            "info"
           );
         }
       });
   }
 
   callingDeleteService(qnId: string) {
-    this.genService.deleteGeneralQuestionById(qnId).subscribe((data) => {
+    this.genService.deleteGeneralQuestionById(qnId).subscribe((data: any) => {
       console.log(data);
-      this.alert.customSuccessMsgWithoutBtn("Deleted!");
-      this.getAllGeneralQuestions();
+      Swal.fire({
+        title: data.message,
+      }).then((result) => {
+        console.log(result.isConfirmed);
+        if (result.isConfirmed) {
+          Swal.close();
+          this.getAllGeneralQuestions();
+        }
+      });
     });
   }
 }

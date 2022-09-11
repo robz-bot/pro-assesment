@@ -38,7 +38,8 @@ export class AlertifyService {
   }
   showLoading() {
     Swal.fire({
-      title: "Loading...",
+      title: "Loading...!",
+      allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
       },
@@ -46,7 +47,7 @@ export class AlertifyService {
   }
   hideLoading() {
     Swal.fire({
-      didClose: () => {
+      didOpen: () => {
         Swal.disableButtons();
       },
       timer: 1200,
