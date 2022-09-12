@@ -15,9 +15,14 @@ export class HomeService {
   private addUserUrl = baseUrl.BASE_URL + "addUser";
   private addTeamUrl = baseUrl.BASE_URL + "addTeam";
   private deleteTeamByIdUrl = baseUrl.BASE_URL + "deleteTeamById";
+  private searchByTeamIdUrl = baseUrl.BASE_URL + "searchByTeamId";
 
   getAllTeams() {
     return this.httpClient.get<team[]>(`${this.getAllTeamsUrl}`);
+  }
+
+  searchByTeamId(id: string) {
+    return this.httpClient.get<team[]>(`${this.searchByTeamIdUrl}/${id}`);
   }
 
   addUser(register: register): Observable<Object> {

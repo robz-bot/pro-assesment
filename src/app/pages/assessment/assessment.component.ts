@@ -40,9 +40,11 @@ export class AssessmentComponent implements OnInit {
 
   isPageReload: boolean = false;
   ngOnInit(): void {
-    if (sessionStorage.getItem("userId") == null) {
+    if (sessionStorage.getItem("userId") == "null") {
       this.router.navigateByUrl("/");
     }
+
+    sessionStorage.setItem("isReportSaved", "false");
 
     //Prevent refresh this current page - when press F5
     window.addEventListener("keyup", disableF5);
@@ -330,6 +332,7 @@ export class AssessmentComponent implements OnInit {
       this.router.navigateByUrl("/");
       return;
     }
+
     this.getAllAssessmentQns(this.SS_UserId, this.SS_TeamId);
   }
 
@@ -371,7 +374,6 @@ export class AssessmentComponent implements OnInit {
   progressPercentage: number = 0;
   progressColor: string = "";
   startTimer() {
-    console.log("timeLeft: " + this.timeLeft);
     this.interval = setInterval(() => {
       this.progressPercentage = Math.trunc((this.timeLeft / 1800) * 100);
       this.timeLeft--;
@@ -383,15 +385,19 @@ export class AssessmentComponent implements OnInit {
       } else if (this.progressPercentage > 20 && this.progressPercentage < 50) {
         this.progressColor += "bg-warning";
       }
-      if (this.timeLeft <= 1) {
+      console.log("timeLeft: " + this.timeLeft);
+      if (this.timeLeft < 1) {
+        
         clearInterval(this.interval);
-        this.showSummary();
+        // alert("show summary")
+        this.showSummary()
       }
     }, 50);
   }
 
   answeredQn: any = [];
   onSubmit() {
+    alert("inside on submit method");
     this.answerArray = [];
     this.questionList.forEach((element: any) => {
       this.answerArray.push(element.answer);
@@ -413,6 +419,7 @@ export class AssessmentComponent implements OnInit {
   noOfQnsAnswered: number = 0;
   noOfQnsUnAnswered: number = 0;
   getSubmittedQnDet() {
+    alert("inside on get submitted qn method");
     this.totalNoOfQns = this.questionList.length;
     this.noOfQnsUnAnswered = 0;
     this.noOfQnsAnswered = 0;
@@ -442,7 +449,9 @@ export class AssessmentComponent implements OnInit {
   }
 
   reportForm: report = new report();
+  isReportSave: any;
   saveUserReport() {
+    alert("inside on get save user report method");
     this.reportForm.noOfQuestionsAnswered = this.noOfQnsAnswered.toString();
     this.reportForm.noOfQuestionsNotAnswered =
       this.noOfQnsUnAnswered.toString();
@@ -459,13 +468,19 @@ export class AssessmentComponent implements OnInit {
     this.reportForm.userId = this.SS_UserId;
 
     console.log(this.reportForm);
-    this.reportService.addReports(this.reportForm).subscribe((data) => {
-      console.log(data);
-    });
+
+    this.isReportSave = sessionStorage.getItem("isReportSaved");
+    // if (this.isReportSave == "false") {
+      this.reportService.addReports(this.reportForm).subscribe((data) => {
+        console.log(data);
+        this.isReportSave = "true";
+      });
+    // }
   }
 
   //assigning the answered qn of user in an array
   answeredQnByUser(answerValue: questions) {
+    alert("inside on answer qn by user method");
     this.answeredQn[0] = answerValue.qn0;
     this.answeredQn[1] = answerValue.qn1;
     this.answeredQn[2] = answerValue.qn2;
@@ -499,10 +514,9 @@ export class AssessmentComponent implements OnInit {
   }
 
   showSummary() {
-    this.onSubmit();
-
     let el: HTMLElement = this.completeBtn.nativeElement as HTMLElement;
     el.click();
+    // this.onSubmit();
 
     sessionStorage.clear();
   }

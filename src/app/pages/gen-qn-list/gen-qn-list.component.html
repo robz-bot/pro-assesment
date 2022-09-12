@@ -8,34 +8,71 @@
     </h6>
   </div>
   <div class="card-body bg-light">
+    <form #f="ngForm" (ngSubmit)="searchByGenQn(f)" novalidate>
+      <div class="d-flex flex-wrap flex-row bd-highlight mb-3">
+        <div class="p-2 bd-highlight text-dark">Search By:</div>
+        <div class="p-2 bd-highlight text-dark">
+          <select
+            name="optionType"
+            [(ngModel)]="optionType"
+            class="form-select form-select-sm"
+          >
+            <option value="">Select</option>
+            <option value="Question">Question</option>
+            <option value="Question">Options</option>
+            <option value="Question">Answer</option>
+          </select>
+        </div>
+        <div class="p-2 bd-highlight">
+          <input
+            type="text"
+            name="searchKey"
+            class="form-control form-control-sm"
+            placeholder="Keyword"
+            [(ngModel)]="searchKey"
+          />
+        </div>
+        <div class="p-2 bd-highlight">
+          <input type="submit" value="Search" class="btn btn-sm btn-primary" />
+        </div>
+        <div class="p-2 bd-highlight">
+          <input
+            type="button"
+            value="Clear"
+            class="btn btn-sm btn-danger"
+            (click)="getAllGeneralQuestions()"
+          />
+        </div>
+      </div>
+    </form>
     <div class="row">
       <div class="col-12" *ngFor="let item of generalList; let i = index">
         <div class="card">
           <div class="card-body">
-            {{ i + 1 }}. <small class="card-text text-light">{{ item.question }}</small>
+            {{ i + 1 }}.
+            <small class="card-text text-light">{{ item.question }}</small>
             <div class="row">
               <div class="col-lg-3 col-sm-12 col-md-6">
-                <small >
+                <small>
                   <span class="badge bg-info text-dark">Option 1:</span>
                   <span *ngIf="item.option1 != item.answer" class="mx-1">{{
                     item.option1
                   }}</span>
                   <mark *ngIf="item.option1 == item.answer" class="mx-1">
-                    {{item.option1}}
+                    {{ item.option1 }}
                   </mark>
                 </small>
               </div>
               <div class="col-lg-3 col-sm-12 col-md-6">
                 <small
                   ><span class="badge bg-info text-dark">Option 2:</span>
-                  <span *ngIf="item.option2 != item.answer"  class="mx-1">{{
+                  <span *ngIf="item.option2 != item.answer" class="mx-1">{{
                     item.option2
                   }}</span>
                   <mark *ngIf="item.option2 == item.answer" class="mx-1">{{
                     item.option2
                   }}</mark>
-                  </small
-                >
+                </small>
               </div>
               <div class="col-lg-3 col-sm-12 col-md-6">
                 <small
@@ -46,8 +83,7 @@
                   <mark *ngIf="item.option3 == item.answer" class="mx-1">{{
                     item.option3
                   }}</mark>
-                  </small
-                >
+                </small>
               </div>
               <div class="col-lg-3 col-sm-12 col-md-6">
                 <small
@@ -58,8 +94,7 @@
                   <mark *ngIf="item.option4 == item.answer" class="mx-1">{{
                     item.option4
                   }}</mark>
-                  </small
-                >
+                </small>
               </div>
             </div>
 

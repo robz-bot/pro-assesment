@@ -2,12 +2,31 @@
 <div class="container">
   <div class="card">
     <div class="card-header">
-      <h6 class="text-center">
+      <h6 class="text-center text-light">
         Team List(s) -
         {{ teamList.length > 0 ? teamList.length : 0 }}
       </h6>
     </div>
     <div class="card-body bg-light">
+      <!-- <form #f="ngForm" (ngSubmit)="searchByTeamId(f)" novalidate>
+        <div class="d-flex flex-row bd-highlight mb-3">
+          <div class="p-2 bd-highlight text-dark">Search By Team:</div>
+          <div class="p-2 bd-highlight">
+            <input
+              type="text"
+              name="searchKey"
+              class="form-control form-control-sm"
+              [(ngModel)]="searchKey"
+            />
+          </div>
+          <div class="p-2 bd-highlight">
+            <input type="submit" value="Search" class="btn btn-sm btn-primary"/>
+          </div>
+          <div class="p-2 bd-highlight">
+            <input type="submit" value="Clear" class="btn btn-sm btn-danger"/>
+          </div>
+        </div>
+      </form> -->
       <div class="row">
         <div
           class="col-lg-4 col-sm-12 col-md-6"

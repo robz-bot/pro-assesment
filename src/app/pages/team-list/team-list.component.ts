@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { NgForm } from "@angular/forms";
 import { baseUrl, message } from "src/app/common";
 import { AlertifyService } from "src/app/shared-service/alertify.service";
 import Swal from "sweetalert2";
@@ -119,6 +120,19 @@ export class TeamListComponent implements OnInit {
       console.log(data);
       this.alert.customSuccessMsgWithoutBtn("Deleted!");
       this.getAllTeams();
+    });
+  }
+
+  searchKey: string = "";
+  searchByTeamId(f: NgForm) {
+    console.log(f)
+    if (f.value.searchKey == "") {
+      this.alert.customErrMsgWithoutBtn("Team is required");
+      return;
+    }
+    this.homeService.searchByTeamId(f.value.searchKey).subscribe((data) => {
+      console.log(data);
+      this.teamList = data;
     });
   }
 }

@@ -1,6 +1,8 @@
 <div class="bg-light rounded-3 text-dark d-lg-none d-md-block">
   <div class="container container-fluid">
-    <p class="fw-bold">Welcome, {{questionList[0].firstName}} {{questionList[0].lastName}} !</p>
+    <p class="fw-bold">
+      Welcome, {{ questionList[0].firstName }} {{ questionList[0].lastName }} !
+    </p>
     <h3 class="badge bg-danger fs-1 align-items-center text-center">
       {{ timeLeft | formatTime }}
     </h3>
@@ -61,7 +63,9 @@
                     [formControlName]="'qn' + i"
                     [name]="'qn' + i"
                   />
-                  <label class="form-check-label m-2 text-dark">{{ option }}</label>
+                  <label class="form-check-label m-2 text-dark">{{
+                    option
+                  }}</label>
                 </div>
               </label>
             </div>
@@ -112,7 +116,9 @@
                     [formControlName]="'qn' + (i + 5)"
                     [name]="'qn' + (i + 5)"
                   />
-                  <label class="form-check-label m-2 text-dark">{{ option }}</label>
+                  <label class="form-check-label m-2 text-dark">{{
+                    option
+                  }}</label>
                 </div>
               </label>
             </div>
@@ -136,7 +142,10 @@
   <div class="col-lg-3 fixed-top sticky-div d-none d-lg-block">
     <div class="bg-light rounded-3 text-dark">
       <div class="container container-fluid">
-        <p class="fw-bold">Welcome, {{questionList[0].firstName}} {{questionList[0].lastName}} !</p>
+        <p class="fw-bold">
+          Welcome, {{ questionList[0].firstName }}
+          {{ questionList[0].lastName }} !
+        </p>
         <h3 class="badge bg-danger fs-1 align-items-center text-center">
           {{ timeLeft | formatTime }}
         </h3>
@@ -247,7 +256,13 @@
         </tr>
         <tr class="text-center">
           <td scope="row" class="p-3" colspan="3">
-            <button class="btn btn-success bg-success" routerLink="/">OK</button>
+            <button
+              class="btn btn-success bg-success"
+              routerLink="/"
+              (click)="onSubmit()"
+            >
+              OK
+            </button>
           </td>
         </tr>
       </table>

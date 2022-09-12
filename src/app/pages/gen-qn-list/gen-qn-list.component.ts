@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { NgForm } from "@angular/forms";
 import { message } from "src/app/common";
 import { AlertifyService } from "src/app/shared-service/alertify.service";
 import Swal from "sweetalert2";
@@ -22,6 +23,7 @@ export class GenQnListComponent implements OnInit {
 
   generalList: any = [];
   getAllGeneralQuestions() {
+    this.clearFields();
     this.alert.showLoading();
     this.genService.getAllGeneralQuestions().subscribe(
       (data) => {
@@ -88,5 +90,30 @@ export class GenQnListComponent implements OnInit {
         }
       });
     });
+  }
+
+  searchKey: string = "";
+  optionType: string = "";
+  searchByGenQn(f: NgForm) {
+    if (this.optionType == "") {
+      this.alert.customErrMsgWithoutBtn("Select any one option");
+      return;
+    }
+    if (this.searchKey == "") {
+      this.alert.customErrMsgWithoutBtn("Keyword is Required");
+      return;
+    }
+
+    this.alert.showLoading();
+    this.genService.searchByQns(this.searchKey).subscribe((data) => {
+      console.log(data);
+      Swal.close()
+      this.generalList = data;
+    });
+  }
+
+  clearFields() {
+    this.searchKey = "";
+    this.optionType = "";
   }
 }
