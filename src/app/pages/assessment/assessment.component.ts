@@ -389,15 +389,15 @@ export class AssessmentComponent implements OnInit {
       if (this.timeLeft < 1) {
         
         clearInterval(this.interval);
-        // alert("show summary")
+        // //alert("show summary")
         this.showSummary()
       }
     }, 50);
   }
 
   answeredQn: any = [];
-  onSubmit() {
-    alert("inside on submit method");
+  onSubmit(value:boolean) {
+    //alert("inside on submit method");
     this.answerArray = [];
     this.questionList.forEach((element: any) => {
       this.answerArray.push(element.answer);
@@ -406,12 +406,13 @@ export class AssessmentComponent implements OnInit {
     console.log(this.answerValue);
     this.answeredQnByUser(this.answerValue);
     this.getSubmittedQnDet();
-    this.saveUserReport();
+    this.saveUserReport(value);
 
     console.log("Original Answer: ");
     console.log(this.answerArray);
     console.log("User Answer: ");
     console.log(this.answeredQn);
+    sessionStorage.clear();
   }
 
   //Get the answers submitted by user
@@ -419,7 +420,7 @@ export class AssessmentComponent implements OnInit {
   noOfQnsAnswered: number = 0;
   noOfQnsUnAnswered: number = 0;
   getSubmittedQnDet() {
-    alert("inside on get submitted qn method");
+    //alert("inside on get submitted qn method");
     this.totalNoOfQns = this.questionList.length;
     this.noOfQnsUnAnswered = 0;
     this.noOfQnsAnswered = 0;
@@ -450,8 +451,8 @@ export class AssessmentComponent implements OnInit {
 
   reportForm: report = new report();
   isReportSave: any;
-  saveUserReport() {
-    alert("inside on get save user report method");
+  saveUserReport(value:boolean) {
+    //alert("inside on get save user report method");
     this.reportForm.noOfQuestionsAnswered = this.noOfQnsAnswered.toString();
     this.reportForm.noOfQuestionsNotAnswered =
       this.noOfQnsUnAnswered.toString();
@@ -469,18 +470,18 @@ export class AssessmentComponent implements OnInit {
 
     console.log(this.reportForm);
 
-    this.isReportSave = sessionStorage.getItem("isReportSaved");
-    // if (this.isReportSave == "false") {
+    // this.isReportSave = sessionStorage.getItem("isReportSaved");
+    if (value) {
       this.reportService.addReports(this.reportForm).subscribe((data) => {
         console.log(data);
         this.isReportSave = "true";
       });
-    // }
+    }
   }
 
   //assigning the answered qn of user in an array
   answeredQnByUser(answerValue: questions) {
-    alert("inside on answer qn by user method");
+    //alert("inside on answer qn by user method");
     this.answeredQn[0] = answerValue.qn0;
     this.answeredQn[1] = answerValue.qn1;
     this.answeredQn[2] = answerValue.qn2;
@@ -516,8 +517,8 @@ export class AssessmentComponent implements OnInit {
   showSummary() {
     let el: HTMLElement = this.completeBtn.nativeElement as HTMLElement;
     el.click();
-    // this.onSubmit();
 
-    sessionStorage.clear();
+    this.onSubmit(false)
+    
   }
 }

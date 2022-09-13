@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { NgForm } from "@angular/forms";
 import { message } from "src/app/common";
 import { AlertifyService } from "src/app/shared-service/alertify.service";
 import Swal from "sweetalert2";
@@ -22,6 +23,7 @@ export class TechQnListComponent implements OnInit {
 
   techList: any = [];
   getAllTechQuestions() {
+    this.clearFields();
     this.alert.showLoading();
     this.techService.getAllTechQuestions().subscribe(
       (data) => {
@@ -88,5 +90,30 @@ export class TechQnListComponent implements OnInit {
         }
       });
     });
+  }
+
+  searchKey: string = "";
+  optionType: string = "";
+  searchByTechQn(f: NgForm) {
+    if (this.optionType == "") {
+      this.alert.customErrMsgWithoutBtn("Select any one option");
+      return;
+    }
+    if (this.searchKey == "") {
+      this.alert.customErrMsgWithoutBtn("Keyword is Required");
+      return;
+    }
+
+    this.alert.showLoading();
+    this.techService.searchByQns(this.searchKey).subscribe((data) => {
+      console.log(data);
+      Swal.close()
+      this.techList = data;
+    });
+  }
+
+  clearFields() {
+    this.searchKey = "";
+    this.optionType = "";
   }
 }

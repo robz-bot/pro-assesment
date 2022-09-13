@@ -20,6 +20,7 @@ import { UpdateGenQnComponent } from "./pages/update-gen-qn/update-gen-qn.compon
 import { UpdateTechQnComponent } from "./pages/update-tech-qn/update-tech-qn.component";
 import { MainComponent } from "./pages/main/main.component";
 import { TeamListComponent } from "./pages/team-list/team-list.component";
+import { ReportComponent } from './pages/report/report.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { TeamListComponent } from "./pages/team-list/team-list.component";
     UpdateTechQnComponent,
     MainComponent,
     TeamListComponent,
+    ReportComponent,
   ],
   imports: [
     BrowserModule,
