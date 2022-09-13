@@ -13,14 +13,16 @@
         <div class="p-2 bd-highlight text-dark">Search By:</div>
         <div class="p-2 bd-highlight text-dark">
           <select
-            name="optionType"
-            [(ngModel)]="optionType"
+            name="searchType"
+            [(ngModel)]="searchType"
             class="form-select form-select-sm"
+            (ngModelChange)="onChangeStatus($event)"
           >
             <option value="">Select</option>
-            <option value="Question">Question</option>
-            <option value="Options">Options</option>
-            <option value="Answer">Answer</option>
+            <option value="username">Name(First/Last)</option>
+            <option value="status">Status(Pass/Fail)</option>
+            <option value="percentage">Percentage Range</option>
+            <option value="date">Held On</option>
           </select>
         </div>
         <div class="p-2 bd-highlight">
@@ -30,7 +32,37 @@
             class="form-control form-control-sm"
             placeholder="Keyword"
             [(ngModel)]="searchKey"
+            *ngIf="isEnableSearchText"
           />
+          <select
+            name="searchKey"
+            class="form-select form-select-sm"
+            [(ngModel)]="searchKey"
+            *ngIf="isEnableStatus"
+          >
+            <option value="">Select</option>
+            <option value="Pass">Pass</option>
+            <option value="Fail">Fail</option>
+          </select>
+          <select
+            name="searchKey"
+            class="form-select form-select-sm"
+            [(ngModel)]="searchKey"
+            *ngIf="isEnablePercent"
+          >
+            <option value="">Select</option>
+            <option value="<=10">&lt;&equals;0%</option>
+            <option value="<=10">&lt;&equals;10%</option>
+            <option value="<=20">&lt;&equals;20%</option>
+            <option value="<=30">&lt;&equals;30%</option>
+            <option value="<=40">&lt;&equals;40%</option>
+            <option value="<=50">&lt;&equals;50%</option>
+            <option value="<=60">&lt;&equals;60%</option>
+            <option value="<=70">&lt;&equals;70%</option>
+            <option value="<=80">&lt;&equals;80%</option>
+            <option value="<=90">&lt;&equals;90%</option>
+          </select>
+          <input type="date" class="form-control form-control-sm"  [(ngModel)]="searchKey" name="searchKey" *ngIf="isEnableReportDate">
         </div>
         <div class="p-2 bd-highlight">
           <input type="submit" value="Search" class="btn btn-sm btn-primary" />
@@ -48,16 +80,17 @@
 
     <div class="row">
       <div
-        class="col-lg-3 col-md-6 col-sm-12 col-xs-12 border-success"
+        class="col-lg-3 col-md-6 col-sm-12 col-xs-12"
         *ngFor="let item of reportList"
       >
         <div class="card">
-          <div class="card-body">
+          <div class="card-body text-light">
             <h5 style="text-align: center">
-              <strong id="user-name">{{ item.userId }}</strong>
+              <strong id="user-name">{{ item.userName }}</strong>
             </h5>
             <p style="text-align: center; font-size: smaller" id="user-frid">
-              Total Questions: {{ item.totalNoOfQuestions }}
+              Marks Obtained: {{ item.totalMarks }} /
+              {{ item.totalNoOfQuestions }}
             </p>
             <p style="text-align: center; font-size: smaller" id="user-frid">
               Answered: {{ item.noOfQuestionsAnswered }}
@@ -66,7 +99,7 @@
               UnAnswered: {{ item.noOfQuestionsNotAnswered }}
             </p>
             <p style="text-align: center; font-size: smaller">
-             Status: 
+              Status:
               <span
                 *ngIf="item.status == 'Pass'"
                 class="tags badge bg-success text-dark"

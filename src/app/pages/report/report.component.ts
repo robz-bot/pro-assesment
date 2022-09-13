@@ -53,10 +53,38 @@ export class ReportComponent implements OnInit {
     buttonsStyling: false,
   });
 
+  isEnableStatus: boolean = false;
+  isEnablePercent: boolean = false;
+  isEnableReportDate: boolean = false;
+  isEnableSearchText: boolean = true;
+  onChangeStatus(event: any) {
+    if (event == "status") {
+      this.isEnableStatus = true;
+      this.isEnableSearchText = false;
+      this.isEnablePercent = false;
+      this.isEnableReportDate = false;
+    } else if (event == "username") {
+      this.isEnableStatus = false;
+      this.isEnableSearchText = true;
+      this.isEnablePercent = false;
+      this.isEnableReportDate = false;
+    } else if (event == "percentage") {
+      this.isEnableStatus = false;
+      this.isEnableSearchText = false;
+      this.isEnablePercent = true;
+      this.isEnableReportDate = false;
+    } else if (event == "date") {
+      this.isEnableStatus = false;
+      this.isEnableSearchText = false;
+      this.isEnablePercent = false;
+      this.isEnableReportDate = true;
+    }
+  }
+
   searchKey: string = "";
-  optionType: string = "";
+  searchType: string = "";
   search(f: NgForm) {
-    if (this.optionType == "") {
+    if (this.searchType == "") {
       this.alert.customErrMsgWithoutBtn("Select any one option");
       return;
     }
@@ -64,17 +92,24 @@ export class ReportComponent implements OnInit {
       this.alert.customErrMsgWithoutBtn("Keyword is Required");
       return;
     }
-
+    console.log(this.searchType);
+    console.log(this.searchKey);
     this.alert.showLoading();
-    this.reportService.search(this.searchKey).subscribe((data) => {
-      console.log(data);
-      Swal.close();
-      this.reportList = data;
-    });
+    this.reportService
+      .search(this.searchType, this.searchKey)
+      .subscribe((data) => {
+        console.log(data);
+        Swal.close();
+        this.reportList = data;
+      });
   }
 
   clearFields() {
+    this.isEnableStatus = false;
+    this.isEnableSearchText = true;
+    this.isEnablePercent = false;
+    this.isEnableReportDate = false;
     this.searchKey = "";
-    this.optionType = "";
+    this.searchType = "";
   }
 }

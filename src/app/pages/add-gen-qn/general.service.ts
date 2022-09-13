@@ -18,7 +18,7 @@ export class GeneralService {
   private updateGeneralQuestionUrl = baseUrl.BASE_URL + "updateGeneralQuestion";
   private getGeneralQuestionByIdUrl =
     baseUrl.BASE_URL + "getGeneralQuestionById";
-  private searchByQnsUrl = baseUrl.BASE_URL + "searchByQns";
+  private searchUrl = baseUrl.BASE_URL + "search";
 
   addGeneralQuestion(genQn: generalQn): Observable<Object> {
     return this.httpClient.post(`${this.addGeneralQuestionUrl}`, genQn);
@@ -39,7 +39,7 @@ export class GeneralService {
     return this.httpClient.put(`${this.updateGeneralQuestionUrl}`, genQn);
   }
 
-  searchByQns(keyword: string): Observable<Object> {
-    return this.httpClient.get(`${this.searchByQnsUrl}/${keyword}`);
+  search(type: string, keyword: string): Observable<Object> {
+    return this.httpClient.get(`${this.searchUrl}/${type}/${keyword}`);
   }
 }

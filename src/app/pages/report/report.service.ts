@@ -10,13 +10,13 @@ export class ReportService {
   constructor(private httpClient: HttpClient) {}
   //Home URL
   private getAllReportsUrl = baseUrl.BASE_URL + "getAllReports";
-  private searchUrl = baseUrl.BASE_URL + "search";
+  private searchUrl = baseUrl.BASE_URL + "searchByReport";
 
   getAllReports() {
     return this.httpClient.get(this.getAllReportsUrl);
   }
 
-  search(keyword: string): Observable<Object> {
-    return this.httpClient.get(`${this.searchUrl}/${keyword}`);
+  search(type: string, keyword: string): Observable<Object> {
+    return this.httpClient.get(`${this.searchUrl}/${type}/${keyword}`);
   }
 }

@@ -93,9 +93,9 @@ export class GenQnListComponent implements OnInit {
   }
 
   searchKey: string = "";
-  optionType: string = "";
+  searchType: string = "";
   searchByGenQn(f: NgForm) {
-    if (this.optionType == "") {
+    if (this.searchType == "") {
       this.alert.customErrMsgWithoutBtn("Select any one option");
       return;
     }
@@ -105,15 +105,17 @@ export class GenQnListComponent implements OnInit {
     }
 
     this.alert.showLoading();
-    this.genService.searchByQns(this.searchKey).subscribe((data) => {
-      console.log(data);
-      Swal.close()
-      this.generalList = data;
-    });
+    this.genService
+      .search(this.searchType, this.searchKey)
+      .subscribe((data) => {
+        console.log(data);
+        Swal.close();
+        this.generalList = data;
+      });
   }
 
   clearFields() {
     this.searchKey = "";
-    this.optionType = "";
+    this.searchType = "";
   }
 }

@@ -78,7 +78,7 @@ export class TechQnListComponent implements OnInit {
   }
 
   callingDeleteService(qnId: string) {
-    this.techService.deleteTechQuestionById(qnId).subscribe((data:any) => {
+    this.techService.deleteTechQuestionById(qnId).subscribe((data: any) => {
       console.log(data);
       Swal.fire({
         title: data.message,
@@ -93,9 +93,9 @@ export class TechQnListComponent implements OnInit {
   }
 
   searchKey: string = "";
-  optionType: string = "";
+  searchType: string = "";
   searchByTechQn(f: NgForm) {
-    if (this.optionType == "") {
+    if (this.searchType == "") {
       this.alert.customErrMsgWithoutBtn("Select any one option");
       return;
     }
@@ -105,15 +105,17 @@ export class TechQnListComponent implements OnInit {
     }
 
     this.alert.showLoading();
-    this.techService.searchByQns(this.searchKey).subscribe((data) => {
-      console.log(data);
-      Swal.close()
-      this.techList = data;
-    });
+    this.techService
+      .search(this.searchType, this.searchKey)
+      .subscribe((data) => {
+        console.log(data);
+        Swal.close();
+        this.techList = data;
+      });
   }
 
   clearFields() {
     this.searchKey = "";
-    this.optionType = "";
+    this.searchType = "";
   }
 }

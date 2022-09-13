@@ -1,102 +1,20 @@
 <app-admin-header></app-admin-header>
 
 <div class="row m-3">
-  <div class="col-lg-3 col-xl-3 col-sm-6 col-12 my-1 ">
+  <div
+    class="col-lg-3 col-xl-3 col-sm-6 col-12 my-1"
+    *ngFor="let item of widgetList"
+  >
     <div class="card">
       <div class="card-content">
         <div class="card-body">
-          <div class="media d-flex">
-            <div class="align-self-center fs-1">
-              <i class="icon-compass light font-large-2 float-left"></i>
+          <div class="media d-flex justify-content-between">
+            <div class="align-self-center fs-1 float-left">
+              <i [ngClass]="item.styleClass"></i>
             </div>
-            <div class="media-body text-right">
-              <h3>27</h3>
-              <span>Today Attempts</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-xl-3 col-sm-6 col-12 my-1 ">
-    <div class="card">
-      <div class="card-content">
-        <div class="card-body">
-          <div class="media d-flex">
-            <div class="align-self-center fs-1">
-              <i class="icon-question white font-large-2 float-left"></i>
-            </div>
-            <div class="media-body text-right">
-              <h3>278 | 234</h3>
-              <span>General | Technical</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-xl-3 col-sm-6 col-12 my-1 ">
-    <div class="card">
-      <div class="card-content">
-        <div class="card-body">
-          <div class="media d-flex">
-            <div class="align-self-center fs-1">
-              <i class="icon-users warning font-large-2 float-left"></i>
-            </div>
-            <div class="media-body text-right">
-              <h3>156</h3>
-              <span>Users</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-xl-3 col-sm-6 col-12 my-1 ">
-    <div class="card">
-      <div class="card-content">
-        <div class="card-body">
-          <div class="media d-flex">
-            <div class="align-self-center fs-1">
-              <i class="icon-list primary font-large-2 float-left"></i>
-            </div>
-            <div class="media-body text-right">
-              <h3>64.89 %</h3>
-              <span>Teams</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-xl-3 col-sm-6 col-12 my-1 ">
-    <div class="card">
-      <div class="card-content">
-        <div class="card-body">
-          <div class="media d-flex">
-            <div class="align-self-center fs-1">
-              <i class="icon-arrow-up success font-large-2 float-left"></i>
-            </div>
-            <div class="media-body text-right">
-              <h3>423</h3>
-              <span>Pass</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-xl-3 col-sm-6 col-12 my-1 ">
-    <div class="card">
-      <div class="card-content">
-        <div class="card-body">
-          <div class="media d-flex">
-            <div class="align-self-center fs-1">
-              <i class="icon-arrow-down danger font-large-2 float-left"></i>
-            </div>
-            <div class="media-body text-right">
-              <h3>423</h3>
-              <span>Fail</span>
+            <div class="media-body">
+              <h3 class="text-center">{{ item.count }}</h3>
+              <span>{{ item.title }}</span>
             </div>
           </div>
         </div>

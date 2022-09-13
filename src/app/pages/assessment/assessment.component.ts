@@ -387,16 +387,15 @@ export class AssessmentComponent implements OnInit {
       }
       console.log("timeLeft: " + this.timeLeft);
       if (this.timeLeft < 1) {
-        
         clearInterval(this.interval);
         // //alert("show summary")
-        this.showSummary()
+        this.showSummary();
       }
     }, 50);
   }
 
   answeredQn: any = [];
-  onSubmit(value:boolean) {
+  onSubmit(value: boolean) {
     //alert("inside on submit method");
     this.answerArray = [];
     this.questionList.forEach((element: any) => {
@@ -451,7 +450,7 @@ export class AssessmentComponent implements OnInit {
 
   reportForm: report = new report();
   isReportSave: any;
-  saveUserReport(value:boolean) {
+  saveUserReport(value: boolean) {
     //alert("inside on get save user report method");
     this.reportForm.noOfQuestionsAnswered = this.noOfQnsAnswered.toString();
     this.reportForm.noOfQuestionsNotAnswered =
@@ -518,7 +517,6 @@ export class AssessmentComponent implements OnInit {
     let el: HTMLElement = this.completeBtn.nativeElement as HTMLElement;
     el.click();
 
-    this.onSubmit(false)
-    
+    this.onSubmit(false);
   }
 }
