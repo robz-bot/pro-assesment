@@ -34,6 +34,7 @@ export class AddTechQnComponent implements OnInit {
       option4: new FormControl("", [Validators.required]),
       answer: new FormControl("", [Validators.required]),
       teamId: new FormControl("", [Validators.required]),
+      mulQn: new FormControl(false, [Validators.required]),
     });
 
     this.getAllTeams();
@@ -91,9 +92,18 @@ export class AddTechQnComponent implements OnInit {
       this.alert.customWarningMsgWithoutBtn("Option 4 is required!");
       return;
     }
+    if (this.techQnValue.teamId == "") {
+      this.alert.customWarningMsgWithoutBtn("Team is required!");
+      return;
+    }
     console.log(this.techQnValue.answer);
     if (this.techQnValue.answer == "") {
       this.alert.customWarningMsgWithoutBtn("Answer is required!");
+      return;
+    }
+    //To check answer
+    if (!this.checkDuplicateAnswer(this.techQnValue)) {
+      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
       return;
     }
     if (this.checkDuplicateOptions(this.techQnValue)) {
@@ -116,12 +126,33 @@ export class AddTechQnComponent implements OnInit {
             if (result.isConfirmed) {
               if (!this.techQnForm.value.mulQn) {
                 this.router.navigateByUrl("/tech-qn-list");
+              } else {
+                this.techQnForm.reset();
               }
-              this.techQnForm.reset();
             }
           });
         });
     }
+  }
+
+  checkDuplicateAnswer(techQnValue: generalQn): boolean {
+    let optionsArr = [
+      techQnValue.option1,
+      techQnValue.option2,
+      techQnValue.option3,
+      techQnValue.option4,
+    ];
+
+    var isRightAnswer = false
+
+    optionsArr.forEach((element: any) => {
+      if (element == techQnValue.answer) {
+        isRightAnswer = true
+      } else {
+        isRightAnswer = false
+      }
+    });
+    return isRightAnswer;
   }
 
   checkDuplicateOptions(techQnValue: generalQn): boolean {

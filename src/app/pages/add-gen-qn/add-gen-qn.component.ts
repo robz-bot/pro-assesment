@@ -105,6 +105,13 @@ export class AddGenQnComponent implements OnInit {
       this.alert.customWarningMsgWithoutBtn("Answer is required!");
       return;
     }
+
+    //To check answer
+    if (!this.checkDuplicateAnswer(this.genQnValue)) {
+      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+      return;
+    }
+
     if (this.checkDuplicateOptions(this.genQnValue)) {
       console.log(this.genQnValue);
 
@@ -132,6 +139,26 @@ export class AddGenQnComponent implements OnInit {
           });
         });
     }
+  }
+
+  checkDuplicateAnswer(techQnValue: generalQn): boolean {
+    let optionsArr = [
+      techQnValue.option1,
+      techQnValue.option2,
+      techQnValue.option3,
+      techQnValue.option4,
+    ];
+
+    var isRightAnswer = false
+
+    optionsArr.forEach((element: any) => {
+      if (element == techQnValue.answer) {
+        isRightAnswer = true
+      } else {
+        isRightAnswer = false
+      }
+    });
+    return isRightAnswer;
   }
 
   checkDuplicateOptions(genQnValue: generalQn): boolean {

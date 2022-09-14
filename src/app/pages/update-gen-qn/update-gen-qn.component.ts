@@ -93,30 +93,35 @@ export class UpdateGenQnComponent implements OnInit {
     this.genQnValue = this.genQnForm.value;
     this.genQnValue.answer = this.correctAnswerByCopyPaste;
 
-    if (this.genQnValue.question == "") {
+    if (this.genQnValue.question.trim() == "") {
       this.alert.customWarningMsgWithoutBtn("Question is required!");
       return;
     }
-    if (this.genQnValue.option1 == "") {
+    if (this.genQnValue.option1.trim() == "") {
       this.alert.customWarningMsgWithoutBtn("Option 1 is required!");
       return;
     }
-    if (this.genQnValue.option2 == "") {
+    if (this.genQnValue.option2.trim() == "") {
       this.alert.customWarningMsgWithoutBtn("Option 2 is required!");
       return;
     }
-    if (this.genQnValue.option3 == "") {
+    if (this.genQnValue.option3.trim() == "") {
       this.alert.customWarningMsgWithoutBtn("Option 3 is required!");
       return;
     }
-    if (this.genQnValue.option4 == "") {
+    if (this.genQnValue.option4.trim() == "") {
       this.alert.customWarningMsgWithoutBtn("Option 4 is required!");
       return;
     }
     console.log(this.genQnValue.answer);
 
-    if (this.genQnValue.answer == "") {
+    if (this.genQnValue.answer.trim() == "") {
       this.genQnValue.answer = this.genQn.answer;
+    }
+    //To check answer
+    if (!this.checkDuplicateAnswer(this.genQnValue)) {
+      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+      return;
     }
     if (this.checkDuplicateOptions(this.genQnValue)) {
       console.log(this.genQnValue);
@@ -142,6 +147,26 @@ export class UpdateGenQnComponent implements OnInit {
           });
         });
     }
+  }
+
+  checkDuplicateAnswer(techQnValue: generalQn): boolean {
+    let optionsArr = [
+      techQnValue.option1,
+      techQnValue.option2,
+      techQnValue.option3,
+      techQnValue.option4,
+    ];
+
+    var isRightAnswer = false
+
+    optionsArr.forEach((element: any) => {
+      if (element == techQnValue.answer) {
+        isRightAnswer = true
+      } else {
+        isRightAnswer = false
+      }
+    });
+    return isRightAnswer;
   }
 
   checkDuplicateOptions(genQnValue: generalQn): boolean {

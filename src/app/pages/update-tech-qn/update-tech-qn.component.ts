@@ -29,10 +29,8 @@ export class UpdateTechQnComponent implements OnInit {
   techQnValue: generalQn = new generalQn();
   correctAnswerByCopyPaste: string = "";
   ngOnInit(): void {
-    
     this.techQnId = this.aroute.snapshot.params["id"];
     this.copyAndPopulate("");
- 
 
     this.techService.getTechQuestionById(this.techQnId).subscribe(
       (data) => {
@@ -67,7 +65,6 @@ export class UpdateTechQnComponent implements OnInit {
         });
       }
     );
-   
   }
 
   getAllTeams() {
@@ -108,23 +105,23 @@ export class UpdateTechQnComponent implements OnInit {
     this.techQnValue = this.techQnForm.value;
     this.techQnValue.answer = this.correctAnswerByCopyPaste;
 
-    if (this.techQnValue.question == "") {
+    if (this.techQnValue.question.trim() == "") {
       this.alert.customWarningMsgWithoutBtn("Question is required!");
       return;
     }
-    if (this.techQnValue.option1 == "") {
+    if (this.techQnValue.option1.trim() == "") {
       this.alert.customWarningMsgWithoutBtn("Option 1 is required!");
       return;
     }
-    if (this.techQnValue.option2 == "") {
+    if (this.techQnValue.option2.trim() == "") {
       this.alert.customWarningMsgWithoutBtn("Option 2 is required!");
       return;
     }
-    if (this.techQnValue.option3 == "") {
+    if (this.techQnValue.option3.trim() == "") {
       this.alert.customWarningMsgWithoutBtn("Option 3 is required!");
       return;
     }
-    if (this.techQnValue.option4 == "") {
+    if (this.techQnValue.option4.trim() == "") {
       this.alert.customWarningMsgWithoutBtn("Option 4 is required!");
       return;
     }
@@ -134,9 +131,17 @@ export class UpdateTechQnComponent implements OnInit {
     }
     console.log(this.techQnValue.answer);
 
-    if (this.techQnValue.answer == "") {
+    if (this.techQnValue.answer.trim() == "") {
       this.techQnValue.answer = this.techQn.answer;
     }
+
+    //To check answer
+    if (!this.checkDuplicateAnswer(this.techQnValue)) {
+      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+      return;
+    }
+
+    //To check duplicate Options
     if (this.checkDuplicateOptions(this.techQnValue)) {
       console.log(this.techQnValue);
       this.techQnValue.id = this.techQnId;
@@ -161,6 +166,26 @@ export class UpdateTechQnComponent implements OnInit {
           });
         });
     }
+  }
+
+  checkDuplicateAnswer(techQnValue: generalQn): boolean {
+    let optionsArr = [
+      techQnValue.option1,
+      techQnValue.option2,
+      techQnValue.option3,
+      techQnValue.option4,
+    ];
+
+    var isRightAnswer = false
+
+    optionsArr.forEach((element: any) => {
+      if (element == techQnValue.answer) {
+        isRightAnswer = true
+      } else {
+        isRightAnswer = false
+      }
+    });
+    return isRightAnswer;
   }
 
   checkDuplicateOptions(techQnValue: generalQn): boolean {
