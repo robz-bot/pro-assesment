@@ -136,10 +136,10 @@ export class UpdateTechQnComponent implements OnInit {
     }
 
     //To check answer
-    if (!this.checkDuplicateAnswer(this.techQnValue)) {
-      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
-      return;
-    }
+    // if (!this.checkDuplicateAnswer(this.techQnValue)) {
+    //   this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+    //   return;
+    // }
 
     //To check duplicate Options
     if (this.checkDuplicateOptions(this.techQnValue)) {
@@ -176,15 +176,23 @@ export class UpdateTechQnComponent implements OnInit {
       techQnValue.option4,
     ];
 
-    var isRightAnswer = false
+    var isRightAnswer = true;
 
-    optionsArr.forEach((element: any) => {
-      if (element == techQnValue.answer) {
-        isRightAnswer = true
-      } else {
-        isRightAnswer = false
+    for (var i = 0; i < optionsArr.length; i++) {
+      if (optionsArr[0] != techQnValue.answer) {
+        isRightAnswer = false;
+        break;
       }
-    });
+    }
+
+    // optionsArr.forEach((element: any) => {
+    //   if (element != techQnValue.answer) {
+    //     isRightAnswer = false
+    //     return isRightAnswer
+    //   }else{
+
+    //   }
+    // });
     return isRightAnswer;
   }
 

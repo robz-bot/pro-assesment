@@ -102,10 +102,10 @@ export class AddTechQnComponent implements OnInit {
       return;
     }
     //To check answer
-    if (!this.checkDuplicateAnswer(this.techQnValue)) {
-      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
-      return;
-    }
+    // if (!this.checkDuplicateAnswer(this.techQnValue)) {
+    //   this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+    //   return;
+    // }
     if (this.checkDuplicateOptions(this.techQnValue)) {
       console.log(this.techQnValue);
 

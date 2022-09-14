@@ -119,10 +119,10 @@ export class UpdateGenQnComponent implements OnInit {
       this.genQnValue.answer = this.genQn.answer;
     }
     //To check answer
-    if (!this.checkDuplicateAnswer(this.genQnValue)) {
-      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
-      return;
-    }
+    // if (!this.checkDuplicateAnswer(this.genQnValue)) {
+    //   this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+    //   return;
+    // }
     if (this.checkDuplicateOptions(this.genQnValue)) {
       console.log(this.genQnValue);
       this.genQnValue.id = this.genQnId;
