@@ -63,6 +63,10 @@ export class AddTechQnComponent implements OnInit {
     }
   }
 
+  goBack() {
+    history.back();
+  }
+
   onSubmit() {
     this.techQnValue = this.techQnForm.value;
     this.techQnValue.answer = this.correctAnswerByCopyPaste;

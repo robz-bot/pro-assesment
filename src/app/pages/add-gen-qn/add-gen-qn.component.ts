@@ -64,6 +64,18 @@ export class AddGenQnComponent implements OnInit {
     }
   }
 
+  onChange(event: any) {
+    if (event.target.checked) {
+      sessionStorage.setItem("isMultiple", "true");
+    } else {
+      sessionStorage.setItem("isMultiple", "false");
+    }
+  }
+
+  goBack() {
+    history.back();
+  }
+
   onSubmit() {
     this.genQnValue = this.genQnForm.value;
     this.genQnValue.answer = this.correctAnswerByCopyPaste;
@@ -113,8 +125,9 @@ export class AddGenQnComponent implements OnInit {
             if (result.isConfirmed) {
               if (!this.genQnForm.value.mulQn) {
                 this.router.navigateByUrl("/gen-qn-list");
+              } else {
+                this.genQnForm.reset();
               }
-              this.genQnForm.reset()
             }
           });
         });

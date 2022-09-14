@@ -23,8 +23,10 @@ export class TeamListComponent implements OnInit {
 
   teamList: any;
   getAllTeams() {
+    this.alert.showLoading();
     this.homeService.getAllTeams().subscribe(
       (data) => {
+        Swal.close();
         console.log(data);
         this.teamList = data;
       },
@@ -125,7 +127,7 @@ export class TeamListComponent implements OnInit {
 
   searchKey: string = "";
   searchByTeamId(f: NgForm) {
-    console.log(f)
+    console.log(f);
     if (f.value.searchKey == "") {
       this.alert.customErrMsgWithoutBtn("Team is required");
       return;

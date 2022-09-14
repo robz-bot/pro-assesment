@@ -88,8 +88,20 @@ export class ReportComponent implements OnInit {
       this.alert.customErrMsgWithoutBtn("Select any one option");
       return;
     }
-    if (this.searchKey == "") {
+    if (this.searchKey == "" && this.searchType == "username") {
       this.alert.customErrMsgWithoutBtn("Keyword is Required");
+      return;
+    }
+    if (this.searchKey == "" && this.searchType == "status") {
+      this.alert.customErrMsgWithoutBtn("Select Status");
+      return;
+    }
+    if (this.searchKey == "" && this.searchType == "percentage") {
+      this.alert.customErrMsgWithoutBtn("Select percentage range");
+      return;
+    }
+    if (this.searchKey == "" && this.searchType == "date") {
+      this.alert.customErrMsgWithoutBtn("Held On date is Required");
       return;
     }
     console.log(this.searchType);

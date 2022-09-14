@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertifyService } from 'src/app/shared-service/alertify.service';
+import Swal from 'sweetalert2';
 import { widget } from './dashboard';
 import { DashboardService } from './dashboard.service';
 
@@ -9,7 +11,7 @@ import { DashboardService } from './dashboard.service';
 })
 export class AdminDashboardComponent implements OnInit {
 
-  constructor(private dashboardService:DashboardService) { }
+  constructor(private dashboardService:DashboardService,private alert:AlertifyService) { }
 
   ngOnInit(): void {
   this.widgetData()
@@ -17,7 +19,9 @@ export class AdminDashboardComponent implements OnInit {
 
   widgetList:widget[]=[]
   widgetData(){
+    this.alert.showLoading()
     this.dashboardService.widgetData().subscribe((data)=>{
+      Swal.close()
       console.log(data);
       this.widgetList = data;
     })

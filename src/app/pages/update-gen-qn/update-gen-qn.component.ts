@@ -85,6 +85,10 @@ export class UpdateGenQnComponent implements OnInit {
     }
   }
 
+  goBack() {
+    history.back();
+  }
+
   onSubmit() {
     this.genQnValue = this.genQnForm.value;
     this.genQnValue.answer = this.correctAnswerByCopyPaste;

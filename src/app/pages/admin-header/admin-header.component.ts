@@ -54,9 +54,8 @@ export class AdminHeaderComponent implements OnInit {
         //Error
         if (result.value.status == 1) {
           Swal.fire({
-            title: "Team is required",
+            title: result.value.message,
             icon: "error",
-            timer: 1500,
           }).then((result) => {
             if(result.isConfirmed) {
               this.createTeam();
