@@ -41,22 +41,24 @@ export class AddTechQnComponent implements OnInit {
   }
 
   getAllTeams() {
-    this.homeService.getAllTeams().subscribe((data) => {
-      console.log(data);
-      this.teamList = data;
-    },
-    (err) => {
-      console.log("Error :");
-      console.log(err);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: message.SOMETHING_WRONG,
-        text: err,
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    });
+    this.homeService.getAllTeams().subscribe(
+      (data) => {
+        console.log(data);
+        this.teamList = data;
+      },
+      (err) => {
+        console.log("Error :");
+        console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: message.SOMETHING_WRONG,
+          text: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    );
   }
 
   copyAndPopulate(choice: string) {
@@ -83,6 +85,13 @@ export class AddTechQnComponent implements OnInit {
   onSubmit() {
     this.techQnValue = this.techQnForm.value;
     this.techQnValue.answer = this.correctAnswerByCopyPaste;
+
+    this.techQnValue.question = this.techQnValue.question.trim();
+    this.techQnValue.option1 = this.techQnValue.option1.trim();
+    this.techQnValue.option2 = this.techQnValue.option2.trim();
+    this.techQnValue.option3 = this.techQnValue.option3.trim();
+    this.techQnValue.option4 = this.techQnValue.option4.trim();
+    this.techQnValue.answer = this.techQnValue.answer.trim();
 
     if (this.techQnValue.question == "") {
       this.alert.customWarningMsgWithoutBtn("Question is required!");
@@ -114,17 +123,16 @@ export class AddTechQnComponent implements OnInit {
       return;
     }
     //To check answer
-    // if (!this.checkDuplicateAnswer(this.techQnValue)) {
-    //   this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
-    //   return;
-    // }
+    if (!this.checkDuplicateAnswer(this.techQnValue)) {
+      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+      return;
+    }
     if (this.checkDuplicateOptions(this.techQnValue)) {
       console.log(this.techQnValue);
 
       this.alert.showLoading();
-      this.techService
-        .addTechQuestion(this.techQnValue)
-        .subscribe((data: any) => {
+      this.techService.addTechQuestion(this.techQnValue).subscribe(
+        (data: any) => {
           Swal.close();
           console.log(data);
 
@@ -155,7 +163,8 @@ export class AddTechQnComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
-        });
+        }
+      );
     }
   }
 
@@ -167,16 +176,14 @@ export class AddTechQnComponent implements OnInit {
       techQnValue.option4,
     ];
 
-    var isRightAnswer = false
-
-    optionsArr.forEach((element: any) => {
-      if (element == techQnValue.answer) {
-        isRightAnswer = true
-      } else {
-        isRightAnswer = false
-      }
+    const found = optionsArr.find((element) => {
+      return element.toLowerCase() === techQnValue.answer.toLowerCase();
     });
-    return isRightAnswer;
+
+    if (found == undefined || found == "") {
+      return false;
+    }
+    return true;
   }
 
   checkDuplicateOptions(techQnValue: generalQn): boolean {

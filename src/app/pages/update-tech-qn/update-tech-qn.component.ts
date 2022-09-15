@@ -117,6 +117,13 @@ export class UpdateTechQnComponent implements OnInit {
     this.techQnValue = this.techQnForm.value;
     this.techQnValue.answer = this.correctAnswerByCopyPaste;
 
+    this.techQnValue.question = this.techQnValue.question.trim()
+    this.techQnValue.option1 =this.techQnValue.option1.trim()
+    this.techQnValue.option2 =this.techQnValue.option2.trim()
+    this.techQnValue.option3 =this.techQnValue.option3.trim()
+    this.techQnValue.option4 =this.techQnValue.option4.trim()
+    this.techQnValue.answer =this.techQnValue.answer.trim()
+
     if (this.techQnValue.question.trim() == "") {
       this.alert.customWarningMsgWithoutBtn("Question is required!");
       return;
@@ -148,10 +155,10 @@ export class UpdateTechQnComponent implements OnInit {
     }
 
     //To check answer
-    // if (!this.checkDuplicateAnswer(this.techQnValue)) {
-    //   this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
-    //   return;
-    // }
+    if (!this.checkDuplicateAnswer(this.techQnValue)) {
+      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+      return;
+    }
 
     //To check duplicate Options
     if (this.checkDuplicateOptions(this.techQnValue)) {

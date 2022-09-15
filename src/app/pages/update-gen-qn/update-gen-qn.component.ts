@@ -92,6 +92,12 @@ export class UpdateGenQnComponent implements OnInit {
   onSubmit() {
     this.genQnValue = this.genQnForm.value;
     this.genQnValue.answer = this.correctAnswerByCopyPaste;
+    this.genQnValue.question = this.genQnValue.question.trim()
+    this.genQnValue.option1 =this.genQnValue.option1.trim()
+    this.genQnValue.option2 =this.genQnValue.option2.trim()
+    this.genQnValue.option3 =this.genQnValue.option3.trim()
+    this.genQnValue.option4 =this.genQnValue.option4.trim()
+    this.genQnValue.answer =this.genQnValue.answer.trim()
 
     if (this.genQnValue.question.trim() == "") {
       this.alert.customWarningMsgWithoutBtn("Question is required!");
@@ -119,10 +125,10 @@ export class UpdateGenQnComponent implements OnInit {
       this.genQnValue.answer = this.genQn.answer;
     }
     //To check answer
-    // if (!this.checkDuplicateAnswer(this.genQnValue)) {
-    //   this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
-    //   return;
-    // }
+    if (!this.checkDuplicateAnswer(this.genQnValue)) {
+      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+      return;
+    }
     if (this.checkDuplicateOptions(this.genQnValue)) {
       console.log(this.genQnValue);
       this.genQnValue.id = this.genQnId;
