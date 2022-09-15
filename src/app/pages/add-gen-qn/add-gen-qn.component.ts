@@ -4,7 +4,7 @@ import { AlertifyService } from "src/app/shared-service/alertify.service";
 import { HomeService } from "../home/home.service";
 import { generalQn } from "./gen-qn";
 import { GeneralService } from "./general.service";
-import { commonFunctions } from "src/app/common";
+import { commonFunctions, message } from "src/app/common";
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
 
@@ -41,10 +41,24 @@ export class AddGenQnComponent implements OnInit {
   }
 
   getAllTeams() {
-    this.homeService.getAllTeams().subscribe((data) => {
-      console.log(data);
-      this.teamList = data;
-    });
+    this.homeService.getAllTeams().subscribe(
+      (data) => {
+        console.log(data);
+        this.teamList = data;
+      },
+      (err) => {
+        console.log("Error :");
+        console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: message.SOMETHING_WRONG,
+          text: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    );
   }
 
   copyAndPopulate(choice: string) {
@@ -107,18 +121,17 @@ export class AddGenQnComponent implements OnInit {
     }
 
     //To check answer
-    // if (!this.checkDuplicateAnswer(this.genQnValue)) {
-    //   this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
-    //   return;
-    // }
+    if (!this.checkDuplicateAnswer(this.genQnValue)) {
+      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+      return;
+    }
 
     if (this.checkDuplicateOptions(this.genQnValue)) {
       console.log(this.genQnValue);
 
       this.alert.showLoading();
-      this.genService
-        .addGeneralQuestion(this.genQnValue)
-        .subscribe((data: any) => {
+      this.genService.addGeneralQuestion(this.genQnValue).subscribe(
+        (data: any) => {
           Swal.close();
           console.log(data);
 
@@ -137,28 +150,39 @@ export class AddGenQnComponent implements OnInit {
               }
             }
           });
-        });
+        },
+        (err) => {
+          console.log("Error :");
+          console.log(err);
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: message.SOMETHING_WRONG,
+            text: err,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      );
     }
   }
 
   checkDuplicateAnswer(techQnValue: generalQn): boolean {
-    let optionsArr = [
+    var optionsArr = [
       techQnValue.option1,
       techQnValue.option2,
       techQnValue.option3,
       techQnValue.option4,
     ];
 
-    var isRightAnswer = false
-
-    optionsArr.forEach((element: any) => {
-      if (element == techQnValue.answer) {
-        isRightAnswer = true
-      } else {
-        isRightAnswer = false
-      }
+    const found = optionsArr.find((element) => {
+      return element.toLowerCase() === techQnValue.answer.toLowerCase();
     });
-    return isRightAnswer;
+
+    if (found == undefined || found == "") {
+      return false;
+    }
+    return true;
   }
 
   checkDuplicateOptions(genQnValue: generalQn): boolean {

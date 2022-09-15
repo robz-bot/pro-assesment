@@ -135,6 +135,18 @@ export class TeamListComponent implements OnInit {
     this.homeService.searchByTeamId(f.value.searchKey).subscribe((data) => {
       console.log(data);
       this.teamList = data;
+    },
+    (err) => {
+      console.log("Error :");
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: message.SOMETHING_WRONG,
+        text: err,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     });
   }
 }

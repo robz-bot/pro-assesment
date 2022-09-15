@@ -71,6 +71,18 @@ export class UpdateTechQnComponent implements OnInit {
     this.homeService.getAllTeams().subscribe((data) => {
       console.log(data);
       this.teamList = data;
+    },
+    (err) => {
+      console.log("Error :");
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: message.SOMETHING_WRONG,
+        text: err,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     });
   }
 
@@ -136,10 +148,10 @@ export class UpdateTechQnComponent implements OnInit {
     }
 
     //To check answer
-    // if (!this.checkDuplicateAnswer(this.techQnValue)) {
-    //   this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
-    //   return;
-    // }
+    if (!this.checkDuplicateAnswer(this.techQnValue)) {
+      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+      return;
+    }
 
     //To check duplicate Options
     if (this.checkDuplicateOptions(this.techQnValue)) {
@@ -164,6 +176,18 @@ export class UpdateTechQnComponent implements OnInit {
               this.router.navigateByUrl("/tech-qn-list");
             }
           });
+        },
+        (err) => {
+          console.log("Error :");
+          console.log(err);
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: message.SOMETHING_WRONG,
+            text: err,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     }
   }
@@ -176,24 +200,14 @@ export class UpdateTechQnComponent implements OnInit {
       techQnValue.option4,
     ];
 
-    var isRightAnswer = true;
+    const found = optionsArr.find((element) => {
+      return element.toLowerCase() === techQnValue.answer.toLowerCase();
+    });
 
-    for (var i = 0; i < optionsArr.length; i++) {
-      if (optionsArr[0] != techQnValue.answer) {
-        isRightAnswer = false;
-        break;
-      }
+    if (found == undefined || found == "") {
+      return false;
     }
-
-    // optionsArr.forEach((element: any) => {
-    //   if (element != techQnValue.answer) {
-    //     isRightAnswer = false
-    //     return isRightAnswer
-    //   }else{
-
-    //   }
-    // });
-    return isRightAnswer;
+    return true;
   }
 
   checkDuplicateOptions(techQnValue: generalQn): boolean {

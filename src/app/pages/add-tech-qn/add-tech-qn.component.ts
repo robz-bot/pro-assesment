@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { commonFunctions } from "src/app/common";
+import { commonFunctions, message } from "src/app/common";
 import { AlertifyService } from "src/app/shared-service/alertify.service";
 import Swal from "sweetalert2";
 import { generalQn } from "../add-gen-qn/gen-qn";
@@ -44,6 +44,18 @@ export class AddTechQnComponent implements OnInit {
     this.homeService.getAllTeams().subscribe((data) => {
       console.log(data);
       this.teamList = data;
+    },
+    (err) => {
+      console.log("Error :");
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: message.SOMETHING_WRONG,
+        text: err,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     });
   }
 
@@ -102,10 +114,10 @@ export class AddTechQnComponent implements OnInit {
       return;
     }
     //To check answer
-    // if (!this.checkDuplicateAnswer(this.techQnValue)) {
-    //   this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
-    //   return;
-    // }
+    if (!this.checkDuplicateAnswer(this.techQnValue)) {
+      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+      return;
+    }
     if (this.checkDuplicateOptions(this.techQnValue)) {
       console.log(this.techQnValue);
 
@@ -130,6 +142,18 @@ export class AddTechQnComponent implements OnInit {
                 this.techQnForm.reset();
               }
             }
+          });
+        },
+        (err) => {
+          console.log("Error :");
+          console.log(err);
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: message.SOMETHING_WRONG,
+            text: err,
+            showConfirmButton: false,
+            timer: 1500,
           });
         });
     }
@@ -163,9 +187,11 @@ export class AddTechQnComponent implements OnInit {
       techQnValue.option4,
     ];
 
-    var resultArr = commonFunctions.FIND_DUPLICATES(optionsArr);
-    if (resultArr.length > 0) {
-      this.alert.customErrMsgTitle("One of option has duplicate value");
+    const found = optionsArr.find((element) => {
+      return element.toLowerCase() === techQnValue.answer.toLowerCase();
+    });
+
+    if (found == undefined || found == "") {
       return false;
     }
     return true;

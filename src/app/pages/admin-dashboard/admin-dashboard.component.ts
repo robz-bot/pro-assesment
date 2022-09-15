@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { message } from 'src/app/common';
 import { AlertifyService } from 'src/app/shared-service/alertify.service';
 import Swal from 'sweetalert2';
 import { widget } from './dashboard';
@@ -24,6 +25,18 @@ export class AdminDashboardComponent implements OnInit {
       Swal.close()
       console.log(data);
       this.widgetList = data;
+    },
+    (err) => {
+      console.log("Error :");
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: message.SOMETHING_WRONG,
+        text: err,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     })
   }
 

@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
+import { message } from "src/app/common";
 import Swal from "sweetalert2";
 
 import { AssessmentService } from "./assessment.service";
@@ -474,6 +475,18 @@ export class AssessmentComponent implements OnInit {
       this.reportService.addReports(this.reportForm).subscribe((data) => {
         console.log(data);
         this.isReportSave = "true";
+      },
+      (err) => {
+        console.log("Error :");
+        console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: message.SOMETHING_WRONG,
+          text: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
     }
   }

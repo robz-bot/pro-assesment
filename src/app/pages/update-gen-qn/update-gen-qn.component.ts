@@ -119,10 +119,10 @@ export class UpdateGenQnComponent implements OnInit {
       this.genQnValue.answer = this.genQn.answer;
     }
     //To check answer
-    // if (!this.checkDuplicateAnswer(this.genQnValue)) {
-    //   this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
-    //   return;
-    // }
+    if (!this.checkDuplicateAnswer(this.genQnValue)) {
+      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+      return;
+    }
     if (this.checkDuplicateOptions(this.genQnValue)) {
       console.log(this.genQnValue);
       this.genQnValue.id = this.genQnId;
@@ -145,6 +145,18 @@ export class UpdateGenQnComponent implements OnInit {
               this.router.navigateByUrl("/gen-qn-list");
             }
           });
+        },
+        (err) => {
+          console.log("Error :");
+          console.log(err);
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: message.SOMETHING_WRONG,
+            text: err,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     }
   }
@@ -159,14 +171,14 @@ export class UpdateGenQnComponent implements OnInit {
 
     var isRightAnswer = false
 
-    optionsArr.forEach((element: any) => {
-      if (element == techQnValue.answer) {
-        isRightAnswer = true
-      } else {
-        isRightAnswer = false
-      }
+    const found = optionsArr.find((element) => {
+      return element.toLowerCase() === techQnValue.answer.toLowerCase();
     });
-    return isRightAnswer;
+
+    if (found == undefined || found == "") {
+      return false;
+    }
+    return true;
   }
 
   checkDuplicateOptions(genQnValue: generalQn): boolean {

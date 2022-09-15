@@ -111,6 +111,18 @@ export class TechQnListComponent implements OnInit {
         console.log(data);
         Swal.close();
         this.techList = data;
+      },
+      (err) => {
+        console.log("Error :");
+        console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: message.SOMETHING_WRONG,
+          text: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
   }
 
