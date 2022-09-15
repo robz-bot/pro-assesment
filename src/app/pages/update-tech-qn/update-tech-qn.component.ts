@@ -148,10 +148,10 @@ export class UpdateTechQnComponent implements OnInit {
     }
 
     //To check answer
-    if (!this.checkDuplicateAnswer(this.techQnValue)) {
-      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
-      return;
-    }
+    // if (!this.checkDuplicateAnswer(this.techQnValue)) {
+    //   this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+    //   return;
+    // }
 
     //To check duplicate Options
     if (this.checkDuplicateOptions(this.techQnValue)) {

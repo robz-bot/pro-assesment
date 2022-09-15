@@ -121,10 +121,10 @@ export class AddGenQnComponent implements OnInit {
     }
 
     //To check answer
-    if (!this.checkDuplicateAnswer(this.genQnValue)) {
-      this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
-      return;
-    }
+    // if (!this.checkDuplicateAnswer(this.genQnValue)) {
+    //   this.alert.customWarningMsgWithoutBtn("Incorrect Answer is chosen!");
+    //   return;
+    // }
 
     if (this.checkDuplicateOptions(this.genQnValue)) {
       console.log(this.genQnValue);
