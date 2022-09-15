@@ -63,7 +63,7 @@ export class ReportComponent implements OnInit {
       this.isEnableSearchText = false;
       this.isEnablePercent = false;
       this.isEnableReportDate = false;
-    } else if (event == "username") {
+    } else if (event == "username" || event == "attempts") {
       this.isEnableStatus = false;
       this.isEnableSearchText = true;
       this.isEnablePercent = false;
@@ -89,6 +89,10 @@ export class ReportComponent implements OnInit {
       return;
     }
     if (this.searchKey == "" && this.searchType == "username") {
+      this.alert.customErrMsgWithoutBtn("Keyword is Required");
+      return;
+    }
+    if (this.searchKey == "" && this.searchType == "attempts") {
       this.alert.customErrMsgWithoutBtn("Keyword is Required");
       return;
     }
