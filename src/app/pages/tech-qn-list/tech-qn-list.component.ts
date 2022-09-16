@@ -18,7 +18,7 @@ export class TechQnListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllTechQuestions();
+    this.getAllTechQuestionsPage();
   }
 
   techList: any = [];
@@ -45,6 +45,60 @@ export class TechQnListComponent implements OnInit {
       }
     );
   }
+
+  page = 1;
+  count = 0;
+  pageSize = 3;
+  pageSizes = [3, 6, 9];
+  params: any = {};
+
+  handlePageChange(event: any) {
+    this.page = event;
+    this.getAllTechQuestionsPage();
+  }
+
+  handlePageSizeChange(event: any) {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.getAllTechQuestionsPage();
+  }
+
+  getRequestParams(page: number, pageSize: number) {
+    if (page) {
+      this.params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      this.params[`size`] = pageSize;
+    }
+
+    return this.params;
+  }
+
+  getAllTechQuestionsPage() {
+    this.clearFields();
+    this.alert.showLoading();
+    this.techService.getAllTechQuestions().subscribe(
+      (data) => {
+        Swal.close();
+        console.log(data);
+        this.techList = data;
+      },
+      (err) => {
+        console.log("Error :");
+        console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: message.SOMETHING_WRONG,
+          text: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    );
+  }
+
   swalWithBootstrapButtons: any = Swal.mixin({
     customClass: {
       confirmButton: "btn btn-success",
@@ -105,9 +159,8 @@ export class TechQnListComponent implements OnInit {
     }
 
     this.alert.showLoading();
-    this.techService
-      .search(this.searchType, this.searchKey)
-      .subscribe((data) => {
+    this.techService.search(this.searchType, this.searchKey).subscribe(
+      (data) => {
         console.log(data);
         Swal.close();
         this.techList = data;
@@ -123,7 +176,8 @@ export class TechQnListComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         });
-      });
+      }
+    );
   }
 
   clearFields() {

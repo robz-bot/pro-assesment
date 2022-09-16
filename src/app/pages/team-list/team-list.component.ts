@@ -18,9 +18,26 @@ export class TeamListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllTeams();
+    // this.getAllTeams();
+    this.getAllTeamsPage();
   }
 
+  page = 1;
+  count = 0;
+  pageSize = 3;
+  pageSizes = [3, 6, 9];
+  params: any = {};
+
+  handlePageChange(event: any) {
+    this.page = event;
+    this.getAllTeamsPage();
+  }
+
+  handlePageSizeChange(event: any) {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.getAllTeamsPage();
+  }
   teamList: any;
   getAllTeams() {
     this.alert.showLoading();
@@ -29,6 +46,45 @@ export class TeamListComponent implements OnInit {
         Swal.close();
         console.log(data);
         this.teamList = data;
+      },
+      (err) => {
+        console.log("Error :");
+        console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: message.SOMETHING_WRONG,
+          text: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    );
+  }
+
+  getRequestParams(page: number, pageSize: number) {
+    if (page) {
+      this.params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      this.params[`size`] = pageSize;
+    }
+
+    return this.params;
+  }
+
+  getAllTeamsPage() {
+    const params = this.getRequestParams(this.page, this.pageSize);
+    this.alert.showLoading();
+    this.homeService.getAllTeamsPage(params).subscribe(
+      (data:any) => {
+        Swal.close();
+        console.log(data);
+        const { teams, totalItems } = data;
+        this.teamList = teams;
+        this.count = totalItems;
+
       },
       (err) => {
         console.log("Error :");
@@ -132,21 +188,23 @@ export class TeamListComponent implements OnInit {
       this.alert.customErrMsgWithoutBtn("Team is required");
       return;
     }
-    this.homeService.searchByTeamId(f.value.searchKey).subscribe((data) => {
-      console.log(data);
-      this.teamList = data;
-    },
-    (err) => {
-      console.log("Error :");
-      console.log(err);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: message.SOMETHING_WRONG,
-        text: err,
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    });
+    this.homeService.searchByTeamId(f.value.searchKey).subscribe(
+      (data) => {
+        console.log(data);
+        this.teamList = data;
+      },
+      (err) => {
+        console.log("Error :");
+        console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: message.SOMETHING_WRONG,
+          text: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    );
   }
 }

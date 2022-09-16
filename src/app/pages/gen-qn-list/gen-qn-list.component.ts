@@ -18,7 +18,8 @@ export class GenQnListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllGeneralQuestions();
+    this.getAllGeneralQuestionsPage();
+    // this.getAllGeneralQuestions();
   }
 
   generalList: any = [];
@@ -30,6 +31,62 @@ export class GenQnListComponent implements OnInit {
         Swal.close();
         console.log(data);
         this.generalList = data;
+      },
+      (err) => {
+        console.log("Error :");
+        console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: message.SOMETHING_WRONG,
+          text: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    );
+  }
+
+  page = 1;
+  count = 0;
+  pageSize = 3;
+  pageSizes = [3, 6, 9];
+  params: any = {};
+
+  handlePageChange(event: any) {
+    this.page = event;
+    this.getAllGeneralQuestionsPage();
+  }
+
+  handlePageSizeChange(event: any) {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.getAllGeneralQuestionsPage();
+  }
+
+  getRequestParams(page: number, pageSize: number) {
+    if (page) {
+      this.params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      this.params[`size`] = pageSize;
+    }
+
+    return this.params;
+  }
+
+  getAllGeneralQuestionsPage() {
+    const params = this.getRequestParams(this.page, this.pageSize);
+    this.clearFields();
+    this.alert.showLoading();
+    this.genService.getAllGeneralQuestionsPage(params).subscribe(
+      (data:any) => {
+        Swal.close();
+        console.log(data);
+        const { generalQns, totalItems } = data;
+        this.generalList = generalQns;
+        this.count = totalItems;
       },
       (err) => {
         console.log("Error :");

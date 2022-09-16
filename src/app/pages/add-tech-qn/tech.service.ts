@@ -11,6 +11,8 @@ export class TechService {
   constructor(private httpClient: HttpClient) {}
   //Home URL
   private getAllTechQuestionsUrl = baseUrl.BASE_URL + "getAllTechQuestions";
+  private getAllTechQuestionsPageUrl =
+    baseUrl.BASE_URL + "getAllTechQuestionsPage";
   private addTechQuestionUrl = baseUrl.BASE_URL + "addTechQuestion";
   private deleteTechQuestionByIdUrl =
     baseUrl.BASE_URL + "deleteTechQuestionById";
@@ -31,6 +33,10 @@ export class TechService {
 
   getAllTechQuestions() {
     return this.httpClient.get(this.getAllTechQuestionsUrl);
+  }
+
+  getAllTechQuestionsPage(params: any) {
+    return this.httpClient.get(this.getAllTechQuestionsPageUrl, { params });
   }
 
   updateTechQuestion(genQn: generalQn) {

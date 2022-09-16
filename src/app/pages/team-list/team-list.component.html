@@ -27,10 +27,45 @@
           </div>
         </div>
       </form> -->
-      <div class="row">
+      <div class="card-header row bg-dark align-items-center">
+        <div class="col-lg-2 col-sm-12 col-md-4 d-flex align-items-center">
+          <label> Items per Page:</label>
+        </div>
+        <div class="col-lg-1 col-sm-12 col-md-4">
+          <select
+            (change)="handlePageSizeChange($event)"
+            class="form-select form-select-sm"
+          >
+            <option *ngFor="let size of pageSizes" [ngValue]="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+        <div
+          class="col-lg-9 col-sm-12 col-md-4 d-flex justify-content-end align-items-center"
+        >
+          <pagination-controls
+            [responsive]="true"
+            class="my-1"
+            previousLabel="Prev"
+            nextLabel="Next"
+            (pageChange)="handlePageChange($event)"
+          ></pagination-controls>
+        </div>
+      </div>
+      <div class="row my-2">
         <div
           class="col-lg-4 col-sm-12 col-md-6"
-          *ngFor="let item of teamList; let i = index"
+          *ngFor="
+            let item of teamList
+              | paginate
+                : {
+                    itemsPerPage: pageSize,
+                    currentPage: page,
+                    totalItems: count
+                  };
+            let i = index
+          "
         >
           <div class="card">
             <div class="card-body">

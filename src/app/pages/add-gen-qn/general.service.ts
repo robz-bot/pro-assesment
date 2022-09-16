@@ -12,6 +12,8 @@ export class GeneralService {
   //Home URL
   private getAllGeneralQuestionsUrl =
     baseUrl.BASE_URL + "getAllGeneralQuestions";
+  private getAllGeneralQuestionsPageUrl =
+    baseUrl.BASE_URL + "getAllGeneralQuestionsPage";
   private addGeneralQuestionUrl = baseUrl.BASE_URL + "addGeneralQuestion";
   private deleteGeneralQuestionByIdUrl =
     baseUrl.BASE_URL + "deleteGeneralQuestionById";
@@ -33,6 +35,10 @@ export class GeneralService {
 
   getAllGeneralQuestions() {
     return this.httpClient.get(this.getAllGeneralQuestionsUrl);
+  }
+  
+  getAllGeneralQuestionsPage(params: any) {
+    return this.httpClient.get(this.getAllGeneralQuestionsPageUrl, { params });
   }
 
   updateGeneralQuestion(genQn: generalQn) {

@@ -1,11 +1,12 @@
+import { DatePipe } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
+import * as FileSaver from "file-saver";
 import { message } from "src/app/common";
 import { AlertifyService } from "src/app/shared-service/alertify.service";
 import Swal from "sweetalert2";
 import { GeneralService } from "../add-gen-qn/general.service";
 import { ReportService } from "./report.service";
-
 @Component({
   selector: "app-report",
   templateUrl: "./report.component.html",
@@ -130,6 +131,46 @@ export class ReportComponent implements OnInit {
           timer: 1500,
         });
       });
+  }
+
+  downloadReports() {
+    if(this.reportList.length <1 ){
+      this.alert.customErrMsgTitle("No records to download as Excel")
+      return
+    }
+    this.alert.showLoading();
+    console.log(this.reportList);
+    this.reportService
+      .downloadReports(this.reportList)
+      .subscribe((data) => {
+        console.log(data);
+        Swal.close();
+        this.saveAsBlob(data);
+      },
+      (err) => {
+        console.log("Error :");
+        console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: message.SOMETHING_WRONG,
+          text: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
+  }
+  saveAsBlob(data: any) {
+    FileSaver.saveAs(
+      new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      }),
+      'Report_' + this.getCurrentDateTime() + '.xlsx'
+    );
+  }
+  getCurrentDateTime(): any {
+    const pipe = new DatePipe('en-US');
+    return pipe.transform(new Date(), 'yyyyMMddhhmmss');
   }
 
   clearFields() {

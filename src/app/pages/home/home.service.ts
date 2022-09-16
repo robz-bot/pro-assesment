@@ -12,6 +12,7 @@ export class HomeService {
   constructor(private httpClient: HttpClient) {}
   //Home URL
   private getAllTeamsUrl = baseUrl.BASE_URL + "getAllTeams";
+  private getAllTeamsPageUrl = baseUrl.BASE_URL + "getAllTeamsPage";
   private addUserUrl = baseUrl.BASE_URL + "addUser";
   private addTeamUrl = baseUrl.BASE_URL + "addTeam";
   private deleteTeamByIdUrl = baseUrl.BASE_URL + "deleteTeamById";
@@ -19,6 +20,10 @@ export class HomeService {
 
   getAllTeams() {
     return this.httpClient.get<team[]>(`${this.getAllTeamsUrl}`);
+  }
+
+  getAllTeamsPage(params:any) {
+    return this.httpClient.get(`${this.getAllTeamsPageUrl}`, { params });
   }
 
   searchByTeamId(id: string) {

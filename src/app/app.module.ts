@@ -21,6 +21,7 @@ import { UpdateTechQnComponent } from "./pages/update-tech-qn/update-tech-qn.com
 import { MainComponent } from "./pages/main/main.component";
 import { TeamListComponent } from "./pages/team-list/team-list.component";
 import { ReportComponent } from './pages/report/report.component';
+import { NgxPaginationModule } from "ngx-pagination";
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ReportComponent } from './pages/report/report.component';
     ReportComponent,
   ],
   imports: [
+    NgxPaginationModule,
     BrowserModule,
     CommonModule,
     AppRoutingModule,
