@@ -24,8 +24,8 @@ export class TeamListComponent implements OnInit {
 
   page = 1;
   count = 0;
-  pageSize = 3;
-  pageSizes = [3, 6, 9];
+  pageSize = 9;
+  pageSizes = [9,18,27];
   params: any = {};
 
   handlePageChange(event: any) {

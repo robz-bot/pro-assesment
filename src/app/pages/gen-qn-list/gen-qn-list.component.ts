@@ -143,7 +143,7 @@ export class GenQnListComponent implements OnInit {
         console.log(result.isConfirmed);
         if (result.isConfirmed) {
           Swal.close();
-          this.getAllGeneralQuestions();
+          this.getAllGeneralQuestionsPage();
         }
       });
     });

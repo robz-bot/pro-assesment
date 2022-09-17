@@ -7,6 +7,10 @@ import { AlertifyService } from "src/app/shared-service/alertify.service";
 import Swal from "sweetalert2";
 import { GeneralService } from "../add-gen-qn/general.service";
 import { ReportService } from "./report.service";
+
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 @Component({
   selector: "app-report",
   templateUrl: "./report.component.html",
@@ -23,6 +27,63 @@ export class ReportComponent implements OnInit {
   }
 
   reportList: any = [];
+
+  page = 1;
+  count = 0;
+  pageSize = 3;
+  pageSizes = [3, 6, 9];
+  params: any = {};
+
+  handlePageChange(event: any) {
+    this.page = event;
+    this.getAllReportsPage();
+  }
+
+  handlePageSizeChange(event: any) {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.getAllReportsPage();
+  }
+
+  getRequestParams(page: number, pageSize: number) {
+    if (page) {
+      this.params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      this.params[`size`] = pageSize;
+    }
+
+    return this.params;
+  }
+
+  getAllReportsPage() {
+    const params = this.getRequestParams(this.page, this.pageSize);
+    this.clearFields();
+    this.alert.showLoading();
+    this.reportService.getAllReportsPage(params).subscribe(
+      (data:any) => {
+        Swal.close();
+        console.log(data);
+        const { generalQns, totalItems } = data;
+        this.reportList = generalQns;
+        this.count = totalItems;
+      },
+      (err) => {
+        console.log("Error :");
+        console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: message.SOMETHING_WRONG,
+          text: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    );
+  }
+
   getAllReports() {
     this.clearFields();
     this.alert.showLoading();
@@ -180,5 +241,18 @@ export class ReportComponent implements OnInit {
     this.isEnableReportDate = false;
     this.searchKey = "";
     this.searchType = "";
+  }
+
+  downloadPDFReport(){
+    let DATA: any = document.getElementById('htmlData');
+    html2canvas(DATA).then((canvas) => {
+      let fileWidth = 208;
+      let fileHeight = (canvas.height * fileWidth) / canvas.width;
+      const FILEURI = canvas.toDataURL('image/png');
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      PDF.save('angular-demo.pdf');
+    });
   }
 }

@@ -12,11 +12,16 @@ export class ReportService {
   constructor(private httpClient: HttpClient) {}
   //Home URL
   private getAllReportsUrl = baseUrl.BASE_URL + "getAllReports";
+  private getAllReportsPageUrl = baseUrl.BASE_URL + "getAllReportsPage";
   private searchUrl = baseUrl.BASE_URL + "searchByReport";
   private downloadReportsUrl = baseUrl.BASE_URL + "downloadReports";
 
   getAllReports() {
     return this.httpClient.get(this.getAllReportsUrl);
+  }
+
+  getAllReportsPage(params: any) {
+    return this.httpClient.get(this.getAllReportsPageUrl, { params });
   }
 
   downloadReports(report: report[]): Observable<Object> {

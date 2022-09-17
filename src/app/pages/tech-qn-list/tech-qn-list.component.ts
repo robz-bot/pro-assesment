@@ -77,12 +77,15 @@ export class TechQnListComponent implements OnInit {
 
   getAllTechQuestionsPage() {
     this.clearFields();
+    const params = this.getRequestParams(this.page, this.pageSize);
     this.alert.showLoading();
-    this.techService.getAllTechQuestions().subscribe(
-      (data) => {
+    this.techService.getAllTechQuestionsPage(params).subscribe(
+      (data:any) => {
         Swal.close();
         console.log(data);
-        this.techList = data;
+        const { techQns, totalItems } = data;
+        this.techList = techQns;
+        this.count = totalItems;
       },
       (err) => {
         console.log("Error :");
