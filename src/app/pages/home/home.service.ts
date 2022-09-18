@@ -17,12 +17,13 @@ export class HomeService {
   private addTeamUrl = baseUrl.BASE_URL + "addTeam";
   private deleteTeamByIdUrl = baseUrl.BASE_URL + "deleteTeamById";
   private searchByTeamIdUrl = baseUrl.BASE_URL + "searchByTeamId";
+  private validatePhnNumberUrl = baseUrl.BASE_URL + "validatePhnNumber";
 
   getAllTeams() {
     return this.httpClient.get<team[]>(`${this.getAllTeamsUrl}`);
   }
 
-  getAllTeamsPage(params:any) {
+  getAllTeamsPage(params: any) {
     return this.httpClient.get(`${this.getAllTeamsPageUrl}`, { params });
   }
 
@@ -34,11 +35,21 @@ export class HomeService {
     return this.httpClient.post(`${this.addUserUrl}`, register);
   }
 
+  validatePhnNumber(number:string){
+    return this.httpClient.get(`${this.validatePhnNumberUrl}/${number}`);
+  }
+
   deleteTeamById(id: string) {
     return this.httpClient.delete(`${this.deleteTeamByIdUrl}/${id}`);
   }
 
   addTeam(team: team): Observable<Object> {
     return this.httpClient.post(`${this.addTeamUrl}`, team);
+  }
+
+  getDialingCodes() {
+    return this.httpClient.get(
+      "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
+    );
   }
 }

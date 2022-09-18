@@ -179,6 +179,78 @@
                     </div>
                   </div>
                 </div>
+                <!-- Phone Number -->
+                <!-- <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-label mt-4 text-dark"
+                        >Code
+                        <sup><i class="bi bi-asterisk text-danger"></i></sup
+                      ></label>
+                      <select
+                        class="form-select form-select-sm"
+                        formControlName="code"
+                        aria-label="Default select example"
+                      >
+                        <option value="">Select Dialing Code</option>
+                        <option [value]="item.dial_code" *ngFor="let item of codes">
+                          {{ item.code }} ({{item.dial_code}})
+                        </option>
+                      </select>
+
+                      <div
+                        *ngIf="
+                          !registerForm.controls['code'].valid &&
+                          (registerForm.controls['code'].dirty ||
+                            registerForm.controls['code'].touched)
+                        "
+                        class="bg-danger"
+                      >
+                        <div
+                          [hidden]="!registerForm.controls['code'].errors?.['required']"
+                        >
+                          <small class="text-light mx-2">Code is required</small
+                          ><i
+                            class="bi bi-exclamation-triangle float-end mx-2 text-light"
+                          ></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-label mt-4 text-dark"
+                        >Phone Number
+                        <sup><i class="bi bi-asterisk text-danger"></i></sup
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        placeholder="Phone Number"
+                        formControlName="phnNumber"
+                      />
+
+                      <div
+                        *ngIf="
+                          !registerForm.controls['phnNumber'].valid &&
+                          (registerForm.controls['phnNumber'].dirty ||
+                            registerForm.controls['phnNumber'].touched)
+                        "
+                        class="bg-danger"
+                      >
+                        <div
+                          [hidden]="!registerForm.controls['phnNumber'].errors?.['required']"
+                        >
+                          <small class="text-light mx-2"
+                            >Phone Number is required</small
+                          ><i
+                            class="bi bi-exclamation-triangle float-end mx-2 text-light"
+                          ></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="form-group">

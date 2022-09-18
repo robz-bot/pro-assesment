@@ -15,4 +15,6 @@ export class register {
   "teamId": string;
   "updatedBy": string;
   "updatedOn": string;
+  "phnNumber":string;
+  "code":string
 }

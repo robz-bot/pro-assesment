@@ -22,6 +22,10 @@ import { MainComponent } from "./pages/main/main.component";
 import { TeamListComponent } from "./pages/team-list/team-list.component";
 import { ReportComponent } from './pages/report/report.component';
 import { NgxPaginationModule } from "ngx-pagination";
+import { NgApexchartsModule } from "ng-apexcharts";
+import { UserAttemptsChartComponent } from './pages/charts/user-attempts-chart/user-attempts-chart.component';
+import { ExamStatusChartComponent } from './pages/charts/exam-status-chart/exam-status-chart.component';
+import { ExamStatusChartDonutComponent } from './pages/charts/exam-status-chart-donut/exam-status-chart-donut.component';
 
 @NgModule({
   declarations: [
@@ -42,15 +46,22 @@ import { NgxPaginationModule } from "ngx-pagination";
     MainComponent,
     TeamListComponent,
     ReportComponent,
+    UserAttemptsChartComponent,
+    ExamStatusChartComponent,
+    ExamStatusChartDonutComponent,
   ],
   imports: [
+    
     NgxPaginationModule,
     BrowserModule,
     CommonModule,
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule,
+    NgApexchartsModule
+    
+    
   ],
   providers: [],
   bootstrap: [AppComponent],
