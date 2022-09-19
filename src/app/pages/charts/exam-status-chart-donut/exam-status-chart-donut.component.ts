@@ -58,7 +58,6 @@ export class ExamStatusChartDonutComponent implements OnInit {
 
         this.settingValues();
         Swal.close();
-
       },
       (err) => {
         console.log("Error :");
@@ -77,41 +76,38 @@ export class ExamStatusChartDonutComponent implements OnInit {
 
   settingValues() {
     this.chartOptions = {
-      series: [this.failCount,this.passCount,],
+      series: [this.failCount, this.passCount],
       chart: {
-        foreColor: '#373d3f',
+        foreColor: "#373d3f",
         width: 400,
-        type: "pie"
+        type: "pie",
       },
-      colors:["#50e817","#e83417"],
-      labels: [
-      
-        "Fail",  "Pass",
-      ],
-      legend:{
-        show:false,
+      colors: ["#50e817", "#e83417"],
+      labels: ["Fail", "Pass"],
+      legend: {
+        show: false,
         labels: {
           colors: "white",
-          useSeriesColors: false
-      },
+          useSeriesColors: false,
+        },
       },
       theme: {
-        mode: 'light',palette: 'palette7', 
+        mode: "light",
+        palette: "palette7",
         monochrome: {
           enabled: false,
-          color: '#255aee',
-          shadeTo: 'light',
-          shadeIntensity: 0.65
-          
-        }
+          color: "#255aee",
+          shadeTo: "light",
+          shadeIntensity: 0.65,
+        },
       },
       title: {
         text: "Date-wise Pass and Fail Counts",
         style: {
-          fontSize:  '14px',
-          fontWeight:  'bold',
-          fontFamily:  undefined,
-          color:  '#FFFFFF'
+          fontSize: "14px",
+          fontWeight: "bold",
+          fontFamily: undefined,
+          color: "#FFFFFF",
         },
       },
       responsive: [
@@ -119,14 +115,14 @@ export class ExamStatusChartDonutComponent implements OnInit {
           breakpoint: 480,
           options: {
             chart: {
-              width: 200
+              width: 200,
             },
             legend: {
-              position: "bottom"
-            }
-          }
-        }
-      ]
+              position: "bottom",
+            },
+          },
+        },
+      ],
     };
   }
 }

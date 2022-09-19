@@ -143,7 +143,7 @@ export class TechQnListComponent implements OnInit {
         console.log(result.isConfirmed);
         if (result.isConfirmed) {
           Swal.close();
-          this.getAllTechQuestions();
+          this.getAllTechQuestionsPage();
         }
       });
     });

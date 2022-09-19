@@ -141,7 +141,7 @@ export class AddGenQnComponent implements OnInit {
         (data: any) => {
           Swal.close();
           console.log(data);
-
+          if(data.status==0){
           //After added
           Swal.fire({
             title: data.message,
@@ -157,6 +157,15 @@ export class AddGenQnComponent implements OnInit {
               }
             }
           });
+        }else if(data.status==1){
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            text: data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
         },
         (err) => {
           console.log("Error :");

@@ -144,7 +144,7 @@ export class TeamListComponent implements OnInit {
       if (result.isConfirmed) {
         console.log(result.value);
         this.alert.customSuccessMsgWithoutBtn(result.value.message);
-        this.getAllTeams();
+        this.getAllTeamsPage();
       }
     });
   }
@@ -177,7 +177,7 @@ export class TeamListComponent implements OnInit {
     this.homeService.deleteTeamById(qnId).subscribe((data) => {
       console.log(data);
       this.alert.customSuccessMsgWithoutBtn("Deleted!");
-      this.getAllTeams();
+      this.getAllTeamsPage();
     });
   }
 
