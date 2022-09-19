@@ -200,6 +200,6 @@ export class GenQnListComponent implements OnInit {
   clearFields() {
     this.searchKey = "";
     this.searchType = "";
-    this.page = 1;
+
   }
 }

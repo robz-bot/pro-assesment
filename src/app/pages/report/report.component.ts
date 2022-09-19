@@ -255,7 +255,7 @@ export class ReportComponent implements OnInit {
     this.isEnablePercent = false;
     this.isEnableReportDate = false;
     this.searchKey = "";
-    this.searchType = "";  this.page = 1;
+    this.searchType = "";  
   }
 
   downloadPDFReport() {
