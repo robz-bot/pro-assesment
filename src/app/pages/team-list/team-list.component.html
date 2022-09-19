@@ -57,20 +57,20 @@
             let i = index
           "
         >
-          <div class="card">
-            <div class="card-body">
-              {{ i + 1 }}. <small class="card-text">{{ item.team }}</small>
+        <div class="card bg-light">
+          <div class="card-body text-dark">
+              {{ i + 1 }}. <small class="card-text fw-bold">{{ item.team }}</small>
               <div>
                 <small
                   ><span class="badge bg-info text-dark"
-                    >Updated On: {{ item.createdOn.split("T")[0] }}</span
+                    ><i class="bi bi-alarm-fill"></i> {{ item.createdOn.split("T")[0] }}</span
                   >
                 </small>
               </div>
               <div class="float-end">
                 <a
                   href="javascript:void(0)"
-                  class="btn btn-sm btn-warning text-dark"
+                  class="btn btn-sm btn-warning"
                   (click)="updateTeam(item)"
                   >Edit</a
                 >

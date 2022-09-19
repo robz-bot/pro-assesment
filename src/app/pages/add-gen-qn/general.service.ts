@@ -21,6 +21,7 @@ export class GeneralService {
   private getGeneralQuestionByIdUrl =
     baseUrl.BASE_URL + "getGeneralQuestionById";
   private searchUrl = baseUrl.BASE_URL + "search";
+  private searchGenQnPageUrl = baseUrl.BASE_URL + "searchGenQnPage";
 
   addGeneralQuestion(genQn: generalQn): Observable<Object> {
     return this.httpClient.post(`${this.addGeneralQuestionUrl}`, genQn);
@@ -36,7 +37,7 @@ export class GeneralService {
   getAllGeneralQuestions() {
     return this.httpClient.get(this.getAllGeneralQuestionsUrl);
   }
-  
+
   getAllGeneralQuestionsPage(params: any) {
     return this.httpClient.get(this.getAllGeneralQuestionsPageUrl, { params });
   }
@@ -47,5 +48,16 @@ export class GeneralService {
 
   search(type: string, keyword: string): Observable<Object> {
     return this.httpClient.get(`${this.searchUrl}/${type}/${keyword}`);
+  }
+
+  searchGenQnPage(
+    type: string,
+    keyword: string,
+    params: any
+  ): Observable<Object> {
+    return this.httpClient.get(
+      `${this.searchGenQnPageUrl}/${type}/${keyword}`,
+      { params }
+    );
   }
 }

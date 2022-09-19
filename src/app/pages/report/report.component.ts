@@ -8,8 +8,8 @@ import Swal from "sweetalert2";
 import { GeneralService } from "../add-gen-qn/general.service";
 import { ReportService } from "./report.service";
 
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 @Component({
   selector: "app-report",
@@ -23,7 +23,22 @@ export class ReportComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllReports();
+    this.getAllReportsPage();
+  }
+
+  gridView: boolean = false;
+  listView: boolean = true;
+
+  enableGridView() {
+    this.gridView = true;
+    this.listView = false;
+    this.getAllReportsPage();
+  }
+
+  enableListView() {
+    this.gridView = false;
+    this.listView = true;
+    this.getAllReportsPage();
   }
 
   reportList: any = [];
@@ -62,11 +77,11 @@ export class ReportComponent implements OnInit {
     this.clearFields();
     this.alert.showLoading();
     this.reportService.getAllReportsPage(params).subscribe(
-      (data:any) => {
+      (data: any) => {
         Swal.close();
         console.log(data);
-        const { generalQns, totalItems } = data;
-        this.reportList = generalQns;
+        const { reports, totalItems } = data;
+        this.reportList = reports;
         this.count = totalItems;
       },
       (err) => {
@@ -173,9 +188,8 @@ export class ReportComponent implements OnInit {
     console.log(this.searchType);
     console.log(this.searchKey);
     this.alert.showLoading();
-    this.reportService
-      .search(this.searchType, this.searchKey)
-      .subscribe((data) => {
+    this.reportService.search(this.searchType, this.searchKey).subscribe(
+      (data) => {
         console.log(data);
         Swal.close();
         this.reportList = data;
@@ -191,19 +205,19 @@ export class ReportComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         });
-      });
+      }
+    );
   }
 
   downloadReports() {
-    if(this.reportList.length <1 ){
-      this.alert.customErrMsgTitle("No records to download as Excel")
-      return
+    if (this.reportList.length < 1) {
+      this.alert.customErrMsgTitle("No records to download as Excel");
+      return;
     }
     this.alert.showLoading();
     console.log(this.reportList);
-    this.reportService
-      .downloadReports(this.reportList)
-      .subscribe((data) => {
+    this.reportService.downloadReports(this.reportList).subscribe(
+      (data) => {
         console.log(data);
         Swal.close();
         this.saveAsBlob(data);
@@ -219,19 +233,20 @@ export class ReportComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         });
-      });
+      }
+    );
   }
   saveAsBlob(data: any) {
     FileSaver.saveAs(
       new Blob([data], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       }),
-      'Report_' + this.getCurrentDateTime() + '.xlsx'
+      "Report_" + this.getCurrentDateTime() + ".xlsx"
     );
   }
   getCurrentDateTime(): any {
-    const pipe = new DatePipe('en-US');
-    return pipe.transform(new Date(), 'yyyyMMddhhmmss');
+    const pipe = new DatePipe("en-US");
+    return pipe.transform(new Date(), "yyyyMMddhhmmss");
   }
 
   clearFields() {
@@ -240,19 +255,19 @@ export class ReportComponent implements OnInit {
     this.isEnablePercent = false;
     this.isEnableReportDate = false;
     this.searchKey = "";
-    this.searchType = "";
+    this.searchType = "";  this.page = 1;
   }
 
-  downloadPDFReport(){
-    let DATA: any = document.getElementById('htmlData');
+  downloadPDFReport() {
+    let DATA: any = document.getElementById("htmlData");
     html2canvas(DATA).then((canvas) => {
       let fileWidth = 208;
       let fileHeight = (canvas.height * fileWidth) / canvas.width;
-      const FILEURI = canvas.toDataURL('image/png');
-      let PDF = new jsPDF('p', 'mm', 'a4');
+      const FILEURI = canvas.toDataURL("image/png");
+      let PDF = new jsPDF("p", "mm", "a4");
       let position = 0;
-      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
-      PDF.save('angular-demo.pdf');
+      PDF.addImage(FILEURI, "PNG", 0, position, fileWidth, fileHeight);
+      PDF.save("angular-demo.pdf");
     });
   }
 }

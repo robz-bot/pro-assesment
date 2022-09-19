@@ -2,13 +2,10 @@
 <!-- <div class="container"> -->
 <div class="card">
   <div class="card-header">
-    <h6 class="text-center text-light">
-      Report -
-      {{ reportList.length > 0 ? reportList.length : 0 }}
-    </h6>
+    <h6 class="text-center text-light">Report(s)</h6>
   </div>
   <div class="card-body bg-light">
-    <form #f="ngForm" (ngSubmit)="search(f)" novalidate *ngIf="reportList.length > 0">
+    <form #f="ngForm" (ngSubmit)="search(f)" novalidate>
       <div class="d-flex flex-wrap flex-row bd-highlight mb-3">
         <div class="p-2 bd-highlight text-dark">Search By:</div>
         <div class="p-2 bd-highlight text-dark">
@@ -91,8 +88,30 @@
       class="card-header row bg-dark align-items-center"
       *ngIf="reportList.length > 0"
     >
+      <div class="col-lg-2 col-sm-12 col-md-4 d-flex align-items-center">
+        <label> Total Items: {{ count }}</label>
+      </div>
+      <div class="col-lg-2 col-sm-12 col-md-4 d-flex align-items-center">
+        <button
+          [ngClass]="
+            !gridView && listView
+              ? 'btn btn-sm btn-info texxt-dark'
+              : 'btn btn-sm btn-warning text-light'
+          "
+          (click)="enableListView()"
+        >
+          <i class="bi bi-list-task"></i>
+        </button>
+        <button  [ngClass]="
+        gridView && !listView
+          ? 'btn btn-sm btn-info'
+          : 'btn btn-sm btn-warning text-light'
+      " (click)="enableGridView()">
+          <i class="bi bi-grid-3x3-gap-fill"></i>
+        </button>
+      </div>
       <div
-        class="col-lg-12 col-sm-12 col-md-4 d-flex justify-content-end align-items-center"
+        class="col-lg-8 col-sm-12 col-md-4 d-flex justify-content-end align-items-center"
       >
         <pagination-controls
           [responsive]="true"
@@ -103,8 +122,9 @@
         ></pagination-controls>
       </div>
     </div>
+    <!-- Grid view -->
 
-    <div class="row my-2" id="htmlData">
+    <div class="row my-2" id="htmlData" *ngIf="gridView">
       <p
         *ngIf="reportList.length == 0"
         class="text-center badge bg-warning text-dark"
@@ -123,10 +143,12 @@
                 }
         "
       >
-        <div class="card">
-          <div class="card-body text-light">
+        <div class="card bg-light">
+          <div class="card-body text-dark">
             <h5 style="text-align: center">
-              <strong id="user-name">{{ item.userName }}</strong>
+              <strong id="user-name"
+                >{{ item.firstName }} {{ item.lastName }}</strong
+              >
             </h5>
             <p style="text-align: center; font-size: smaller" id="user-frid">
               Marks Obtained: {{ item.totalMarks }} /
@@ -166,6 +188,69 @@
           </div>
         </div>
       </div>
+    </div>
+    <!-- List view -->
+
+    <div class="row my-2 table-responsive" id="htmlData" *ngIf="listView">
+      <p
+        *ngIf="reportList.length == 0"
+        class="text-center badge bg-warning text-dark"
+      >
+        No record(s) found
+      </p>
+      <table class="table text-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Marks Obtained</th>
+            <th scope="col">Answered</th>
+            <th scope="col">UnAnswered</th>
+            <th scope="col">Attempts</th>
+            <th scope="col">Status</th>
+            <th scope="col">Percentage</th>
+            <th scope="col">Attened On</th>
+          </tr>
+        </thead>
+        <tbody
+          class="col-lg-4 col-md-6 col-sm-12 col-xs-12"
+          *ngFor="
+            let item of reportList
+              | paginate
+                : {
+                    itemsPerPage: pageSize,
+                    currentPage: page,
+                    totalItems: count
+                  };
+            let i = index
+          "
+        >
+          <tr>
+            <th scope="row">{{ (page - 1) * pageSize + i + 1 }}</th>
+            <td>{{ item.firstName }} {{ item.lastName }}</td>
+            <td>{{ item.totalMarks }} / {{ item.totalNoOfQuestions }}</td>
+            <td>{{ item.noOfQuestionsAnswered }}</td>
+            <td>{{ item.noOfQuestionsNotAnswered }}</td>
+            <td>{{ item.attempts }}</td>
+            <td>
+              <span
+                *ngIf="item.status == 'Pass'"
+                class="tags badge bg-success text-dark"
+                id="user-status"
+                >{{ item.status }}</span
+              >
+              <span
+                *ngIf="item.status == 'Fail'"
+                class="tags badge bg-danger"
+                id="user-status"
+                >{{ item.status }}</span
+              >
+            </td>
+            <td>{{ item.percentage }}</td>
+            <td>{{ item.reportedOn.split("T")[0] }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <div

@@ -55,13 +55,17 @@ export class GenQnListComponent implements OnInit {
 
   handlePageChange(event: any) {
     this.page = event;
-    this.getAllGeneralQuestionsPage();
+    if (this.isSearchEnabled) {
+      this.searchByGenQn();
+    } else {
+      this.getAllGeneralQuestionsPage();
+    }
   }
 
   handlePageSizeChange(event: any) {
     this.pageSize = event.target.value;
     this.page = 1;
-    this.getAllGeneralQuestionsPage();
+    // this.getAllGeneralQuestionsPage();
   }
 
   getRequestParams(page: number, pageSize: number) {
@@ -77,11 +81,12 @@ export class GenQnListComponent implements OnInit {
   }
 
   getAllGeneralQuestionsPage() {
+    this.isSearchEnabled = false;
     const params = this.getRequestParams(this.page, this.pageSize);
     this.clearFields();
     this.alert.showLoading();
     this.genService.getAllGeneralQuestionsPage(params).subscribe(
-      (data:any) => {
+      (data: any) => {
         Swal.close();
         console.log(data);
         const { generalQns, totalItems } = data;
@@ -102,6 +107,7 @@ export class GenQnListComponent implements OnInit {
       }
     );
   }
+
   swalWithBootstrapButtons: any = Swal.mixin({
     customClass: {
       confirmButton: "btn btn-success",
@@ -149,9 +155,12 @@ export class GenQnListComponent implements OnInit {
     });
   }
 
+  isSearchEnabled: boolean = false;
   searchKey: string = "";
   searchType: string = "";
-  searchByGenQn(f: NgForm) {
+  searchByGenQn() {
+    this.isSearchEnabled = true;
+
     if (this.searchType == "") {
       this.alert.customErrMsgWithoutBtn("Select any one option");
       return;
@@ -160,31 +169,37 @@ export class GenQnListComponent implements OnInit {
       this.alert.customErrMsgWithoutBtn("Keyword is Required");
       return;
     }
-
+    const params = this.getRequestParams(this.page, this.pageSize);
     this.alert.showLoading();
     this.genService
-      .search(this.searchType, this.searchKey)
-      .subscribe((data) => {
-        console.log(data);
-        Swal.close();
-        this.generalList = data;
-      },
-      (err) => {
-        console.log("Error :");
-        console.log(err);
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: message.SOMETHING_WRONG,
-          text: err,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
+      .searchGenQnPage(this.searchType, this.searchKey, params)
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          const { currentPage, generalQns, totalItems } = data;
+          this.generalList = generalQns;
+          this.count = totalItems;
+          this.page = currentPage + 1;
+          Swal.close();
+        },
+        (err) => {
+          console.log("Error :");
+          console.log(err);
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: message.SOMETHING_WRONG,
+            text: err,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      );
   }
 
   clearFields() {
     this.searchKey = "";
     this.searchType = "";
+    this.page = 1;
   }
 }

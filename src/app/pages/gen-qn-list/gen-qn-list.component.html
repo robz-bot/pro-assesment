@@ -7,7 +7,7 @@
     </h6>
   </div>
   <div class="card-body bg-light">
-    <form #f="ngForm" (ngSubmit)="searchByGenQn(f)" novalidate  >
+    <form #f="ngForm" (ngSubmit)="searchByGenQn()" novalidate  >
       <div class="d-flex flex-wrap flex-row bd-highlight mb-3">
         <div class="p-2 bd-highlight text-dark">Search By:</div>
         <div class="p-2 bd-highlight text-dark">
@@ -80,10 +80,10 @@
           let i = index
         "
       >
-        <div class="card">
-          <div class="card-body">
-            {{ i + 1 }}.
-            <small class="card-text text-light">{{ item.question }}</small>
+      <div class="card bg-light">
+        <div class="card-body text-dark">
+          {{ (page - 1) * pageSize + i + 1 }}.
+            <small class="card-text fw-bold">{{ item.question }}</small>
             <div class="row">
               <div class="col-lg-3 col-sm-12 col-md-6">
                 <small>
@@ -91,7 +91,7 @@
                   <span *ngIf="item.option1 != item.answer" class="mx-1">{{
                     item.option1
                   }}</span>
-                  <mark *ngIf="item.option1 == item.answer" class="mx-1">
+                  <mark *ngIf="item.option1 == item.answer" class="mx-1 bg-dark text-light">
                     {{ item.option1 }}
                   </mark>
                 </small>
@@ -102,7 +102,7 @@
                   <span *ngIf="item.option2 != item.answer" class="mx-1">{{
                     item.option2
                   }}</span>
-                  <mark *ngIf="item.option2 == item.answer" class="mx-1">{{
+                  <mark *ngIf="item.option2 == item.answer" class="mx-1 bg-dark text-light">{{
                     item.option2
                   }}</mark>
                 </small>
@@ -113,7 +113,7 @@
                   <span *ngIf="item.option3 != item.answer" class="mx-1">{{
                     item.option3
                   }}</span>
-                  <mark *ngIf="item.option3 == item.answer" class="mx-1">{{
+                  <mark *ngIf="item.option3 == item.answer" class="mx-1 bg-dark text-light">{{
                     item.option3
                   }}</mark>
                 </small>
@@ -124,22 +124,22 @@
                   <span *ngIf="item.option4 != item.answer" class="mx-1">{{
                     item.option4
                   }}</span>
-                  <mark *ngIf="item.option4 == item.answer" class="mx-1">{{
+                  <mark *ngIf="item.option4 == item.answer" class="mx-1 bg-dark text-light">{{
                     item.option4
                   }}</mark>
                 </small>
               </div>
             </div>
-            <span class="badge my-2 bg-dark text-light">Updated On: {{item.updatedon.split("T")[0]}}</span>
+            <span class="my-2 text-dark badge bg-light"><i class="bi bi-alarm-fill"></i> {{item.updatedon.split("T")[0]}}</span>
             <small hidden
               ><span class="badge bg-info text-dark">Answer</span>
               {{ item.answer }}</small
             >
-            <div class="float-end">
+            <div class="my-2 float-end">
               <a
                 href="javascript:void(0)"
-                class="btn btn-sm btn-warning text-light"
-                [routerLink]="['/edit-gen-qn', item.id]"
+                class="btn btn-sm btn-warning mx-2"
+                [routerLink]="['/edit-tech-qn', item.id]"
                 >Edit</a
               >
               <a
