@@ -5,6 +5,7 @@ import { AlertifyService } from "src/app/shared-service/alertify.service";
 import Swal from "sweetalert2";
 import { GeneralService } from "../add-gen-qn/general.service";
 import { TechService } from "../add-tech-qn/tech.service";
+import { HomeService } from "../home/home.service";
 
 @Component({
   selector: "app-tech-qn-list",
@@ -14,11 +15,49 @@ import { TechService } from "../add-tech-qn/tech.service";
 export class TechQnListComponent implements OnInit {
   constructor(
     private techService: TechService,
-    private alert: AlertifyService
+    private alert: AlertifyService,
+    private homeService: HomeService
   ) {}
 
   ngOnInit(): void {
     this.getAllTechQuestionsPage();
+    this.getAllTeams();
+  }
+  isEnableTeam: boolean = false;
+  isEnableSearchText: boolean = true;
+  onChangeStatus(event: any) {
+    
+    if (event == "team") {
+      this.isEnableTeam = true;
+      this.isEnableSearchText = false;
+    } else {
+      this.searchKey=""
+      this.isEnableTeam = false;
+      this.isEnableSearchText = true;
+    }
+  }
+
+  teamList: any;
+  getAllTeams() {
+    this.alert.showLoading();
+    this.homeService.getAllTeams().subscribe(
+      (data) => {
+        console.log(data);
+        this.teamList = data;
+      },
+      (err) => {
+        console.log("Error :");
+        console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: message.SOMETHING_WRONG,
+          text: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    );
   }
 
   techList: any = [];
@@ -27,9 +66,9 @@ export class TechQnListComponent implements OnInit {
     this.alert.showLoading();
     this.techService.getAllTechQuestions().subscribe(
       (data) => {
-        Swal.close();
         console.log(data);
         this.techList = data;
+        Swal.close();
       },
       (err) => {
         console.log("Error :");
@@ -54,7 +93,11 @@ export class TechQnListComponent implements OnInit {
 
   handlePageChange(event: any) {
     this.page = event;
-    this.getAllTechQuestionsPage();
+    if (this.isSearchEnabled) {
+      this.searchtechQnsPage();
+    } else {
+      this.getAllTechQuestionsPage();
+    }
   }
 
   handlePageSizeChange(event: any) {
@@ -80,12 +123,12 @@ export class TechQnListComponent implements OnInit {
     const params = this.getRequestParams(this.page, this.pageSize);
     this.alert.showLoading();
     this.techService.getAllTechQuestionsPage(params).subscribe(
-      (data:any) => {
-        Swal.close();
+      (data: any) => {
         console.log(data);
         const { techQns, totalItems } = data;
         this.techList = techQns;
         this.count = totalItems;
+        Swal.close();
       },
       (err) => {
         console.log("Error :");
@@ -183,8 +226,60 @@ export class TechQnListComponent implements OnInit {
     );
   }
 
+  isSearchEnabled: boolean = false;
+  searchtechQnsPage() {
+    this.isSearchEnabled = true;
+    if (this.searchType == "") {
+      this.alert.customErrMsgWithoutBtn("Select any one option");
+      return;
+    }
+    if (this.searchKey == "" && this.searchType == "question") {
+      this.alert.customErrMsgWithoutBtn("Keyword is Required");
+      return;
+    }
+    if (this.searchKey == "" && this.searchType == "optionns") {
+      this.alert.customErrMsgWithoutBtn("Keyword is Required");
+      return;
+    }
+    if (this.searchKey == "" && this.searchType == "answer") {
+      this.alert.customErrMsgWithoutBtn("Keyword is Required");
+      return;
+    }
+    if (this.searchKey == "" && this.searchType == "team") {
+      this.alert.customErrMsgWithoutBtn("Team is Required");
+      return;
+    }
+    const params = this.getRequestParams(this.page, this.pageSize);
+
+    this.alert.showLoading();
+    this.techService
+      .searchtechQnsPage(this.searchType, this.searchKey, params)
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          const { currentPage, techQns, totalItems } = data;
+          this.techList = techQns;
+          this.count = totalItems;
+          this.page = currentPage + 1;
+          Swal.close();
+        },
+        (err) => {
+          console.log("Error :");
+          console.log(err);
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: message.SOMETHING_WRONG,
+            text: err,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      );
+  }
+
   clearFields() {
     this.searchKey = "";
-    this.searchType = "";  
+    this.searchType = "";
   }
 }

@@ -23,7 +23,7 @@ export class ReportComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllReportsPage();
+    this.getAllReports();
   }
 
   gridView: boolean = false;
@@ -32,13 +32,13 @@ export class ReportComponent implements OnInit {
   enableGridView() {
     this.gridView = true;
     this.listView = false;
-    this.getAllReportsPage();
+    this.getAllReports();
   }
 
   enableListView() {
     this.gridView = false;
     this.listView = true;
-    this.getAllReportsPage();
+    this.getAllReports();
   }
 
   reportList: any = [];
@@ -51,13 +51,13 @@ export class ReportComponent implements OnInit {
 
   handlePageChange(event: any) {
     this.page = event;
-    this.getAllReportsPage();
+    this.getAllReports();
   }
 
   handlePageSizeChange(event: any) {
     this.pageSize = event.target.value;
     this.page = 1;
-    this.getAllReportsPage();
+    this.getAllReports();
   }
 
   getRequestParams(page: number, pageSize: number) {

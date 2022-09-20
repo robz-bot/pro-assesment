@@ -5,7 +5,7 @@
     <h6 class="text-center text-light">Technical Question List(s)</h6>
   </div>
   <div class="card-body bg-light">
-    <form #f="ngForm" (ngSubmit)="searchByTechQn(f)" novalidate  >
+    <form #f="ngForm" (ngSubmit)="searchtechQnsPage()" novalidate  >
       <div class="d-flex flex-wrap flex-row bd-highlight mb-3">
         <div class="p-2 bd-highlight text-dark">Search By:</div>
         <div class="p-2 bd-highlight text-dark">
@@ -13,6 +13,7 @@
             name="searchType"
             [(ngModel)]="searchType"
             class="form-select form-select-sm"
+            (ngModelChange)="onChangeStatus($event)"
           >
             <option value="">Select</option>
             <option value="question">Question</option>
@@ -28,7 +29,17 @@
             class="form-control form-control-sm"
             placeholder="Keyword"
             [(ngModel)]="searchKey"
+            *ngIf="isEnableSearchText"
           />
+          <select
+            name="searchKey"
+            class="form-select form-select-sm"
+            [(ngModel)]="searchKey"
+            *ngIf="isEnableTeam"
+          >
+            <option value="">Select</option>
+            <option *ngFor="let item of teamList" [value]="item.id">{{item.team}}</option>
+          </select>
         </div>
         <div class="p-2 bd-highlight">
           <input type="submit" value="Search" class="btn btn-sm btn-primary" />

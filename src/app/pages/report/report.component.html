@@ -89,7 +89,7 @@
       *ngIf="reportList.length > 0"
     >
       <div class="col-lg-2 col-sm-12 col-md-4 d-flex align-items-center">
-        <label> Total Items: {{ count }}</label>
+        <label> Total Items: {{ reportList.length }}</label>
       </div>
       <div class="col-lg-2 col-sm-12 col-md-4 d-flex align-items-center">
         <button
@@ -147,7 +147,7 @@
           <div class="card-body text-dark">
             <h5 style="text-align: center">
               <strong id="user-name"
-                >{{ item.firstName }} {{ item.lastName }}</strong
+                >{{ item.userName}}</strong
               >
             </h5>
             <p style="text-align: center; font-size: smaller" id="user-frid">
@@ -227,7 +227,7 @@
         >
           <tr>
             <th scope="row">{{ (page - 1) * pageSize + i + 1 }}</th>
-            <td>{{ item.firstName }} {{ item.lastName }}</td>
+            <td>{{ item.userName}}</td>
             <td>{{ item.totalMarks }} / {{ item.totalNoOfQuestions }}</td>
             <td>{{ item.noOfQuestionsAnswered }}</td>
             <td>{{ item.noOfQuestionsNotAnswered }}</td>

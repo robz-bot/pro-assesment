@@ -386,7 +386,7 @@ export class AssessmentComponent implements OnInit {
       } else if (this.progressPercentage > 20 && this.progressPercentage < 50) {
         this.progressColor += "bg-warning";
       }
-      console.log("timeLeft: " + this.timeLeft);
+      // console.log("timeLeft: " + this.timeLeft);
       if (this.timeLeft < 1) {
         clearInterval(this.interval);
         // //alert("show summary")
@@ -472,22 +472,24 @@ export class AssessmentComponent implements OnInit {
 
     // this.isReportSave = sessionStorage.getItem("isReportSaved");
     if (value) {
-      this.reportService.addReports(this.reportForm).subscribe((data) => {
-        console.log(data);
-        this.isReportSave = "true";
-      },
-      (err) => {
-        console.log("Error :");
-        console.log(err);
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: message.SOMETHING_WRONG,
-          text: err,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
+      this.reportService.addReports(this.reportForm).subscribe(
+        (data) => {
+          console.log(data);
+          this.isReportSave = "true";
+        },
+        (err) => {
+          console.log("Error :");
+          console.log(err);
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: message.SOMETHING_WRONG,
+            text: err,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      );
     }
   }
 
