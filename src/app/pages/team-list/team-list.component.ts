@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { baseUrl, message } from "src/app/common";
 import { AlertifyService } from "src/app/shared-service/alertify.service";
 import Swal from "sweetalert2";
+import { DashboardService } from "../admin-dashboard/dashboard.service";
 import { HomeService } from "../home/home.service";
 import { team } from "../home/team";
 
@@ -14,18 +15,58 @@ import { team } from "../home/team";
 export class TeamListComponent implements OnInit {
   constructor(
     private homeService: HomeService,
-    private alert: AlertifyService
+    private alert: AlertifyService,
+    private dashboardService:DashboardService
   ) {}
+
+  @ViewChild('marqueeId') marqueeId!: ElementRef ;
 
   ngOnInit(): void {
     // this.getAllTeams();
-    this.getAllTeamsPage();
+    
+    this.teamExamReadiness()
   }
+  // ngAfterViewInit(){
+  //   this.marqueeId.nativeElement.scrollAmount = 2
+  // }
+  startMarquee(){
+    this.marqueeId.nativeElement.scrollAmount = 2
+  }
+  stopMarquee(){
+    this.marqueeId.nativeElement.scrollAmount = 0
+  }
+  errList:any
+  liveList:any
+  teamExamReadiness(){
+    this.alert.showLoading();
+    this.dashboardService.teamExamReadiness().subscribe(
+      (data:any) => {
+        Swal.close();
+        console.log(data);
+        const { errList, liveList } = data;
+        this.errList = errList;
+        this.liveList = liveList;
 
+        this.getAllTeamsPage();
+      },
+      (err) => {
+        console.log("Error :");
+        console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: message.SOMETHING_WRONG,
+          text: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    );
+  }
   page = 1;
   count = 0;
-  pageSize = 12;
-  pageSizes = [12,24,36];
+  pageSize = 8;
+  pageSizes = [8,16,28];
   params: any = {};
 
   handlePageChange(event: any) {
