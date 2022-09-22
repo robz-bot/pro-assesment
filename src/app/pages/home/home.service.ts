@@ -31,8 +31,8 @@ export class HomeService {
     return this.httpClient.get<team[]>(`${this.searchByTeamIdUrl}/${id}`);
   }
 
-  addUser(register: register): Observable<Object> {
-    return this.httpClient.post(`${this.addUserUrl}`, register);
+  addUser(register: register,params:any): Observable<Object> {
+    return this.httpClient.post(`${this.addUserUrl}`, register,{params});
   }
 
   validatePhnNumber(number:string){

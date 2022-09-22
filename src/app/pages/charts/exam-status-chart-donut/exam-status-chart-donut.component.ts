@@ -78,7 +78,7 @@ export class ExamStatusChartDonutComponent implements OnInit {
     this.chartOptions = {
       series: [this.failCount, this.passCount],
       chart: {
-        foreColor: "#373d3f",
+        foreColor: "#FFFFFF",
         width: 400,
         type: "pie",
       },

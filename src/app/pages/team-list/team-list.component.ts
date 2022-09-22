@@ -158,10 +158,13 @@ export class TeamListComponent implements OnInit {
         autocapitalize: "off",
       },
       showCancelButton: true,
-      confirmButtonText: "Save",
+      confirmButtonText: "Update",
       showLoaderOnConfirm: true,
       inputValue: item.team,
       preConfirm: (inputValue) => {
+        if(inputValue==""){
+          Swal.showValidationMessage(`Team is required!`);
+        }
         return fetch(`${baseUrl.BASE_URL}updateTeam/`, {
           method: "PUT",
           headers: {

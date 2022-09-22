@@ -93,6 +93,7 @@
       </div>
       <div class="col-lg-2 col-sm-12 col-md-4 d-flex align-items-center">
         <button
+          title="List View"
           [ngClass]="
             !gridView && listView
               ? 'btn btn-sm btn-info texxt-dark'
@@ -102,11 +103,15 @@
         >
           <i class="bi bi-list-task"></i>
         </button>
-        <button  [ngClass]="
-        gridView && !listView
-          ? 'btn btn-sm btn-info'
-          : 'btn btn-sm btn-warning text-light'
-      " (click)="enableGridView()">
+        <button
+          title="Grid View"
+          [ngClass]="
+            gridView && !listView
+              ? 'btn btn-sm btn-info'
+              : 'btn btn-sm btn-warning text-light'
+          "
+          (click)="enableGridView()"
+        >
           <i class="bi bi-grid-3x3-gap-fill"></i>
         </button>
       </div>
@@ -146,9 +151,7 @@
         <div class="card bg-light">
           <div class="card-body text-dark">
             <h5 style="text-align: center">
-              <strong id="user-name"
-                >{{ item.userName}}</strong
-              >
+              <strong id="user-name">{{ item.userName }}</strong>
             </h5>
             <p style="text-align: center; font-size: smaller" id="user-frid">
               Marks Obtained: {{ item.totalMarks }} /
@@ -227,7 +230,7 @@
         >
           <tr>
             <th scope="row">{{ (page - 1) * pageSize + i + 1 }}</th>
-            <td>{{ item.userName}}</td>
+            <td>{{ item.userName }}</td>
             <td>{{ item.totalMarks }} / {{ item.totalNoOfQuestions }}</td>
             <td>{{ item.noOfQuestionsAnswered }}</td>
             <td>{{ item.noOfQuestionsNotAnswered }}</td>

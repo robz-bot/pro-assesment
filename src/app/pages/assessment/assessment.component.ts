@@ -444,7 +444,7 @@ export class AssessmentComponent implements OnInit {
       console.log(this.answeredQn[index]);
       console.log(element);
       if (this.answeredQn[index] === element) {
-        this.totalMarkEarned += 2;
+        this.totalMarkEarned += 1;
       }
     });
   }

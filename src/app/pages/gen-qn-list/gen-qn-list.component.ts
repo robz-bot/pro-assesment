@@ -65,7 +65,11 @@ export class GenQnListComponent implements OnInit {
   handlePageSizeChange(event: any) {
     this.pageSize = event.target.value;
     this.page = 1;
-    // this.getAllGeneralQuestionsPage();
+    if (this.isSearchEnabled) {
+      this.searchByGenQn();
+    } else {
+      this.getAllGeneralQuestionsPage();
+    }
   }
 
   getRequestParams(page: number, pageSize: number) {

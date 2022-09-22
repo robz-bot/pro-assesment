@@ -92,7 +92,8 @@ export class HomeComponent implements OnInit {
       if (result.isConfirmed) {
         if (result.value) {
           // this.validatePhnNumber();
-          this.saveUser();
+          //new user 
+          this.saveUser(false);
         } else {
           this.submitBtnValue = buttonValue.START_ASSESS;
           Swal.fire({ icon: "error", text: "You are not accepted." });
@@ -124,7 +125,7 @@ export class HomeComponent implements OnInit {
             return response.json();
           })
           .catch((error) => {
-            Swal.showValidationMessage(`Request failed: ${error}`);
+            Swal.showValidationMessage(`Email is required!`);
           });
       },
       allowOutsideClick: () => !Swal.isLoading(),
@@ -182,7 +183,7 @@ export class HomeComponent implements OnInit {
               }).then((result) => {
                 if (result.isConfirmed) {
                   if (result.value) {
-                    this.saveUser();
+                    this.saveUser(true);
                   } else {
                     this.submitBtnValue = buttonValue.START_ASSESS;
                     Swal.fire({ icon: "error", text: "You are not accepted." });
@@ -209,7 +210,7 @@ export class HomeComponent implements OnInit {
         console.log("After saving in DB(user): ");
         console.log(this.resData);
         if (this.resData) {
-         this.saveUser()
+         //this.saveUser()
         } else {
           Swal.fire({
             position: "center",
@@ -237,9 +238,10 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  private saveUser() {
+  private saveUser( isFromAreadyAppread:boolean) {
     this.alert.showLoading();
-    this.homeService.addUser(this.registerValue).subscribe(
+    const params = isFromAreadyAppread;
+    this.homeService.addUser(this.registerValue, params).subscribe(
       (data) => {
         this.alert.hideLoading();
         this.resData = data;

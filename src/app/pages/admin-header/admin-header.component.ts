@@ -29,6 +29,9 @@ export class AdminHeaderComponent implements OnInit {
       showLoaderOnConfirm: true,
       preConfirm: (teamName) => {
         let team = teamName.trim();
+        if(team==""){
+          Swal.showValidationMessage(`Team is required!`);
+        }
         return fetch(`${baseUrl.BASE_URL}addTeam/`, {
           method: "POST",
           headers: {

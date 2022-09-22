@@ -47,6 +47,17 @@ export class UserAttemptsChartComponent implements OnInit {
         },
       ],
       chart: {
+        export: {
+          csv: {
+            filename: "recent_user_attepmts",
+          },
+          svg: {
+            filename:"recent_user_attepmts",
+          },
+          png: {
+            filename: "recent_user_attepmts",
+          }
+        },
         height: 350,
         type: "line",
         zoom: {
@@ -88,7 +99,6 @@ export class UserAttemptsChartComponent implements OnInit {
 
         this.settingValues();
         Swal.close();
-
       },
       (err) => {
         console.log("Error :");

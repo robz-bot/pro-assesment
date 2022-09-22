@@ -1,8 +1,9 @@
 <div class="row">
  
   <div class="col-lg-12 col-sm-12 col-md-12">
-    <div id="chart" *ngIf="passCount > 0 || failCount > 0">
+    <div id="chart" *ngIf="passCount > 0 || failCount > 0" style="color: white">
         <apx-chart
+        style="color: white"
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
         [labels]="chartOptions.labels"
