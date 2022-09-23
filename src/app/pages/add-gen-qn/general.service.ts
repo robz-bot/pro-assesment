@@ -37,7 +37,7 @@ export class GeneralService {
   getAllGeneralQuestions() {
     return this.httpClient.get(this.getAllGeneralQuestionsUrl);
   }
-
+  
   getAllGeneralQuestionsPage(params: any) {
     return this.httpClient.get(this.getAllGeneralQuestionsPageUrl, { params });
   }
@@ -50,14 +50,7 @@ export class GeneralService {
     return this.httpClient.get(`${this.searchUrl}/${type}/${keyword}`);
   }
 
-  searchGenQnPage(
-    type: string,
-    keyword: string,
-    params: any
-  ): Observable<Object> {
-    return this.httpClient.get(
-      `${this.searchGenQnPageUrl}/${type}/${keyword}`,
-      { params }
-    );
+  searchGenQnPage(type: string, keyword: string,params: any): Observable<Object> {
+    return this.httpClient.get(`${this.searchGenQnPageUrl}/${type}/${keyword}`, { params });
   }
 }
