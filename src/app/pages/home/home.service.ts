@@ -32,7 +32,8 @@ export class HomeService {
   }
 
   addUser(register: register,params:any): Observable<Object> {
-    return this.httpClient.post(`${this.addUserUrl}`, register,{params});
+    var isFromAreadyAppread = params
+    return this.httpClient.post(`${this.addUserUrl}/${isFromAreadyAppread}`, register);
   }
 
   validatePhnNumber(number:string){

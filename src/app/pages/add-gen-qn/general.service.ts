@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { baseUrl } from "src/app/common";
 import { generalQn } from "./gen-qn";
+import { searchDto } from "./searchDto";
 
 @Injectable({
   providedIn: "root",
@@ -50,7 +51,11 @@ export class GeneralService {
     return this.httpClient.get(`${this.searchUrl}/${type}/${keyword}`);
   }
 
+  searchDto:searchDto = new searchDto()
   searchGenQnPage(type: string, keyword: string,params: any): Observable<Object> {
-    return this.httpClient.get(`${this.searchGenQnPageUrl}/${type}/${keyword}`, { params });
+    this.searchDto.keyword=keyword;
+    this.searchDto.type=type;
+    return this.httpClient.post(`${this.searchGenQnPageUrl}`, this.searchDto, { params });
+    // return this.httpClient.get(`${this.searchGenQnPageUrl}/${type}/${keyword}`, { params });
   }
 }

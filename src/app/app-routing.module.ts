@@ -12,6 +12,7 @@ import { TeamListComponent } from "./pages/team-list/team-list.component";
 import { TechQnListComponent } from "./pages/tech-qn-list/tech-qn-list.component";
 import { UpdateGenQnComponent } from "./pages/update-gen-qn/update-gen-qn.component";
 import { UpdateTechQnComponent } from "./pages/update-tech-qn/update-tech-qn.component";
+import { UsersListComponent } from "./pages/users-list/users-list.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: "gen-qn-list", component: GenQnListComponent },
   { path: "tech-qn-list", component: TechQnListComponent },
   { path: "team-list", component: TeamListComponent },
+  { path: "user-list", component: UsersListComponent },
   { path: "report", component: ReportComponent },
 ];
 

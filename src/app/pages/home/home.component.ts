@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
         if (result.value) {
           // this.validatePhnNumber();
           //new user 
-          this.saveUser(false);
+          this.saveUser("false");
         } else {
           this.submitBtnValue = buttonValue.START_ASSESS;
           Swal.fire({ icon: "error", text: "You are not accepted." });
@@ -183,7 +183,7 @@ export class HomeComponent implements OnInit {
               }).then((result) => {
                 if (result.isConfirmed) {
                   if (result.value) {
-                    this.saveUser(true);
+                    this.saveUser("true");
                   } else {
                     this.submitBtnValue = buttonValue.START_ASSESS;
                     Swal.fire({ icon: "error", text: "You are not accepted." });
@@ -238,7 +238,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  private saveUser( isFromAreadyAppread:boolean) {
+  private saveUser( isFromAreadyAppread:string) {
     this.alert.showLoading();
     const params = isFromAreadyAppread;
     this.homeService.addUser(this.registerValue, params).subscribe(

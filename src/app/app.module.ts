@@ -26,6 +26,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import { UserAttemptsChartComponent } from './pages/charts/user-attempts-chart/user-attempts-chart.component';
 import { ExamStatusChartComponent } from './pages/charts/exam-status-chart/exam-status-chart.component';
 import { ExamStatusChartDonutComponent } from './pages/charts/exam-status-chart-donut/exam-status-chart-donut.component';
+import { UsersListComponent } from './pages/users-list/users-list.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ExamStatusChartDonutComponent } from './pages/charts/exam-status-chart-
     UserAttemptsChartComponent,
     ExamStatusChartComponent,
     ExamStatusChartDonutComponent,
+    UsersListComponent,
   ],
   imports: [
     

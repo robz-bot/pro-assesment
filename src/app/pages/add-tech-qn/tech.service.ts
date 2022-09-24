@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { baseUrl } from "src/app/common";
 import { generalQn } from "../add-gen-qn/gen-qn";
+import { searchDto } from "../add-gen-qn/searchDto";
 
 @Injectable({
   providedIn: "root",
@@ -47,15 +48,18 @@ export class TechService {
   search(type: string, keyword: string): Observable<Object> {
     return this.httpClient.get(`${this.searchUrl}/${type}/${keyword}`);
   }
-
+  searchDto:searchDto = new searchDto()
   searchtechQnsPage(
     type: string,
     keyword: string,
     params: any
   ): Observable<Object> {
-    return this.httpClient.get(
-      `${this.searchtechQnsPageUrl}/${type}/${keyword}`,
-      { params }
-    );
+    this.searchDto.keyword=keyword;
+    this.searchDto.type=type;
+    return this.httpClient.post(`${this.searchtechQnsPageUrl}`, this.searchDto, { params });
+    // return this.httpClient.get(
+    //   `${this.searchtechQnsPageUrl}/${type}/${keyword}`,
+    //   { params }
+    // );
   }
 }
