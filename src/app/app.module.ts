@@ -27,6 +27,8 @@ import { UserAttemptsChartComponent } from './pages/charts/user-attempts-chart/u
 import { ExamStatusChartComponent } from './pages/charts/exam-status-chart/exam-status-chart.component';
 import { ExamStatusChartDonutComponent } from './pages/charts/exam-status-chart-donut/exam-status-chart-donut.component';
 import { UsersListComponent } from './pages/users-list/users-list.component';
+import { InactiveQnComponent } from './pages/inactive-qn/inactive-qn.component';
+import { ActiveInactiveChartComponent } from './pages/charts/active-inactive-chart/active-inactive-chart.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { UsersListComponent } from './pages/users-list/users-list.component';
     ExamStatusChartComponent,
     ExamStatusChartDonutComponent,
     UsersListComponent,
+    InactiveQnComponent,
+    ActiveInactiveChartComponent,
   ],
   imports: [
     

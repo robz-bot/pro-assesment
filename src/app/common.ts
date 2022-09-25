@@ -21,6 +21,13 @@ export class buttonValue {
 export class message {
   public static SOMETHING_WRONG =
     "Something went wrong. Please contact administrator";
+    public static ALERT_TITLE = "Are you sure?"
+    public static INACTIVE_TEXT = "You want this question to move to inactive!"
+    public static ACTIVE_TEXT = "You want this question to move to active!"
+    public static DELETE_TEXT = "You won't be able to revert this!"
+    public static CONFIRM_DELETE_BTN = "Yes, delete it!"
+    public static CONFIRM_INACTIVE_BTN = "Yes, Move it!"
+    public static CANCEL_BTN = "No, cancel!"
 }
 
 export class commonFunctions {

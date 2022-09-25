@@ -10,12 +10,17 @@ export class DashboardService {
   constructor(private httpClient: HttpClient) {}
   //Home URL
   private widgetDataUrl = baseUrl.BASE_URL + "widgetData";
+  private questionsActiveInactiveUrl = baseUrl.BASE_URL + "questionsActiveInactive";
   private userAttemptsChartUrl = baseUrl.BASE_URL + "userAttemptsChart";
   private datewisePassFailUrl = baseUrl.BASE_URL + "datewisePassFail";
   private teamExamReadinessUrl = baseUrl.BASE_URL + "teamExamReadiness";
 
   widgetData() {
     return this.httpClient.get<widget[]>(this.widgetDataUrl);
+  }
+  
+  questionsActiveInactive() {
+    return this.httpClient.get<widget[]>(this.questionsActiveInactiveUrl);
   }
   
   datewisePassFail(date: string) {

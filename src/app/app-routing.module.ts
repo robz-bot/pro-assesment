@@ -7,6 +7,7 @@ import { AdminLoginComponent } from "./pages/admin-login/admin-login.component";
 import { AssessmentComponent } from "./pages/assessment/assessment.component";
 import { GenQnListComponent } from "./pages/gen-qn-list/gen-qn-list.component";
 import { HomeComponent } from "./pages/home/home.component";
+import { InactiveQnComponent } from "./pages/inactive-qn/inactive-qn.component";
 import { ReportComponent } from "./pages/report/report.component";
 import { TeamListComponent } from "./pages/team-list/team-list.component";
 import { TechQnListComponent } from "./pages/tech-qn-list/tech-qn-list.component";
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: "team-list", component: TeamListComponent },
   { path: "user-list", component: UsersListComponent },
   { path: "report", component: ReportComponent },
+  { path: "inactive-qn", component: InactiveQnComponent },
 ];
 
 @NgModule({

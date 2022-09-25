@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import { message } from "src/app/common";
+import { commonFunctions, message } from "src/app/common";
 import { AlertifyService } from "src/app/shared-service/alertify.service";
 import Swal from "sweetalert2";
 import { generalQn } from "../add-gen-qn/gen-qn";
@@ -123,12 +123,12 @@ export class GenQnListComponent implements OnInit {
   deleteGeneralQuestionById(qnId: string) {
     this.swalWithBootstrapButtons
       .fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        title: message.ALERT_TITLE,
+        text: message.DELETE_TEXT,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
+        confirmButtonText: message.CONFIRM_DELETE_BTN,
+        cancelButtonText: message.CANCEL_BTN,
         reverseButtons: true,
       })
       .then((result: any) => {
@@ -144,8 +144,47 @@ export class GenQnListComponent implements OnInit {
       });
   }
 
+  inactiveGeneralQuestionById(qnId: string) {
+    this.swalWithBootstrapButtons
+      .fire({
+        title: message.ALERT_TITLE,
+        text: message.INACTIVE_TEXT,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: message.CONFIRM_INACTIVE_BTN,
+        cancelButtonText: message.CANCEL_BTN,
+        reverseButtons: true,
+      })
+      .then((result: any) => {
+        if (result.isConfirmed) {
+          this.callingInactiveService(qnId);
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.swalWithBootstrapButtons.fire(
+            "Cancelled",
+            "Question is safe :)",
+            "info"
+          );
+        }
+      });
+  }
+
   callingDeleteService(qnId: string) {
     this.genService.deleteGeneralQuestionById(qnId).subscribe((data: any) => {
+      console.log(data);
+      Swal.fire({
+        title: data.message,
+      }).then((result) => {
+        console.log(result.isConfirmed);
+        if (result.isConfirmed) {
+          Swal.close();
+          this.getAllGeneralQuestionsPage();
+        }
+      });
+    });
+  }
+
+  callingInactiveService(qnId: string) {
+    this.genService.inactiveGeneralQuestionById(qnId).subscribe((data: any) => {
       console.log(data);
       Swal.fire({
         title: data.message,

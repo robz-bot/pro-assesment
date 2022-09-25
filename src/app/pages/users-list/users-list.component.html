@@ -2,12 +2,10 @@
 <!-- <div class="container"> -->
 <div class="card">
   <div class="card-header">
-    <h6 class="text-center text-light">
-      User(s) List
-    </h6>
+    <h6 class="text-center text-light">User(s) List</h6>
   </div>
   <div class="card-body bg-light">
-    <form #f="ngForm" (ngSubmit)="searchByUser()" novalidate  >
+    <form #f="ngForm" (ngSubmit)="searchByUser()" novalidate>
       <div class="d-flex flex-wrap flex-row bd-highlight mb-3">
         <div class="p-2 bd-highlight text-dark">Search By:</div>
         <div class="p-2 bd-highlight text-dark">
@@ -28,7 +26,7 @@
           </select>
         </div>
         <div class="p-2 bd-highlight">
-            <input
+          <input
             type="text"
             name="searchKey"
             class="form-control form-control-sm"
@@ -43,7 +41,9 @@
             *ngIf="isEnableTeam"
           >
             <option value="">Select</option>
-            <option *ngFor="let item of teamList" [value]="item.id">{{item.team}}</option>
+            <option *ngFor="let item of teamList" [value]="item.id">
+              {{ item.team }}
+            </option>
           </select>
         </div>
         <div class="p-2 bd-highlight">
@@ -59,9 +59,12 @@
         </div>
       </div>
     </form>
-    <div class="card-header row bg-dark align-items-center" *ngIf="userList.length > 0">
+    <div
+      class="card-header row bg-dark align-items-center"
+      *ngIf="userList.length > 0"
+    >
       <div class="col-lg-2 col-sm-12 col-md-4 d-flex align-items-center">
-        <label> Total Items: {{count}}</label>
+        <label> Total Items: {{ count }}</label>
       </div>
       <div
         class="col-lg-10 col-sm-12 col-md-4 d-flex justify-content-end align-items-center"
@@ -76,8 +79,7 @@
       </div>
     </div>
     <div class="row my-2">
-    
-    <div class="row my-2 table-responsive">
+      <div class="row my-2 table-responsive">
         <p
           *ngIf="userList.length == 0"
           class="text-center badge bg-warning text-dark"
@@ -112,7 +114,7 @@
           >
             <tr>
               <th scope="row">{{ (page - 1) * pageSize + i + 1 }}</th>
-              <td>{{ item.firstName }} {{item.lastName}}</td>
+              <td>{{ item.firstName }} {{ item.lastName }}</td>
               <td>{{ item.empCode }}</td>
               <td>{{ item.email }}</td>
               <td>{{ item.manager }}</td>
@@ -124,8 +126,11 @@
         </table>
       </div>
     </div>
-    <div class="card-header row bg-dark align-items-center" *ngIf="userList.length > 0">
-      <div class="col-lg-2 col-sm-12 col-md-4 ">
+    <div
+      class="card-header row bg-dark align-items-center"
+      *ngIf="userList.length > 0"
+    >
+      <div class="col-lg-2 col-sm-12 col-md-4">
         <label> Items per Page:</label>
         <select
           (change)="handlePageSizeChange($event)"
@@ -148,7 +153,6 @@
         ></pagination-controls>
       </div>
     </div>
-    
   </div>
   <div class="card-footer"></div>
 </div>

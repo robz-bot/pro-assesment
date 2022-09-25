@@ -19,8 +19,10 @@ export class TechService {
     baseUrl.BASE_URL + "deleteTechQuestionById";
   private updateTechQuestionUrl = baseUrl.BASE_URL + "updateTechQuestion";
   private getTechQuestionByIdUrl = baseUrl.BASE_URL + "getTechQuestionById";
+  private getInactiveQnsUrl = baseUrl.BASE_URL + "getInactiveQns";
   private searchUrl = baseUrl.BASE_URL + "searchtechQns";
   private searchtechQnsPageUrl = baseUrl.BASE_URL + "searchtechQnsPage";
+  private activeQuestionByIdUrl = baseUrl.BASE_URL + "activeQuestionById";
 
   addTechQuestion(genQn: generalQn): Observable<Object> {
     return this.httpClient.post(`${this.addTechQuestionUrl}`, genQn);
@@ -39,6 +41,14 @@ export class TechService {
 
   getAllTechQuestionsPage(params: any) {
     return this.httpClient.get(this.getAllTechQuestionsPageUrl, { params });
+  }
+
+  getInactiveQns(type: string, keyword: string) {
+    return this.httpClient.get(`${this.getInactiveQnsUrl}/${type}/${keyword}`);
+  }
+
+  activeQuestionById(type: string, id: string) {
+    return this.httpClient.get(`${this.activeQuestionByIdUrl}/${type}/${id}`);
   }
 
   updateTechQuestion(genQn: generalQn) {
