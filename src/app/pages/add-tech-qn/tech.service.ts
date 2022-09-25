@@ -23,6 +23,7 @@ export class TechService {
   private searchUrl = baseUrl.BASE_URL + "searchtechQns";
   private searchtechQnsPageUrl = baseUrl.BASE_URL + "searchtechQnsPage";
   private activeQuestionByIdUrl = baseUrl.BASE_URL + "activeQuestionById";
+  private inactiveTechQuestionByIdUrl = baseUrl.BASE_URL + "inactiveTechQuestionById";
 
   addTechQuestion(genQn: generalQn): Observable<Object> {
     return this.httpClient.post(`${this.addTechQuestionUrl}`, genQn);
@@ -31,8 +32,13 @@ export class TechService {
   getTechQuestionById(id: string): Observable<Object> {
     return this.httpClient.get(`${this.getTechQuestionByIdUrl}/${id}`);
   }
+
   deleteTechQuestionById(id: string): Observable<Object> {
     return this.httpClient.delete(`${this.deleteTechQuestionByIdUrl}/${id}`);
+  }
+
+  inactiveTechQuestionById(id: string): Observable<Object> {
+    return this.httpClient.get(`${this.inactiveTechQuestionByIdUrl}/${id}`);
   }
 
   getAllTechQuestions() {

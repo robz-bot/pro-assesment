@@ -192,6 +192,45 @@ export class TechQnListComponent implements OnInit {
     });
   }
 
+  inactiveTechQuestionById(qnId: string) {
+    this.swalWithBootstrapButtons
+      .fire({
+        title: message.ALERT_TITLE,
+        text: message.INACTIVE_TEXT,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: message.CONFIRM_INACTIVE_BTN,
+        cancelButtonText: message.CANCEL_BTN,
+        reverseButtons: true,
+      })
+      .then((result: any) => {
+        if (result.isConfirmed) {
+          this.callingInactiveService(qnId);
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.swalWithBootstrapButtons.fire(
+            "Cancelled",
+            "Question is safe :)",
+            "info"
+          );
+        }
+      });
+  }
+
+  callingInactiveService(qnId: string) {
+    this.techService.inactiveTechQuestionById(qnId).subscribe((data: any) => {
+      console.log(data);
+      Swal.fire({
+        title: data.message,
+      }).then((result) => {
+        console.log(result.isConfirmed);
+        if (result.isConfirmed) {
+          Swal.close();
+          this.getAllTechQuestionsPage();
+        }
+      });
+    });
+  }
+
   searchKey: string = "";
   searchType: string = "";
   searchByTechQn(f: NgForm) {

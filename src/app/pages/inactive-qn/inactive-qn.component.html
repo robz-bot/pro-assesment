@@ -1,52 +1,57 @@
 <app-admin-header></app-admin-header>
-<!-- <div class="container"> -->
-<div class="card">
-  <div class="card-header">
-    <h6 class="text-center text-light">Inactive Questions List</h6>
-  </div>
-  <div class="card-body bg-light">
-    <div class="d-flex flex-wrap flex-row bd-highlight mb-3">
-      <div class="p-2 bd-highlight text-dark">Choose By:</div>
-      <div class="p-2 bd-highlight text-dark">
-        <select
-          name="searchType"
-          [(ngModel)]="searchType"
-          class="form-select form-select-sm"
-          (ngModelChange)="onChangeStatus($event)"
-        >
-          <option value="">Select</option>
-          <option value="techQuestions">Technical Questions</option>
-          <option value="genQuestions">General Questions</option>
-          <!-- <option value="attempts">Registered On</option> -->
-        </select>
-      </div>
-      <div class="p-2 bd-highlight">
-        <select
-          name="searchKey"
-          class="form-select form-select-sm"
-          [(ngModel)]="searchKey"
-          *ngIf="isEnableTeam"
-        >
-          <option value="">Select</option>
-          <option *ngFor="let item of teamList" [value]="item.id">
-            {{ item.team }}
-          </option>
-        </select>
-      </div>
-      <div class="p-2 bd-highlight">
-        <input
-          type="submit"
-          value="Look Up"
-          class="btn btn-sm btn-primary"
-          (click)="getInactiveQns()"
-        />
-      </div>
-      <div class="p-2 bd-highlight">
-        <input type="button" value="Clear" class="btn btn-sm btn-danger" />
-      </div>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h6 class="text-center text-light">Inactive Questions List</h6>
     </div>
+    <div class="card-body bg-light">
+      <div class="d-flex flex-wrap flex-row bd-highlight mb-3">
+        <div class="p-2 bd-highlight text-dark">Choose By:</div>
+        <div class="p-2 bd-highlight text-dark">
+          <select
+            name="searchType"
+            [(ngModel)]="searchType"
+            class="form-select form-select-sm"
+            (ngModelChange)="onChangeStatus($event)"
+          >
+            <option value="">Select</option>
+            <option value="techQuestions">Technical Questions</option>
+            <option value="genQuestions">General Questions</option>
+            <!-- <option value="attempts">Registered On</option> -->
+          </select>
+        </div>
+        <div class="p-2 bd-highlight">
+          <select
+            name="searchKey"
+            class="form-select form-select-sm"
+            [(ngModel)]="searchKey"
+            *ngIf="isEnableTeam"
+          >
+            <option value="">Select</option>
+            <option *ngFor="let item of teamList" [value]="item.id">
+              {{ item.team }}
+            </option>
+          </select>
+        </div>
+        <div class="p-2 bd-highlight">
+          <input
+            type="submit"
+            value="Search"
+            class="btn btn-sm btn-primary"
+            (click)="getInactiveQns()"
+          />
+        </div>
+        <div class="p-2 bd-highlight">
+          <input
+            type="button"
+            value="Clear"
+            class="btn btn-sm btn-danger"
+            (click)="clearFields()"
+          />
+        </div>
+      </div>
 
-    <div class="row my-2" >
+      <div class="row my-2">
         <div class="row my-2 table-responsive">
           <p
             *ngIf="inactiveList.length == 0"
@@ -59,6 +64,7 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Question</th>
+                <th scope="col">Answer</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -78,16 +84,20 @@
               <tr>
                 <th scope="row">{{ (page - 1) * pageSize + i + 1 }}</th>
                 <td>{{ item.question }}</td>
-                <td> <a
+                <td>{{ item.answer }}</td>
+                <td>
+                  <a
                     href="javascript:void(0)"
-                    class="btn btn-outline-dark btn-sm mx-2"
+                    class="btn btn-outline-dark btn-sm"
                     (click)="activeQuestionById(item.id)"
                     >Activate</a
-                  ></td>
+                  >
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
+    </div>
   </div>
 </div>

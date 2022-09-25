@@ -11,7 +11,7 @@
         [responsive]="chartOptions.responsive"
       ></apx-chart>
     </div>
-    <div class="col-lg-12 col-sm-12 col-md-12" *ngIf="passCount == 0 || failCount == 0" >
+    <div class="col-lg-12 col-sm-12 col-md-12" *ngIf="displayDate" >
       <input
         type="date"
         class="form-control form-control-sm w-50"
@@ -24,4 +24,4 @@
   </div>
 </div>
 
-<p *ngIf="passCount == 0 && failCount == 0" class="m-5">No Record(s) Found</p>
+<p *ngIf="passCount == 0 && failCount == 0" class="my-3">No Record(s) Found for Date-wise Pass and Fail Counts</p>

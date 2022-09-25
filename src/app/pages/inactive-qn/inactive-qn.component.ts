@@ -177,4 +177,11 @@ export class InactiveQnComponent implements OnInit {
       }
     );
   }
+
+  clearFields() {
+    this.searchKey = "";
+    this.searchType = "";
+    this.inactiveList=[]
+  }
+
 }

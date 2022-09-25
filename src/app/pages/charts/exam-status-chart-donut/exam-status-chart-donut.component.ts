@@ -46,6 +46,7 @@ export class ExamStatusChartDonutComponent implements OnInit {
   searchDate: any;
   passCount: number = 0;
   failCount: number = 0;
+  displayDate:boolean = false
   datewisePassFail() {
     this.alert.showLoading();
 
@@ -57,6 +58,7 @@ export class ExamStatusChartDonutComponent implements OnInit {
         this.failCount = fail;
 
         this.settingValues();
+        this.displayDate=true
         Swal.close();
       },
       (err) => {
