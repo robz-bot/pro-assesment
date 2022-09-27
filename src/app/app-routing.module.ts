@@ -4,6 +4,7 @@ import { AddGenQnComponent } from "./pages/add-gen-qn/add-gen-qn.component";
 import { AddTechQnComponent } from "./pages/add-tech-qn/add-tech-qn.component";
 import { AdminDashboardComponent } from "./pages/admin-dashboard/admin-dashboard.component";
 import { AdminLoginComponent } from "./pages/admin-login/admin-login.component";
+import { AdminRequestComponent } from "./pages/admin-request/admin-request.component";
 import { AssessmentComponent } from "./pages/assessment/assessment.component";
 import { GenQnListComponent } from "./pages/gen-qn-list/gen-qn-list.component";
 import { HomeComponent } from "./pages/home/home.component";
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: "user-list", component: UsersListComponent },
   { path: "report", component: ReportComponent },
   { path: "inactive-qn", component: InactiveQnComponent },
+  { path: "admin-request", component: AdminRequestComponent },
 ];
 
 @NgModule({

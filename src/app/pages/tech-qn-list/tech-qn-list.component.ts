@@ -119,6 +119,7 @@ export class TechQnListComponent implements OnInit {
   }
 
   getAllTechQuestionsPage() {
+    this.isSearchEnabled = false;
     this.clearFields();
     const params = this.getRequestParams(this.page, this.pageSize);
     this.alert.showLoading();
