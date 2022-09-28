@@ -25,9 +25,14 @@ export class GeneralService {
     baseUrl.BASE_URL + "getGeneralQuestionById";
   private searchUrl = baseUrl.BASE_URL + "search";
   private searchGenQnPageUrl = baseUrl.BASE_URL + "searchGenQnPage";
+  private saveBulkGeneralQuestionsUrl = baseUrl.BASE_URL + "saveBulkGeneralQuestions";
 
   addGeneralQuestion(genQn: generalQn): Observable<Object> {
     return this.httpClient.post(`${this.addGeneralQuestionUrl}`, genQn);
+  }
+
+  saveBulkGeneralQuestions(genQn: generalQn[]): Observable<Object> {
+    return this.httpClient.post(`${this.saveBulkGeneralQuestionsUrl}`, genQn);
   }
 
   getGeneralQuestionById(id: string): Observable<Object> {

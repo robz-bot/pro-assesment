@@ -29,7 +29,7 @@
             "styles": [
               "src/styles.css","src/assets/css/bootstrap.min.css","node_modules/sweetalert2/src/sweetalert2.scss"
             ],
-            "scripts": [ "node_modules/jquery/dist/jquery.min.js","node_modules/apexcharts/dist/apexcharts.min.js"]
+            "scripts": ["node_modules/file-saver/dist/FileSaver.js", "node_modules/jquery/dist/jquery.min.js","node_modules/apexcharts/dist/apexcharts.min.js"]
           },
           "configurations": {
             "production": {
