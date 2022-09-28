@@ -10,6 +10,7 @@ import { ReportService } from "./report.service";
 
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { ExcelService } from "src/app/shared-service/excel.service";
 
 @Component({
   selector: "app-report",
@@ -19,7 +20,8 @@ import html2canvas from "html2canvas";
 export class ReportComponent implements OnInit {
   constructor(
     private reportService: ReportService,
-    private alert: AlertifyService
+    private alert: AlertifyService,
+    private excelService:ExcelService
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +44,7 @@ export class ReportComponent implements OnInit {
   }
 
   reportList: any = [];
+  excelList: any = [];
 
   page = 1;
   count = 0;
@@ -98,6 +101,14 @@ export class ReportComponent implements OnInit {
       }
     );
   }
+
+  exportAsXLSX():void {  
+    console.log("Inside Excel")
+    console.log(this.reportList)
+    this.excelList = this.reportList
+    this.excelService.exportAsExcelFile(this.excelList, 'report');  
+    // this.getAllReports()
+ }  
 
   getAllReports() {
     this.clearFields();
