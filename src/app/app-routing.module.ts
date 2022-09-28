@@ -9,13 +9,14 @@ import { AssessmentComponent } from "./pages/assessment/assessment.component";
 import { GenQnListComponent } from "./pages/gen-qn-list/gen-qn-list.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { InactiveQnComponent } from "./pages/inactive-qn/inactive-qn.component";
-import { MainComponent } from "./pages/main/main.component";
+import { MainComponent } from "./pages/bulk-gen-qns/bulk-gen-qns.component";
 import { ReportComponent } from "./pages/report/report.component";
 import { TeamListComponent } from "./pages/team-list/team-list.component";
 import { TechQnListComponent } from "./pages/tech-qn-list/tech-qn-list.component";
 import { UpdateGenQnComponent } from "./pages/update-gen-qn/update-gen-qn.component";
 import { UpdateTechQnComponent } from "./pages/update-tech-qn/update-tech-qn.component";
 import { UsersListComponent } from "./pages/users-list/users-list.component";
+import { BulkTechQnsComponent } from "./pages/bulk-tech-qns/bulk-tech-qns.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path: "report", component: ReportComponent },
   { path: "inactive-qn", component: InactiveQnComponent },
   { path: "admin-request", component: AdminRequestComponent },
-  { path: "main", component: MainComponent },
+  { path: "upload-gen-qns", component: MainComponent },
+  { path: "upload-tech-qns", component: BulkTechQnsComponent },
 ];
 
 @NgModule({

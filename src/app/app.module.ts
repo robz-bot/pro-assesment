@@ -18,7 +18,7 @@ import { GenQnListComponent } from "./pages/gen-qn-list/gen-qn-list.component";
 import { TechQnListComponent } from "./pages/tech-qn-list/tech-qn-list.component";
 import { UpdateGenQnComponent } from "./pages/update-gen-qn/update-gen-qn.component";
 import { UpdateTechQnComponent } from "./pages/update-tech-qn/update-tech-qn.component";
-import { MainComponent } from "./pages/main/main.component";
+import { MainComponent } from "./pages/bulk-gen-qns/bulk-gen-qns.component";
 import { TeamListComponent } from "./pages/team-list/team-list.component";
 import { ReportComponent } from './pages/report/report.component';
 import { NgxPaginationModule } from "ngx-pagination";
@@ -30,6 +30,7 @@ import { UsersListComponent } from './pages/users-list/users-list.component';
 import { InactiveQnComponent } from './pages/inactive-qn/inactive-qn.component';
 import { ActiveInactiveChartComponent } from './pages/charts/active-inactive-chart/active-inactive-chart.component';
 import { AdminRequestComponent } from './pages/admin-request/admin-request.component';
+import { BulkTechQnsComponent } from './pages/bulk-tech-qns/bulk-tech-qns.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { AdminRequestComponent } from './pages/admin-request/admin-request.compo
     InactiveQnComponent,
     ActiveInactiveChartComponent,
     AdminRequestComponent,
+    BulkTechQnsComponent,
   ],
   imports: [
     

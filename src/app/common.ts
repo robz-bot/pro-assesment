@@ -22,6 +22,8 @@ export class message {
   public static SOMETHING_WRONG =
     "Something went wrong. Please contact administrator";
     public static ALERT_TITLE = "Are you sure?"
+    public static UPLOAD_QN_TEXT = "You want all of these questions uploaded!"
+    public static CONFIRM_UPLOAD_BTN = "Yes, upload it!"
     public static INACTIVE_TEXT = "You want this question to move to inactive!"
     public static ACTIVE_TEXT = "You want this question to move to active!"
     public static DELETE_TEXT = "You won't be able to revert this!"
