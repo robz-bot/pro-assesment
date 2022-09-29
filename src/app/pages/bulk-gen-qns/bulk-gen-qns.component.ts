@@ -6,6 +6,7 @@ import { ViewChild } from "@angular/core";
 import Swal from "sweetalert2";
 import { message } from "src/app/common";
 import { AlertifyService } from "src/app/shared-service/alertify.service";
+import { Router } from "@angular/router";
 type AOA = any[][];
 @Component({
   selector: "app-main",
@@ -15,7 +16,8 @@ type AOA = any[][];
 export class MainComponent {
   constructor(
     private generalService: GeneralService,
-    private alert: AlertifyService
+    private alert: AlertifyService,
+    private router: Router
   ) {}
   resultList: generalQn[] = [];
   genDto: generalQn = new generalQn();
@@ -72,6 +74,7 @@ export class MainComponent {
             allowOutsideClick: false,
           }).then((result) => {
             if (result.isConfirmed) {
+              this.router.navigateByUrl("/gen-qn-list");
               this.clearInput();
             }
           });
@@ -133,9 +136,29 @@ export class MainComponent {
 
       /* save data */
       this.data = <AOA>XLSX.utils.sheet_to_json(ws, { header: 1 });
-      // console.log("data:", this.data);
+      console.log("data:", this.data);
 
       var len = this.data.length;
+
+      for (var i = 0; i < len; i++) {
+        if (this.data[i].length > 6) {
+          this.enableSaveBtn = false;
+          Swal.fire({
+            title:
+              "Invalid Data found. First 6 columns should be used to upload the questions. Check your excel and re-upload",
+            showDenyButton: false,
+            showCancelButton: false,
+            allowOutsideClick: false,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.enableSaveBtn = false;
+              return;
+            }
+          });
+        } else {
+          this.enableSaveBtn = true;
+        }
+      }
 
       for (var i = 0; i < len; i++) {
         this.genDto = new generalQn();

@@ -8,6 +8,7 @@ type AOA = any[][];
 import * as XLSX from "xlsx";
 import { message } from "src/app/common";
 import { TechService } from "../add-tech-qn/tech.service";
+import { Router } from "@angular/router";
 @Component({
   selector: "app-bulk-tech-qns",
   templateUrl: "./bulk-tech-qns.component.html",
@@ -17,7 +18,8 @@ export class BulkTechQnsComponent implements OnInit {
   constructor(
     private homeService: HomeService,
     private techService: TechService,
-    private alert: AlertifyService
+    private alert: AlertifyService,
+    private router: Router
   ) {}
 
   teamList: any[] = [];
@@ -84,7 +86,8 @@ export class BulkTechQnsComponent implements OnInit {
             allowOutsideClick: false,
           }).then((result) => {
             if (result.isConfirmed) {
-              this.clearInput()
+              this.clearInput();
+              this.router.navigateByUrl("/tech-qn-list");
             }
           });
         } else if (status == 1) {
@@ -123,7 +126,7 @@ export class BulkTechQnsComponent implements OnInit {
     this.myInputVariable.nativeElement.value = "";
     this.teamId = "0";
     this.data = [];
-    this.resultList=[]
+    this.resultList = [];
   }
 
   enableSaveBtn: boolean = false;
@@ -152,9 +155,29 @@ export class BulkTechQnsComponent implements OnInit {
 
         /* save data */
         this.data = <AOA>XLSX.utils.sheet_to_json(ws, { header: 1 });
-        // console.log("data:", this.data);
+        console.log("data:", this.data);
 
         var len = this.data.length;
+
+        for (var i = 0; i < len; i++) {
+          if (this.data[i].length > 6) {
+            this.enableSaveBtn = false;
+            Swal.fire({
+              title:
+                "Invalid Data found. First 6 columns should be used to upload the questions. Check your excel and re-upload",
+              showDenyButton: false,
+              showCancelButton: false,
+              allowOutsideClick: false,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.enableSaveBtn = false;
+                return;
+              }
+            });
+          } else {
+            this.enableSaveBtn = true;
+          }
+        }
 
         for (var i = 0; i < len; i++) {
           this.genDto = new generalQn();
@@ -168,7 +191,7 @@ export class BulkTechQnsComponent implements OnInit {
           this.resultList.push(this.genDto);
         }
 
-        console.log(this.resultList);
+        // console.log(this.resultList);
 
         this.resultList.map((res) => {
           console.log(res);
