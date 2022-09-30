@@ -60,8 +60,8 @@ export class InactiveQnComponent implements OnInit {
 
   page = 1;
   count = 0;
-  pageSize = 8;
-  pageSizes = [8, 16, 28];
+  pageSize = 5;
+  pageSizes = [5, 10, 15];
   params: any = {};
 
   handlePageChange(event: any) {

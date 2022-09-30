@@ -54,7 +54,7 @@ export class ReportComponent implements OnInit {
 
   handlePageChange(event: any) {
     this.page = event;
-    this.getAllReports();
+    // this.getAllReports();
   }
 
   handlePageSizeChange(event: any) {
@@ -111,7 +111,7 @@ export class ReportComponent implements OnInit {
  }  
 
   getAllReports() {
-    this.clearFields();
+  //  this.clearFields();
     this.alert.showLoading();
     this.reportService.getAllReports().subscribe(
       (data) => {
@@ -261,12 +261,14 @@ export class ReportComponent implements OnInit {
   }
 
   clearFields() {
+    this.page = 1;
     this.isEnableStatus = false;
     this.isEnableSearchText = true;
     this.isEnablePercent = false;
     this.isEnableReportDate = false;
     this.searchKey = "";
     this.searchType = "";  
+    this.getAllReports();
   }
 
   downloadPDFReport() {
