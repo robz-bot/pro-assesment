@@ -392,7 +392,7 @@ export class AssessmentComponent implements OnInit {
         // //alert("show summary")
         this.showSummary();
       }
-    }, 50);
+    }, 1800);
   }
 
   answeredQn: any = [];
