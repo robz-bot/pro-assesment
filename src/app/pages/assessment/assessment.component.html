@@ -1,4 +1,8 @@
-<div class="bg-light rounded-3 text-dark d-lg-none d-md-block">
+<div class="full-screen" ngxFullscreen #fullscreen="ngxFullscreen">
+  <button (click)="enterFullscreen()"  #fullScreenBtn class="d-none">
+    Toggle Fullscreen
+  </button>
+<div class="bg-light rounded-3 text-dark d-lg-none d-md-block" #myAssess>
   <div class="container container-fluid">
     <p class="fw-bold">
       Welcome, {{ questionList[0].firstName }} {{ questionList[0].lastName }} !
@@ -271,4 +275,4 @@
   <div
     class="offcanvas-footer d-flex justify-content-center align-items-center my-3"
   ></div>
-</div>
+</div></div>

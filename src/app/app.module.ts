@@ -31,6 +31,7 @@ import { InactiveQnComponent } from './pages/inactive-qn/inactive-qn.component';
 import { ActiveInactiveChartComponent } from './pages/charts/active-inactive-chart/active-inactive-chart.component';
 import { AdminRequestComponent } from './pages/admin-request/admin-request.component';
 import { BulkTechQnsComponent } from './pages/bulk-tech-qns/bulk-tech-qns.component';
+import { NgxFullscreenModule } from "@ultimate/ngx-fullscreen";
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { BulkTechQnsComponent } from './pages/bulk-tech-qns/bulk-tech-qns.compon
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    NgxFullscreenModule 
     
     
   ],
