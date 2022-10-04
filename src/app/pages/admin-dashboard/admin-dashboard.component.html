@@ -1,0 +1,40 @@
+<app-admin-header></app-admin-header>
+
+<div class="row m-3">
+  <div
+    class="col-lg-3 col-xl-3 col-sm-6 col-12 my-1"
+    *ngFor="let item of widgetList; let i = index"
+  >
+    <div class="card" *ngIf="i <= 3">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="media d-flex justify-content-between">
+            <div class="align-self-center fs-1 float-left">
+              <i [ngClass]="item.styleClass"></i>
+            </div>
+            <div class="media-body d-flex flex-column align-items-end">
+              <h3 class="">{{ item.count }}</h3>
+              <span>{{ item.title }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row my-3">
+  <div class="col-lg-6 col-sm-12 col-md-12">
+    <app-exam-status-chart></app-exam-status-chart>
+  </div>
+  <div class="col-lg-6 col-sm-12 col-md-12">
+    <app-exam-status-chart-donut></app-exam-status-chart-donut>
+  </div>
+</div>
+<div class="row m-3">
+    <app-active-inactive-chart></app-active-inactive-chart>
+</div>
+<div class="row m-3">
+  <div class="card-body bg-light">
+    <app-user-attempts-chart></app-user-attempts-chart>
+  </div>
+</div>

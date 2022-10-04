@@ -1,0 +1,116 @@
+<div class="container my-5 d-flex align-items-center justify-content-center">
+  <div class="card my-3">
+    <div class="card-header bg-warning">
+        <h4 class="text-primary text-center mt-3">
+            Pro Assessment Admin Login <i class="bi bi-box-arrow-right"></i>
+        </h4>
+      </div>
+    <div class="card-body bg-light text-dark">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <fieldset>
+          <div class="form-group">
+            <label class="form-label mt-0">Email <sup><i class="bi bi-asterisk text-danger"></i></sup
+                ></label>
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Email"
+              formControlName="email"
+            />
+            <div
+              *ngIf="
+                !loginForm.controls['email'].valid &&
+                (loginForm.controls['email'].dirty ||
+                  loginForm.controls['email'].touched)
+              "
+            >
+              <div
+                class="bg-danger"
+                [hidden]="!loginForm.controls['email'].errors?.['required']"
+              >
+                <small class="mx-2 text-light"
+                  >Email is required
+                  <i
+                    class="bi bi-exclamation-triangle float-end mx-2 text-light"
+                  ></i
+                ></small>
+              </div>
+              <div
+                class="bg-danger"
+                [hidden]="!loginForm.controls['email'].errors?.['email']"
+              >
+                <small class="mx-2 text-light"
+                  >Invalid Email
+                  <i
+                    class="bi bi-exclamation-triangle float-end mx-2 text-light"
+                  ></i
+                ></small>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label mt-4">Password <sup><i class="bi bi-asterisk text-danger"></i></sup
+                ></label>
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              formControlName="password"
+            />
+            <div
+              *ngIf="
+                !loginForm.controls['password'].valid &&
+                (loginForm.controls['password'].dirty ||
+                  loginForm.controls['password'].touched)
+              "
+            >
+              <div
+                class="bg-danger"
+                [hidden]="!loginForm.controls['password'].errors?.['required']"
+              >
+                <small class="mx-2 text-light"
+                  >Password is required
+                  <i
+                    class="bi bi-exclamation-triangle float-end mx-2 text-light"
+                  ></i
+                ></small>
+              </div>
+              <div
+                class="bg-danger"
+                [hidden]="!loginForm.controls['password'].errors?.['minlength']"
+              >
+                <small class="mx-2 text-light"
+                  >Minimum Length is 5
+                  <i
+                    class="bi bi-exclamation-triangle float-end mx-2 text-light"
+                  ></i
+                ></small>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div
+          class="alert alert-danger alert-dismissible fade show my-2"
+          role="alert"
+          *ngIf="loginErr"
+        >
+          Invalid Credentials
+        </div>
+        <fieldset class="text-center my-3">
+          <button
+            type="submit"
+            class="btn btn-dark btn-md mt-0 text-center "
+            [disabled]="!loginForm.valid"
+          >
+            Login
+          </button>
+        </fieldset>
+      </form>
+    </div>
+    <div class="card-footer text-center">
+        <fieldset class="text-center my-2">
+            <small>Copyright &copy; 2022 - Promantus Inc.</small>
+          </fieldset>
+    </div>
+  </div>
+</div>

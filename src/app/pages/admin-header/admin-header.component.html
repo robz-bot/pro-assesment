@@ -1,0 +1,147 @@
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <h4 class="text-dark text-center mt-3">
+      Pro Assessment <i class="bi bi-boxes"></i>
+    </h4>
+    <ul class="list-group list-group-horizontal d-flex flex-wrap mx-5">
+      <a
+        class="btn btn-sm btn-dark mx-2 my-2"
+        href="#"
+        [routerLink]="['/admin-dashboard']"
+        title="Dashboard"
+        routerLinkActive="router-link-active"
+      >
+        <i class="bi bi-house-door-fill"></i
+      ></a>
+      <div class="btn-group mx-2">
+        <button
+          class="btn btn-sm btn-dark dropdown-toggle my-2"
+          type="button"
+          id="defaultDropdown"
+          data-bs-toggle="dropdown"
+          data-bs-auto-close="true"
+          aria-expanded="false"
+        >
+          Upload
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
+          <li>
+            <a class="dropdown-item" href="#" routerLink="/upload-gen-qns"
+              >General Questions</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" routerLink="/upload-tech-qns"
+              >Tech Questions</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="btn-group mx-2">
+        <button
+          class="btn btn-sm btn-dark dropdown-toggle my-2"
+          type="button"
+          id="defaultDropdown"
+          data-bs-toggle="dropdown"
+          data-bs-auto-close="true"
+          aria-expanded="false"
+        >
+          Create
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
+          <li>
+            <a
+              class="dropdown-item"
+              href="javscript:void(0)"
+              (click)="createTeam()"
+              >Team</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" routerLink="/add-gen-qn"
+              >General Questions</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" routerLink="/add-tech-qn"
+              >Tech Questions</a
+            >
+          </li>
+        </ul>
+      </div>
+      <!-- <li class="list-group-item"> -->
+      <div class="btn-group mx-2">
+        <button
+          class="btn btn-sm btn-dark dropdown-toggle my-2"
+          type="button"
+          id="defaultDropdown"
+          data-bs-toggle="dropdown"
+          data-bs-auto-close="true"
+          aria-expanded="false"
+        >
+          List
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
+          <li>
+            <a
+              class="dropdown-item"
+              href="javascript:void(0)"
+              routerLink="/team-list"
+              >Teams</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="javascript:void(0)"
+              routerLink="/user-list"
+              >Users</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="javascript:void(0)"
+              routerLink="/gen-qn-list"
+              >General Questions</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="javascript:void(0)"
+              routerLink="/tech-qn-list"
+              >Tech Questions</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="javascript:void(0)"
+              routerLink="/inactive-qn"
+              >Inactive Questions</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="javascript:void(0)"
+              routerLink="/report"
+              >Reports</a
+            >
+          </li>
+        </ul>
+      </div>
+      <!-- </li> -->
+      <a
+        class="btn btn-danger bg-danger mx-2 my-2 btn-sm"
+        href="#"
+        title="Logout"
+        [routerLink]="['/admin-login']"
+        routerLinkActive="router-link-active"
+      >
+        <i class="bi bi-box-arrow-right"></i
+      ></a>
+    </ul>
+  </div>
+</nav>

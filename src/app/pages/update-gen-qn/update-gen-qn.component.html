@@ -1,0 +1,103 @@
+<app-admin-header></app-admin-header>
+<div class="container">
+  <div class="card">
+    <form class="row g-3" [formGroup]="genQnForm" (ngSubmit)="onSubmit()">
+      <div class="card-header">
+        <h4 class="text-center text-light">Edit General Question</h4>
+        
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label">Question</label>
+            <textarea
+              rows="2"
+              class="form-control form-control-sm"
+              formControlName="question"
+            ></textarea>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"
+              >Option 1
+              <span class=""
+                ><i
+                  class="bi bi-check-circle btn btn-sm bg-success text-light"
+                  title="Click here to populate the option in correct answer"
+                  (click)="copyAndPopulate('option1')"
+                ></i></span
+            ></label>
+            <textarea
+              rows="1"
+              class="form-control form-control-sm"
+              formControlName="option1"
+            ></textarea>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"
+              >Option 2
+              <span class=""
+                ><i
+                  class="bi bi-check-circle btn btn-sm bg-success text-light"
+                  title="Click here to populate the option in correct answer"
+                  (click)="copyAndPopulate('option2')"
+                ></i></span
+            ></label>
+            <textarea
+              rows="1"
+              class="form-control form-control-sm"
+              formControlName="option2"
+            ></textarea>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"
+              >Option 3
+              <span class=""
+                ><i
+                  class="bi bi-check-circle btn btn-sm bg-success text-light"
+                  title="Click here to populate the option in correct answer"
+                  (click)="copyAndPopulate('option3')"
+                ></i></span
+            ></label>
+            <textarea
+              rows="1"
+              class="form-control form-control-sm"
+              formControlName="option3"
+            ></textarea>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"
+              >Option 4
+              <span class=""
+                ><i
+                  class="bi bi-check-circle btn btn-sm bg-success text-light"
+                  title="Click here to populate the option in correct answer"
+                  (click)="copyAndPopulate('option4')"
+                ></i></span
+            ></label>
+            <textarea
+              rows="1"
+              class="form-control form-control-sm"
+              formControlName="option4"
+            ></textarea>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Correct Answer (ReadOnly)</label>
+            <textarea
+              rows="1"
+              class="form-control form-control-sm"
+              readonly
+              formControlName="answer"
+              placeholder="Click on right option button"
+              [value]="correctAnswerByCopyPaste"
+            ></textarea>
+          </div>
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-sm btn-success">Update</button>
+            <button type="button" class="btn btn-sm btn-secondary mx-2" (click)="goBack()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="card-footer"></div>
+  </div>
+</div>

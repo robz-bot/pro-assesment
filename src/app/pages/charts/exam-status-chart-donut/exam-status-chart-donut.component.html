@@ -1,0 +1,27 @@
+<div id="chart" style="color: white">
+  <div class="row">
+    <div class="col-lg-12 col-sm-12 col-md-12" *ngIf="passCount > 0 || failCount > 0" >
+      <apx-chart
+        style="color: white"
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [labels]="chartOptions.labels"
+        [title]="chartOptions.title"
+        [theme]="chartOptions.theme"
+        [responsive]="chartOptions.responsive"
+      ></apx-chart>
+    </div>
+    <div class="col-lg-12 col-sm-12 col-md-12" *ngIf="displayDate" >
+      <input
+        type="date"
+        class="form-control form-control-sm w-50"
+        [(ngModel)]="searchDate"
+        [value]="searchDate"
+        (change)="datewisePassFail()"
+        name="searchDate"
+      />
+    </div>
+  </div>
+</div>
+
+<p *ngIf="passCount == 0 && failCount == 0" class="my-3">No Record(s) Found for Date-wise Pass and Fail Counts</p>
