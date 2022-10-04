@@ -207,11 +207,7 @@ export class AssessmentComponent implements OnInit {
         // //alert("show summary")
         this.showSummary();
       }
-<<<<<<< HEAD
     }, 1000);
-=======
-    }, 1800);
->>>>>>> c172918714f6b01e21af6808fe94bcbab2bf4909
   }
 
   answeredQn: any = [];
