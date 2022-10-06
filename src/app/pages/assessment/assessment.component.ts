@@ -64,6 +64,7 @@ export class AssessmentComponent implements OnInit {
 
   @ViewChild("fullscreen") fullscreen!: NgxFullscreenDirective;
   @ViewChild("fullScreenBtn") fullScreenBtn!: ElementRef<HTMLElement>;
+  @ViewChild("stopBtn") stopBtn!: ElementRef<HTMLElement>;
 
   enterFullscreen() {
     this.fullscreen.enter();
@@ -73,6 +74,7 @@ export class AssessmentComponent implements OnInit {
     this.fullscreen.exit();
   }
 
+  visiblitiyHiddenCount: number = 0;
   ngOnInit(): void {
     this.browserRefresh = browserRefresh;
     console.log("refreshed?:", browserRefresh);
@@ -82,6 +84,44 @@ export class AssessmentComponent implements OnInit {
     }
 
     sessionStorage.setItem("isReportSaved", "false");
+    let visiblitiyHiddenCount = 0;
+    //Visiblity change - switching other tabs
+    document.addEventListener("visibilitychange", function () {
+      let startBtnel: HTMLElement = document.getElementById(
+        "startBtn"
+      ) as HTMLElement;
+      let stopBtnel: HTMLElement = document.getElementById(
+        "stopBtn"
+      ) as HTMLElement;
+      let completeBtnel: HTMLElement = document.getElementById(
+        "completeBtn"
+      ) as HTMLElement;
+      if (document.hidden) {
+        // alert("Hidden")
+        visiblitiyHiddenCount++;
+        if (visiblitiyHiddenCount <= 3) {
+          stopBtnel.click();
+          //Click fullscreen button through native element
+          alert(
+            "WARNING: " +
+              visiblitiyHiddenCount +
+              " You are not suppose to switch / Move from current tab\nAssessment will end after 3 warnings automatically"
+          );
+          
+          if (visiblitiyHiddenCount > 3) {
+            completeBtnel.click();
+          }
+        }
+      } else {
+        // alert("shown")
+        // if (visiblitiyHiddenCount <= 3) {
+          startBtnel.click();
+        // } 
+        if(visiblitiyHiddenCount > 3){
+          completeBtnel.click();
+        }
+      }
+    });
 
     //Prevent refresh this current page - when press F5
     window.addEventListener("keyup", disableF5);
@@ -152,6 +192,10 @@ export class AssessmentComponent implements OnInit {
     // }
   }
 
+  stopTimer() {
+    clearInterval(this.interval);
+  }
+
   getAllAssessmentQns(userId: string, teamId: string) {
     this.assessmentService.getExamQns(userId, teamId).subscribe((data) => {
       console.log(data);
@@ -189,7 +233,9 @@ export class AssessmentComponent implements OnInit {
 
   progressPercentage: number = 0;
   progressColor: string = "";
+  timerSec: number = 0;
   startTimer() {
+    this.timerSec = 1000;
     this.interval = setInterval(() => {
       this.progressPercentage = Math.trunc((this.timeLeft / 1800) * 100);
       this.timeLeft--;
@@ -204,10 +250,9 @@ export class AssessmentComponent implements OnInit {
       // console.log("timeLeft: " + this.timeLeft);
       if (this.timeLeft < 1) {
         clearInterval(this.interval);
-        // //alert("show summary")
         this.showSummary();
       }
-    }, 1000);
+    }, this.timerSec);
   }
 
   answeredQn: any = [];
@@ -292,6 +337,10 @@ export class AssessmentComponent implements OnInit {
       this.reportService.addReports(this.reportForm).subscribe(
         (data) => {
           console.log(data);
+          window.close()
+          // this.router.navigate([]).then((result: any) => {
+          //   window.open("/", "_self");
+          // });
           this.isReportSave = "true";
         },
         (err) => {

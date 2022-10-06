@@ -42,12 +42,12 @@ export class HomeComponent implements OnInit {
     this.getDialingCodes();
   }
 
-  codes:any[]=[]
-  getDialingCodes(){
-    this.homeService.getDialingCodes().subscribe((data:any)=>{
-      console.log(data)
-      this.codes =data;
-    })
+  codes: any[] = [];
+  getDialingCodes() {
+    this.homeService.getDialingCodes().subscribe((data: any) => {
+      console.log(data);
+      this.codes = data;
+    });
   }
 
   getAllTeams() {
@@ -92,7 +92,7 @@ export class HomeComponent implements OnInit {
       if (result.isConfirmed) {
         if (result.value) {
           // this.validatePhnNumber();
-          //new user 
+          //new user
           this.saveUser("false");
         } else {
           this.submitBtnValue = buttonValue.START_ASSESS;
@@ -200,9 +200,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  private validatePhnNumber(){
+  private validatePhnNumber() {
     this.alert.showLoading();
-    var phnNumber = (this.registerValue.code+this.registerValue.phnNumber).trim()
+    var phnNumber = (
+      this.registerValue.code + this.registerValue.phnNumber
+    ).trim();
     this.homeService.validatePhnNumber(phnNumber).subscribe(
       (data) => {
         this.alert.hideLoading();
@@ -210,7 +212,7 @@ export class HomeComponent implements OnInit {
         console.log("After saving in DB(user): ");
         console.log(this.resData);
         if (this.resData) {
-         //this.saveUser()
+          //this.saveUser()
         } else {
           Swal.fire({
             position: "center",
@@ -238,7 +240,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  private saveUser( isFromAreadyAppread:string) {
+  private saveUser(isFromAreadyAppread: string) {
     this.alert.showLoading();
     const params = isFromAreadyAppread;
     this.homeService.addUser(this.registerValue, params).subscribe(
@@ -248,7 +250,11 @@ export class HomeComponent implements OnInit {
         console.log("After saving in DB(user): ");
         console.log(this.resData);
         if (this.resData.status == 0) {
-          this.route.navigateByUrl("/assessment");
+          
+          this.route.navigate([]).then((result: any) => {
+            window.open("/assessment", "_blank");
+          });
+          // this.route.navigateByUrl("/assessment");
           this.savedInSession(this.registerValue, this.resData);
           Swal.fire({
             position: "center",
