@@ -248,8 +248,10 @@ export class HomeComponent implements OnInit {
         this.alert.hideLoading();
         this.resData = data;
         console.log("After saving in DB(user): ");
-        console.log(this.resData);
+        console.log(this.resData);    
         if (this.resData.status == 0) {
+          this.submitBtnValue = buttonValue.START_ASSESS;
+          this.registerForm.reset();
           
           this.route.navigate([]).then((result: any) => {
             window.open("/assessment", "_blank");
