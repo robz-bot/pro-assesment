@@ -21,7 +21,7 @@ export class ReportComponent implements OnInit {
   constructor(
     private reportService: ReportService,
     private alert: AlertifyService,
-    private excelService:ExcelService
+    private excelService: ExcelService
   ) {}
 
   ngOnInit(): void {
@@ -32,12 +32,14 @@ export class ReportComponent implements OnInit {
   listView: boolean = true;
 
   enableGridView() {
+    this.clearFields();
     this.gridView = true;
     this.listView = false;
     this.getAllReports();
   }
 
   enableListView() {
+    this.clearFields();
     this.gridView = false;
     this.listView = true;
     this.getAllReports();
@@ -60,7 +62,7 @@ export class ReportComponent implements OnInit {
   handlePageSizeChange(event: any) {
     this.pageSize = event.target.value;
     this.page = 1;
-    this.getAllReports();
+    // this.getAllReports();
   }
 
   getRequestParams(page: number, pageSize: number) {
@@ -102,16 +104,16 @@ export class ReportComponent implements OnInit {
     );
   }
 
-  exportAsXLSX():void {  
-    console.log("Inside Excel")
-    console.log(this.reportList)
-    this.excelList = this.reportList
-    this.excelService.exportAsExcelFile(this.excelList, 'report');  
+  exportAsXLSX(): void {
+    console.log("Inside Excel");
+    console.log(this.reportList);
+    this.excelList = this.reportList;
+    this.excelService.exportAsExcelFile(this.excelList, "report");
     // this.getAllReports()
- }  
+  }
 
   getAllReports() {
-  //  this.clearFields();
+    //  this.clearFields();
     this.alert.showLoading();
     this.reportService.getAllReports().subscribe(
       (data) => {
@@ -201,6 +203,7 @@ export class ReportComponent implements OnInit {
     this.alert.showLoading();
     this.reportService.search(this.searchType, this.searchKey).subscribe(
       (data) => {
+        this.page = 1;
         console.log(data);
         Swal.close();
         this.reportList = data;
@@ -267,7 +270,7 @@ export class ReportComponent implements OnInit {
     this.isEnablePercent = false;
     this.isEnableReportDate = false;
     this.searchKey = "";
-    this.searchType = "";  
+    this.searchType = "";
     this.getAllReports();
   }
 
