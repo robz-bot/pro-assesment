@@ -1,6 +1,6 @@
 export class baseUrl {
-  //  public static BASE_URL: string = "http://localhost:8080/api/v1/";
-  public static BASE_URL: string = "https://pro-assessment.herokuapp.com/api/v1/";
+   public static BASE_URL: string = "http://localhost:8080/api/v1/";
+  // public static BASE_URL: string = "https://pro-assessment.herokuapp.com/api/v1/";
   // public static BASE_URL: string = "http://54.204.240.177:8080/assessment/api/v1/"; 
   // http://210.18.155.153:8080/api/v1/
 }

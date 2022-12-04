@@ -78,19 +78,26 @@ export class MainComponent {
               this.clearInput();
             }
           });
-        } else if (status == 1) {
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            text: message,
-            showConfirmButton: true,
-          });
-        } else if (status == 1 && duplicateQns == "duplicateQns") {
+        } 
+        // else if (status == 1) {
+        //   Swal.fire({
+        //     position: "center",
+        //     icon: "error",
+        //     text: message,
+        //     showConfirmButton: true,
+        //   });
+        // } 
+        else if (status == 1 || duplicateQns == "duplicateQns") {
+          var resDup = ""
+          duplicateQns.forEach((element:any) => {
+            resDup+=element
+          })
+          console.log(resDup)
           Swal.fire({
             position: "center",
             icon: "error",
             title: message,
-            text: duplicateQns,
+            text:resDup,
             showConfirmButton: true,
           });
         }

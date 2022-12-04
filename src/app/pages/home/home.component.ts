@@ -7,6 +7,7 @@ import { team } from "./team";
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
 import { AlertifyService } from "src/app/shared-service/alertify.service";
+import { ConnectableObservable } from "rxjs";
 
 @Component({
   selector: "app-home",
@@ -105,6 +106,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  userDto: register = new register();
   openAlertToGetEmail() {
     Swal.fire({
       title: "Submit your registerd Email",
@@ -117,7 +119,20 @@ export class HomeComponent implements OnInit {
       showLoaderOnConfirm: true,
       preConfirm: (inputEmail) => {
         let email = inputEmail.trim().toLowerCase();
-        return fetch(`${baseUrl.BASE_URL}/getUserByEmail/${email}`)
+
+        if (email == "") {
+          Swal.showValidationMessage(`Team is required!`);
+        }
+
+        this.userDto.email = email;
+        return fetch(`${baseUrl.BASE_URL}getUserByEmail`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(this.userDto),
+        })
           .then((response) => {
             if (!response.ok) {
               throw new Error(response.statusText);
@@ -248,11 +263,11 @@ export class HomeComponent implements OnInit {
         this.alert.hideLoading();
         this.resData = data;
         console.log("After saving in DB(user): ");
-        console.log(this.resData);    
+        console.log(this.resData);
         if (this.resData.status == 0) {
           this.submitBtnValue = buttonValue.START_ASSESS;
           this.registerForm.reset();
-          
+
           this.route.navigate([]).then((result: any) => {
             window.open("/assessment", "_blank");
           });
