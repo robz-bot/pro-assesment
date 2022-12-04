@@ -15,7 +15,12 @@ export class AdminHeaderComponent implements OnInit {
     private alert: AlertifyService
   ) {}
 
-  ngOnInit(): void {}
+  role:any
+  email:any
+  ngOnInit(): void {
+    this.role = sessionStorage.getItem("role")?.toString()
+    this.email = sessionStorage.getItem("email")?.toString()
+  }
 
   createTeam() {
     Swal.fire({
