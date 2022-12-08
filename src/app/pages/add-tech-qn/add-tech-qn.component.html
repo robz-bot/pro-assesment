@@ -104,7 +104,7 @@
             <label class="form-label">Team</label>
             <select class="form-select form-select-sm" formControlName="teamId">
               <option [value]="">Select Team</option>
-              <option [value]="item.id" *ngFor="let item of teamList">
+              <option [value]="item.id" *ngFor="let item of filteredTeamList">
                 {{ item.team }}
               </option>
             </select>

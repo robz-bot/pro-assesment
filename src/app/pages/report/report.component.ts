@@ -11,6 +11,7 @@ import { ReportService } from "./report.service";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { ExcelService } from "src/app/shared-service/excel.service";
+import { HomeService } from "../home/home.service";
 
 @Component({
   selector: "app-report",
@@ -21,12 +22,39 @@ export class ReportComponent implements OnInit {
   constructor(
     private reportService: ReportService,
     private alert: AlertifyService,
-    private excelService: ExcelService
+    private excelService: ExcelService,
+    private homeService:HomeService
   ) {}
 
   ngOnInit(): void {
     this.getAllReports();
   }
+
+  teamList: any;
+  getAllTeams() {
+    this.alert.showLoading();
+    this.homeService.getAllTeams().subscribe(
+      (data) => {
+        console.log(data);
+        this.teamList = data;
+        this.alert.hideLoading()
+      },
+      (err) => {
+        console.log("Error :");
+        console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: message.SOMETHING_WRONG,
+          text: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.alert.hideLoading()
+      }
+    );
+  }
+
 
   gridView: boolean = false;
   listView: boolean = true;
@@ -147,27 +175,39 @@ export class ReportComponent implements OnInit {
   isEnablePercent: boolean = false;
   isEnableReportDate: boolean = false;
   isEnableSearchText: boolean = true;
+  isEnableTeam: boolean = false;
   onChangeStatus(event: any) {
     if (event == "status") {
       this.isEnableStatus = true;
       this.isEnableSearchText = false;
       this.isEnablePercent = false;
       this.isEnableReportDate = false;
+      this.isEnableTeam = false;
     } else if (event == "username" || event == "attempts") {
       this.isEnableStatus = false;
       this.isEnableSearchText = true;
       this.isEnablePercent = false;
       this.isEnableReportDate = false;
+      this.isEnableTeam = false;
     } else if (event == "percentage") {
       this.isEnableStatus = false;
       this.isEnableSearchText = false;
       this.isEnablePercent = true;
       this.isEnableReportDate = false;
+      this.isEnableTeam = false;
     } else if (event == "date") {
       this.isEnableStatus = false;
       this.isEnableSearchText = false;
       this.isEnablePercent = false;
       this.isEnableReportDate = true;
+      this.isEnableTeam = false;
+    }else if (event == "team") {
+      this.getAllTeams()
+      this.isEnableStatus = false;
+      this.isEnableSearchText = false;
+      this.isEnablePercent = false;
+      this.isEnableReportDate = false;
+      this.isEnableTeam = true;
     }
   }
 
@@ -268,6 +308,7 @@ export class ReportComponent implements OnInit {
     this.isEnableStatus = false;
     this.isEnableSearchText = true;
     this.isEnablePercent = false;
+    this.isEnableTeam = false;
     this.isEnableReportDate = false;
     this.searchKey = "";
     this.searchType = "";

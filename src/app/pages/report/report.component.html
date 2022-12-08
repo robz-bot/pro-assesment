@@ -17,6 +17,7 @@
           >
             <option value="">Select</option>
             <option value="username">Name(First/Last)</option>
+            <option value="team">Team</option>
             <option value="status">Status(Pass/Fail)</option>
             <option value="attempts">No of Attempts</option>
             <option value="percentage">Percentage Range</option>
@@ -32,6 +33,15 @@
             [(ngModel)]="searchKey"
             *ngIf="isEnableSearchText"
           />
+          <select
+            name="searchKey"
+            class="form-select form-select-sm"
+            [(ngModel)]="searchKey"
+            *ngIf="isEnableTeam"
+          >
+            <option value="">Select</option>
+            <option *ngFor="let item of teamList" [value]="item.id">{{item.team}}</option>
+          </select>
           <select
             name="searchKey"
             class="form-select form-select-sm"
@@ -153,6 +163,7 @@
             <h5 style="text-align: center">
               <strong id="user-name">{{ item.userName }}</strong>
             </h5>
+            <p style="text-align: center; font-size: smaller">Team: {{ item.teamName }}</p>
             <p style="text-align: center; font-size: smaller" id="user-frid">
               Marks Obtained: {{ item.totalMarks }} /
               {{ item.totalNoOfQuestions }}
@@ -206,6 +217,7 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Full Name</th>
+            <th scope="col">Team</th>
             <th scope="col">Marks Obtained</th>
             <th scope="col">Answered</th>
             <th scope="col">UnAnswered</th>
@@ -231,6 +243,7 @@
           <tr>
             <th scope="row">{{ (page - 1) * pageSize + i + 1 }}</th>
             <td>{{ item.userName }}</td>
+            <td>{{ item.teamName }}</td>
             <td>{{ item.totalMarks }} / {{ item.totalNoOfQuestions }}</td>
             <td>{{ item.noOfQuestionsAnswered }}</td>
             <td>{{ item.noOfQuestionsNotAnswered }}</td>

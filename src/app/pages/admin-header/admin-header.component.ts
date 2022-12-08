@@ -17,9 +17,13 @@ export class AdminHeaderComponent implements OnInit {
 
   role:any
   email:any
+  teamId:any
   ngOnInit(): void {
     this.role = sessionStorage.getItem("role")?.toString()
-    this.email = sessionStorage.getItem("email")?.toString()
+    if(this.role == 'A')
+      this.email = sessionStorage.getItem("email")?.toString()
+    else
+      this.email = "Super Admin"
   }
 
   createTeam() {

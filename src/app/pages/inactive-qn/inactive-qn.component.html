@@ -125,13 +125,15 @@
 
                 <td>{{ item.answer }}</td>
 
-                <td>
+                <td >
                   <a
+                  *ngIf="teamId == item.teamId"
                     href="javascript:void(0)"
                     class="btn btn-outline-dark btn-sm"
                     (click)="activeQuestionById(item.id)"
                     >Activate</a
                   >
+                  <P *ngIf="teamId != item.teamId">No Action</P>
                 </td>
               </tr>
             </tbody>

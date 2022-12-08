@@ -19,9 +19,11 @@ export class TechQnListComponent implements OnInit {
     private homeService: HomeService
   ) {}
 
+  teamId:any
   ngOnInit(): void {
     this.getAllTechQuestionsPage();
     this.getAllTeams();
+    this.teamId = sessionStorage.getItem("teamId")?.toString()
   }
   isEnableTeam: boolean = false;
   isEnableSearchText: boolean = true;

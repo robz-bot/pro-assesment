@@ -23,7 +23,7 @@ export class TeamListComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getAllTeams();
-    
+    this.role = sessionStorage.getItem("role")?.toString()
     this.teamExamReadiness()
   }
   // ngAfterViewInit(){
@@ -35,6 +35,7 @@ export class TeamListComponent implements OnInit {
   stopMarquee(){
     this.marqueeId.nativeElement.scrollAmount = 0
   }
+  role:any
   errList:any
   liveList:any
   teamExamReadiness(){

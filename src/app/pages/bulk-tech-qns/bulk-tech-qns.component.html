@@ -7,7 +7,7 @@
     <div class="d-flex p-2 bd-highlight">
       <select class="form-select form-select-sm" [(ngModel)]="teamId">
         <option value="0">Select Team</option>
-        <option [value]="item.id" *ngFor="let item of teamList">
+        <option [value]="item.id" *ngFor="let item of filteredTeamList">
           {{ item.team }}
         </option>
       </select>

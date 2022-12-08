@@ -23,11 +23,21 @@ export class BulkTechQnsComponent implements OnInit {
   ) {}
 
   teamList: any[] = [];
+  filteredTeamList: any[] = [];
   teamId: any = "0";
+  SS_TeamId:any
   ngOnInit() {
+    this.SS_TeamId = sessionStorage.getItem("teamId")?.toString();
     this.homeService.getAllTeams().subscribe((data: any) => {
       console.log(data);
       this.teamList = data;
+      this.teamList.forEach((element: any, index: any) => {
+        console.log("teamId: "+ element.id)
+        if (element.id == this.SS_TeamId) {
+          console.log("filter "+element.id)
+          this.filteredTeamList.push(element);
+        }
+      });
     });
   }
 

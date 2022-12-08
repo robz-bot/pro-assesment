@@ -12,13 +12,16 @@ import { HomeService } from "../home/home.service";
   styleUrls: ["./inactive-qn.component.css"],
 })
 export class InactiveQnComponent implements OnInit {
+  teamId: any;
   constructor(
     private alert: AlertifyService,
     private homeService: HomeService,
     private techService: TechService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.teamId = sessionStorage.getItem("teamId")?.toString()
+  }
 
   isSearchEnabled: boolean = false;
   searchKey: string = "";

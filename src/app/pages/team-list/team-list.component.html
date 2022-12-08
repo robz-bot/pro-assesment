@@ -80,6 +80,7 @@
             </div>
             <div class="float-end">
               <a
+              *ngIf="role=='SA'"
                 href="javascript:void(0)"
                 class="btn btn-sm btn-warning"
                 (click)="updateTeam(item)"

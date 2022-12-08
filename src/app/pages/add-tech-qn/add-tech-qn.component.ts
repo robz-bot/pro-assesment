@@ -22,10 +22,13 @@ export class AddTechQnComponent implements OnInit {
     private router: Router
   ) {}
   teamList: any;
+  teamId: any;
   techQnForm!: FormGroup;
   techQnValue: generalQn = new generalQn();
   correctAnswerByCopyPaste: string = "";
   ngOnInit(): void {
+    this.teamId = sessionStorage.getItem("teamId")?.toString();
+
     this.techQnForm = new FormGroup({
       question: new FormControl("", [Validators.required]),
       option1: new FormControl("", [Validators.required]),
@@ -40,11 +43,17 @@ export class AddTechQnComponent implements OnInit {
     this.getAllTeams();
   }
 
+  filteredTeamList: any[] = [];
   getAllTeams() {
     this.homeService.getAllTeams().subscribe(
       (data) => {
         console.log(data);
         this.teamList = data;
+        this.teamList.forEach((element: any, index: any) => {
+          if (element.id == this.teamId) {
+            this.filteredTeamList.push(element);
+          }
+        });
       },
       (err) => {
         console.log("Error :");
@@ -136,31 +145,31 @@ export class AddTechQnComponent implements OnInit {
           Swal.close();
           console.log(data);
 
-          if(data.status==0){
-          //After added
-          Swal.fire({
-            title: data.message,
-            showDenyButton: false,
-            showCancelButton: false,
-            allowOutsideClick: false,
-          }).then((result) => {
-            if (result.isConfirmed) {
-              if (!this.techQnForm.value.mulQn) {
-                this.router.navigateByUrl("/tech-qn-list");
-              } else {
-                this.techQnForm.reset();
+          if (data.status == 0) {
+            //After added
+            Swal.fire({
+              title: data.message,
+              showDenyButton: false,
+              showCancelButton: false,
+              allowOutsideClick: false,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                if (!this.techQnForm.value.mulQn) {
+                  this.router.navigateByUrl("/tech-qn-list");
+                } else {
+                  this.techQnForm.reset();
+                }
               }
-            }
-          });
-        }else if(data.status==1){
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            text: data.message,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
+            });
+          } else if (data.status == 1) {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              text: data.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
         },
         (err) => {
           console.log("Error :");

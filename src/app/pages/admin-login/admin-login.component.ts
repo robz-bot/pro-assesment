@@ -86,7 +86,7 @@ export class AdminLoginComponent implements OnInit {
         .subscribe((data: any) => {
           console.log(data);
 
-          const { status, message } = data;
+          const { status, message, res } = data;
           if (status == 1) {
             Swal.fire({
               position: "center",
@@ -103,6 +103,7 @@ export class AdminLoginComponent implements OnInit {
             }).then((result) => {
               if (result.isConfirmed) {
                 sessionStorage.setItem("role", "A");
+                sessionStorage.setItem("teamId", res.teamId);
                 sessionStorage.setItem("email", this.loginForm.value.email);
                 this.route.navigateByUrl("/admin-dashboard");
               }
