@@ -23,11 +23,13 @@ export class AddTechQnComponent implements OnInit {
   ) {}
   teamList: any;
   teamId: any;
+  role: any;
   techQnForm!: FormGroup;
   techQnValue: generalQn = new generalQn();
   correctAnswerByCopyPaste: string = "";
   ngOnInit(): void {
     this.teamId = sessionStorage.getItem("teamId")?.toString();
+    this.role = sessionStorage.getItem("role")?.toString();
 
     this.techQnForm = new FormGroup({
       question: new FormControl("", [Validators.required]),
@@ -49,11 +51,15 @@ export class AddTechQnComponent implements OnInit {
       (data) => {
         console.log(data);
         this.teamList = data;
-        this.teamList.forEach((element: any, index: any) => {
-          if (element.id == this.teamId) {
-            this.filteredTeamList.push(element);
-          }
-        });
+        if (this.role == "SA") {
+          this.filteredTeamList = this.teamList;
+        } else {
+          this.teamList.forEach((element: any, index: any) => {
+            if (element.id == this.teamId) {
+              this.filteredTeamList.push(element);
+            }
+          });
+        }
       },
       (err) => {
         console.log("Error :");

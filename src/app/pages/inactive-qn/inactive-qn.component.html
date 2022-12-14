@@ -127,7 +127,7 @@
 
                 <td >
                   <a
-                  *ngIf="teamId == item.teamId"
+                  *ngIf="teamId == item.teamId || role == 'SA'"
                     href="javascript:void(0)"
                     class="btn btn-outline-dark btn-sm"
                     (click)="activeQuestionById(item.id)"

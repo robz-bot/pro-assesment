@@ -19,8 +19,10 @@ export class InactiveQnComponent implements OnInit {
     private techService: TechService
   ) {}
 
+  role:any
   ngOnInit(): void {
     this.teamId = sessionStorage.getItem("teamId")?.toString()
+    this.role = sessionStorage.getItem("role")?.toString()
   }
 
   isSearchEnabled: boolean = false;

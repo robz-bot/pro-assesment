@@ -92,7 +92,7 @@
           let i = index
         "
       >
-      <div class="card bg-light">
+      <div class="card bg-light" *ngIf="teamId == item.teamId || role == 'SA'">
         <div class="card-body text-dark">
           {{ (page - 1) * pageSize + i + 1 }}.
             <small class="card-text fw-bold">{{ item.question }}</small>
@@ -150,21 +150,21 @@
             <div class="my-2 float-end">
               <span class="badge bg-success text-dark"><i class="bi bi-people-fill"></i> {{ item.team }}</span>
               <a
-                *ngIf="teamId == item.teamId"
+                *ngIf="teamId == item.teamId || role == 'SA'"
                 href="javascript:void(0)"
                 class="btn btn-sm btn-warning mx-2"
                 [routerLink]="['/edit-tech-qn', item.id]"
                 >Edit</a
               >
               <a
-              *ngIf="teamId == item.teamId"
+              *ngIf="teamId == item.teamId || role == 'SA'"
                 href="javascript:void(0)"
                 class="btn btn-outline-dark btn-sm mx-2"
                 (click)="inactiveTechQuestionById(item.id)"
                 >In-Active</a
               >
               <a
-              *ngIf="teamId == item.teamId"
+              *ngIf="teamId == item.teamId || role == 'SA'"
                 href="javascript:void(0)"
                 class="btn btn-sm btn-danger mx-2"
                 (click)="deleteTechQuestionById(item.id)"

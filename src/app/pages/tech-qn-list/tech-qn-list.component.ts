@@ -20,10 +20,12 @@ export class TechQnListComponent implements OnInit {
   ) {}
 
   teamId:any
+  role:any
   ngOnInit(): void {
     this.getAllTechQuestionsPage();
     this.getAllTeams();
     this.teamId = sessionStorage.getItem("teamId")?.toString()
+    this.role = sessionStorage.getItem("role")?.toString()
   }
   isEnableTeam: boolean = false;
   isEnableSearchText: boolean = true;

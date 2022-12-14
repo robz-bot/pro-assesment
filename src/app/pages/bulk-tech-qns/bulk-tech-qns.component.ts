@@ -25,19 +25,23 @@ export class BulkTechQnsComponent implements OnInit {
   teamList: any[] = [];
   filteredTeamList: any[] = [];
   teamId: any = "0";
+  role: any;
   SS_TeamId:any
   ngOnInit() {
     this.SS_TeamId = sessionStorage.getItem("teamId")?.toString();
+    this.role = sessionStorage.getItem("role")?.toString();
     this.homeService.getAllTeams().subscribe((data: any) => {
       console.log(data);
       this.teamList = data;
-      this.teamList.forEach((element: any, index: any) => {
-        console.log("teamId: "+ element.id)
-        if (element.id == this.SS_TeamId) {
-          console.log("filter "+element.id)
-          this.filteredTeamList.push(element);
-        }
-      });
+      if (this.role == "SA") {
+        this.filteredTeamList = this.teamList;
+      } else {
+        this.teamList.forEach((element: any, index: any) => {
+          if (element.id == this.teamId) {
+            this.filteredTeamList.push(element);
+          }
+        });
+      }
     });
   }
 
