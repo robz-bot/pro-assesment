@@ -121,7 +121,7 @@ export class HomeComponent implements OnInit {
         let email = inputEmail.trim().toLowerCase();
 
         if (email == "") {
-          Swal.showValidationMessage(`Team is required!`);
+          Swal.showValidationMessage(`Email is required!`);
         }
 
         this.userDto.email = email;

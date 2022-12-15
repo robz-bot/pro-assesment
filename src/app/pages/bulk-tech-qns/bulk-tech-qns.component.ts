@@ -37,7 +37,7 @@ export class BulkTechQnsComponent implements OnInit {
         this.filteredTeamList = this.teamList;
       } else {
         this.teamList.forEach((element: any, index: any) => {
-          if (element.id == this.teamId) {
+          if (element.id == this.SS_TeamId) {
             this.filteredTeamList.push(element);
           }
         });
