@@ -17,6 +17,7 @@ import { UpdateGenQnComponent } from "./pages/update-gen-qn/update-gen-qn.compon
 import { UpdateTechQnComponent } from "./pages/update-tech-qn/update-tech-qn.component";
 import { UsersListComponent } from "./pages/users-list/users-list.component";
 import { BulkTechQnsComponent } from "./pages/bulk-tech-qns/bulk-tech-qns.component";
+import { AllProLinksComponent } from "./pages/all-pro-links/all-pro-links.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: "admin-request", component: AdminRequestComponent },
   { path: "upload-gen-qns", component: MainComponent },
   { path: "upload-tech-qns", component: BulkTechQnsComponent },
+  { path: "promantus-projects", component: AllProLinksComponent },
 ];
 
 @NgModule({

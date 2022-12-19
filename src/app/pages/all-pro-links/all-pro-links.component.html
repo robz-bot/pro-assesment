@@ -1,0 +1,64 @@
+<main class="bg-light">
+  <section class="py-1 text-center container text-dark">
+    <div class="row py-lg-3">
+      <div class="col-lg-8 col-md-8 mx-auto">
+        <picture>
+          <img
+            class="d-none d-md-block m-auto"
+            src="assets/img/promantus-new-logo.png"
+            style="height: 60px; width: 300px"
+          />
+          <img
+            class="d-sm-block d-lg-none d-md-none m-auto"
+            src="assets/img/promantus-new-logo.png"
+            style="height: 40px; width: 200px"
+          />
+        </picture>
+        <h1 class="fw-light">Live Internal Projects</h1>
+        <p class="lead text-muted">Some Internal projects of Promantus - Digital Team</p>
+        <small class="lead text-muted">Business Unit Head: Kamal Purushothaman</small>
+      </div>
+    </div>
+  </section>
+
+  <div class="album bg-light">
+    <div class="container">
+      <div class="card mb-3 bg-light" *ngFor="let item of projList">
+        <div class="row g-0">
+          <div
+            class="col-md-4 d-flex align-item-center justify-content-center"
+            style="object-fit: cover"
+          >
+            <img
+              [src]="item.url"
+              class="img-fluid"
+              [alt]="item.title"
+              style="height: 200px"
+            />
+          </div>
+          <div class="col-md-8">
+            <div
+              class="card-header bg-light text-center card-title heading-3 text-dark"
+            >
+              <h3>{{ item.title }}</h3>
+            </div>
+            <div class="card-body bg-primary">
+              <!-- <h5 class="card-title">{{ item.title }}</h5> -->
+              <p class="card-text">{{ item.desc }}</p>
+              <p>
+                PROD: <a target="_blank" [href]="item.prod">{{ item.prod }}</a>
+              </p>
+              <p>
+                QA: <a target="_blank" [href]="item.qa" *ngIf="item.qa != 'NIL'">{{ item.qa }}</a>
+                 <small *ngIf="item.qa == 'NIL'">{{ item.qa }}</small>
+              </p>
+              <p class="card-text">
+                <small class="text-muted">Project started at: {{item.date}}</small>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

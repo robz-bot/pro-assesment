@@ -32,6 +32,7 @@ import { ActiveInactiveChartComponent } from './pages/charts/active-inactive-cha
 import { AdminRequestComponent } from './pages/admin-request/admin-request.component';
 import { BulkTechQnsComponent } from './pages/bulk-tech-qns/bulk-tech-qns.component';
 import { NgxFullscreenModule } from "@ultimate/ngx-fullscreen";
+import { AllProLinksComponent } from './pages/all-pro-links/all-pro-links.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { NgxFullscreenModule } from "@ultimate/ngx-fullscreen";
     ActiveInactiveChartComponent,
     AdminRequestComponent,
     BulkTechQnsComponent,
+    AllProLinksComponent,
   ],
   imports: [
     
