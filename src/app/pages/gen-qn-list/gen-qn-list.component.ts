@@ -22,6 +22,22 @@ export class GenQnListComponent implements OnInit {
     // this.getAllGeneralQuestions();
   }
 
+  isEnableDate: boolean = false;
+  isEnableSearchText = true;
+  onChangeStatus(event: any) {
+    
+    if (event == "date") {
+      this.isEnableDate = true
+      this.isEnableSearchText =false
+
+    } 
+    else {
+      this.searchKey=""
+      this.isEnableDate=false
+      this.isEnableSearchText = true
+    }
+  }
+
   generalList: any = [];
   getAllGeneralQuestions() {
     this.clearFields();

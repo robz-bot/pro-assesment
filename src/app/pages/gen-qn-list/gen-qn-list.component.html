@@ -15,11 +15,14 @@
             name="searchType"
             [(ngModel)]="searchType"
             class="form-select form-select-sm"
+            (ngModelChange)="onChangeStatus($event)"
           >
             <option value="">Select</option>
             <option value="question">Question</option>
             <option value="options">Options</option>
             <option value="answer">Answer</option>
+            <option value="date">Date</option>
+
           </select>
         </div>
         <div class="p-2 bd-highlight">
@@ -29,6 +32,15 @@
             class="form-control form-control-sm"
             placeholder="Keyword"
             [(ngModel)]="searchKey"
+            *ngIf="isEnableSearchText"
+          />
+          <input
+            type="date"
+            name="searchKey"
+            class="form-control form-control-sm"
+            placeholder="Keyword"
+            [(ngModel)]="searchKey"
+            *ngIf="isEnableDate"
           />
         </div>
         <div class="p-2 bd-highlight">
