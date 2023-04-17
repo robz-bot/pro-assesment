@@ -29,15 +29,24 @@ export class TechQnListComponent implements OnInit {
   }
   isEnableTeam: boolean = false;
   isEnableSearchText: boolean = true;
+  isEnableDate: boolean= false;
   onChangeStatus(event: any) {
     
     if (event == "team") {
       this.isEnableTeam = true;
       this.isEnableSearchText = false;
-    } else {
+      this.isEnableDate = false
+    } 
+    else if (event == "date") {
+      this.isEnableTeam = false;
+      this.isEnableSearchText = false;
+      this.isEnableDate = true
+    } 
+    else {
       this.searchKey=""
       this.isEnableTeam = false;
       this.isEnableSearchText = true;
+      this.isEnableDate=false
     }
   }
 
