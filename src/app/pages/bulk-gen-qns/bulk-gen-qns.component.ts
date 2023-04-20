@@ -79,15 +79,15 @@ export class MainComponent {
             }
           });
         } 
-        // else if (status == 1) {
-        //   Swal.fire({
-        //     position: "center",
-        //     icon: "error",
-        //     text: message,
-        //     showConfirmButton: true,
-        //   });
-        // } 
-        else if (status == 1 || duplicateQns == "duplicateQns") {
+        else if (status == 1) {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            text: message,
+            showConfirmButton: true,
+          });
+        } 
+        else if (status == 1 || duplicateQns == "duplicateQns" && duplicateQns != undefined) {
           var resDup = ""
           duplicateQns.forEach((element:any) => {
             resDup+=element

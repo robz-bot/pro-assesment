@@ -111,7 +111,7 @@ export class BulkTechQnsComponent implements OnInit {
             text: message,
             showConfirmButton: true,
           });
-        } else if (status == 1 && duplicateQns == "duplicateQns") {
+        } else if (status == 1 && duplicateQns == "duplicateQns" || duplicateQns != undefined) {
           Swal.fire({
             position: "center",
             icon: "error",

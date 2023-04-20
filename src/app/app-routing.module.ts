@@ -18,6 +18,7 @@ import { UpdateTechQnComponent } from "./pages/update-tech-qn/update-tech-qn.com
 import { UsersListComponent } from "./pages/users-list/users-list.component";
 import { BulkTechQnsComponent } from "./pages/bulk-tech-qns/bulk-tech-qns.component";
 import { AllProLinksComponent } from "./pages/all-pro-links/all-pro-links.component";
+import { AdminSettingsComponent } from "./pages/admin-settings/admin-settings.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: "admin-login", component: AdminLoginComponent },
   { path: "admin-dashboard", component: AdminDashboardComponent },
   { path: "add-gen-qn", component: AddGenQnComponent },
+  { path: "settings", component: AdminSettingsComponent },
   { path: "add-tech-qn", component: AddTechQnComponent },
   { path: "edit-gen-qn/:id", component: UpdateGenQnComponent },
   { path: "edit-tech-qn/:id", component: UpdateTechQnComponent },

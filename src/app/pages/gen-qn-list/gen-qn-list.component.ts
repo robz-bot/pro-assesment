@@ -12,6 +12,7 @@ import { GeneralService } from "../add-gen-qn/general.service";
   styleUrls: ["./gen-qn-list.component.css"],
 })
 export class GenQnListComponent implements OnInit {
+  generalQnService: any = sessionStorage.getItem("generalQn");
   constructor(
     private genService: GeneralService,
     private alert: AlertifyService
@@ -20,6 +21,21 @@ export class GenQnListComponent implements OnInit {
   ngOnInit(): void {
     this.getAllGeneralQuestionsPage();
     // this.getAllGeneralQuestions();
+  }
+
+  recordList: generalQn[] = new Array();
+
+  isEnableDate: boolean = false;
+  isEnableSearchText = true;
+  onChangeStatus(event: any) {
+    if (event == "date") {
+      this.isEnableDate = true;
+      this.isEnableSearchText = false;
+    } else {
+      this.searchKey = "";
+      this.isEnableDate = false;
+      this.isEnableSearchText = true;
+    }
   }
 
   generalList: any = [];
@@ -50,7 +66,7 @@ export class GenQnListComponent implements OnInit {
   page = 1;
   count = 0;
   pageSize = 3;
-  pageSizes = [3, 6, 9];
+  pageSizes = [3, 6, 9, 12];
   params: any = {};
 
   handlePageChange(event: any) {
@@ -203,6 +219,7 @@ export class GenQnListComponent implements OnInit {
   searchType: string = "";
   searchByGenQn() {
     this.isSearchEnabled = true;
+    console.log(this.searchType);
 
     if (this.searchType == "") {
       this.alert.customErrMsgWithoutBtn("Select any one option");
@@ -243,6 +260,9 @@ export class GenQnListComponent implements OnInit {
   clearFields() {
     this.searchKey = "";
     this.searchType = "";
+  }
 
+  allRecords() {
+    this.getAllGeneralQuestions();
   }
 }

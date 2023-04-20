@@ -29,15 +29,24 @@ export class TechQnListComponent implements OnInit {
   }
   isEnableTeam: boolean = false;
   isEnableSearchText: boolean = true;
+  isEnableDate: boolean= false;
   onChangeStatus(event: any) {
     
     if (event == "team") {
       this.isEnableTeam = true;
       this.isEnableSearchText = false;
-    } else {
+      this.isEnableDate = false
+    } 
+    else if (event == "date") {
+      this.isEnableTeam = false;
+      this.isEnableSearchText = false;
+      this.isEnableDate = true
+    } 
+    else {
       this.searchKey=""
       this.isEnableTeam = false;
       this.isEnableSearchText = true;
+      this.isEnableDate=false
     }
   }
 
@@ -92,7 +101,7 @@ export class TechQnListComponent implements OnInit {
   page = 1;
   count = 0;
   pageSize = 3;
-  pageSizes = [3, 6, 9];
+  pageSizes = [3, 6, 9, 12];
   params: any = {};
 
   handlePageChange(event: any) {
@@ -325,5 +334,9 @@ export class TechQnListComponent implements OnInit {
   clearFields() {
     this.searchKey = "";
     this.searchType = "";
+  }
+
+  allRecords() {
+    this.getAllTechQuestions();
   }
 }

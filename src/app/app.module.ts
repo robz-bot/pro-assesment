@@ -33,6 +33,7 @@ import { AdminRequestComponent } from './pages/admin-request/admin-request.compo
 import { BulkTechQnsComponent } from './pages/bulk-tech-qns/bulk-tech-qns.component';
 import { NgxFullscreenModule } from "@ultimate/ngx-fullscreen";
 import { AllProLinksComponent } from './pages/all-pro-links/all-pro-links.component';
+import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { AllProLinksComponent } from './pages/all-pro-links/all-pro-links.compon
     AdminRequestComponent,
     BulkTechQnsComponent,
     AllProLinksComponent,
+    AdminSettingsComponent,
   ],
   imports: [
     

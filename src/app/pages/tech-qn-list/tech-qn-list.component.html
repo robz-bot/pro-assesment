@@ -20,6 +20,7 @@
             <option value="options">Options</option>
             <option value="answer">Answer</option>
             <option value="team">Team</option>
+            <option value="date">Date</option>
           </select>
         </div>
         <div class="p-2 bd-highlight">
@@ -30,6 +31,14 @@
             placeholder="Keyword"
             [(ngModel)]="searchKey"
             *ngIf="isEnableSearchText"
+          />
+          <input
+            type="date"
+            name="searchKey"
+            class="form-control form-control-sm"
+            placeholder="Keyword"
+            [(ngModel)]="searchKey"
+            *ngIf="isEnableDate"
           />
           <select
             name="searchKey"

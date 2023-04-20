@@ -1,136 +1,143 @@
 <div class="full-screen" ngxFullscreen #fullscreen="ngxFullscreen">
-  <button (click)="enterFullscreen()"  #fullScreenBtn class="d-none">
+  <button (click)="enterFullscreen()" #fullScreenBtn class="d-none">
     Toggle Fullscreen
   </button>
-<div class="bg-light rounded-3 text-dark d-lg-none d-md-block" #myAssess>
-  <div class="container container-fluid">
-    <p class="fw-bold">
-      Welcome, {{ questionList[0].firstName }} {{ questionList[0].lastName }} !
-    </p>
-    <h3 class="badge bg-danger fs-1 align-items-center text-center">
-      {{ timeLeft | formatTime }}
-    </h3>
-    <div class="progress">
-      <div
-        [attr.class]="progressColor"
-        role="progressbar"
-        [style.width.%]="progressPercentage"
-      ></div>
-    </div>
-    <app-user-details></app-user-details>
-  </div>
-</div>
-<div class="row my-2">
-  <div class="col-lg-9">
-    <form [formGroup]="answerForm">
-      <!-- Section A -->
-      <div class="d-flex justify-content-center">
-        <button class="btn btn-success fw-bold btn-center" readonly>
-          Section - A (General Questions)
-        </button>
-      </div>
-      <!-- Navigation based on Questions numbers -->
-      <div class="container d-lg-none d-md-block">
-        <ul class="nav nav-pills d-flex justify-content-center">
-          <li
-            class="nav-item"
-            *ngFor="let item of generalQnList; let i = index"
-          >
-            <a class="nav-link" [attr.href]="'/assessment#genquestion' + i">{{
-              i + 1
-            }}</a>
-          </li>
-        </ul>
-      </div>
-      <!-- List of Questions in Section A -->
-      <div class="container">
+  <div class="bg-light rounded-3 text-dark d-lg-none d-md-block" #myAssess>
+    <div class="container container-fluid">
+      <p class="fw-bold">
+        Welcome, {{ questionList[0].firstName }}
+        {{ questionList[0].lastName }} !
+      </p>
+      <h3 class="badge bg-danger fs-1 align-items-center text-center">
+        {{ timeLeft | formatTime }}
+      </h3>
+      <div class="progress">
         <div
-          data-bs-spy="scroll"
-          data-bs-target="#navbar-example2"
-          data-bs-offset="0"
-          class="scrollspy-example"
-          tabindex="0"
-        >
-          <div class="row">
-            <div
-              class="col-12 my-2"
-              [attr.id]="'genquestion' + i"
+          [attr.class]="progressColor"
+          role="progressbar"
+          [style.width.%]="progressPercentage"
+        ></div>
+      </div>
+      <app-user-details></app-user-details>
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-lg-8 fixed-top sticky-div">
+      <form [formGroup]="answerForm">
+        <!-- Section A -->
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-success fw-bold btn-center" readonly>
+            Section - A (General Questions)
+          </button>
+        </div>
+        <!-- Navigation based on Questions numbers -->
+        <div class="container d-lg-none d-md-block">
+          <ul class="nav nav-pills d-flex justify-content-center">
+            <li
+              class="nav-item"
               *ngFor="let item of generalQnList; let i = index"
             >
-              <p class="fw-bold text-light disable-text-selection">{{ i + 1 }}. {{ item.question }}</p>
-              <label class="checkborder" *ngFor="let option of item.options">
-                <div class="form-check">
-                  <input
-                    type="radio"
-                    class="form-check-input"
-                    [value]="option"
-                    [formControlName]="'qn' + i"
-                    [name]="'qn' + i"
-                  />
-                  <label class="form-check-label m-2 text-dark">{{
-                    option
-                  }}</label>
-                </div>
-              </label>
+              <a class="nav-link" [attr.href]="'/assessment#genquestion' + i">{{
+                i + 1
+              }}</a>
+            </li>
+          </ul>
+        </div>
+        <!-- List of Questions in Section A -->
+        <div class="container">
+          <div
+            data-bs-spy="scroll"
+            data-bs-target="#navbar-example2"
+            data-bs-offset="0"
+            class="scrollspy-example"
+            tabindex="0"
+          >
+            <div class="row">
+              <div
+                class="col-12 my-2"
+                [attr.id]="'genquestion' + i"
+                *ngFor="let item of generalQnList; let i = index"
+              >
+                <p class="fw-bold text-light disable-text-selection">
+                  {{ i + 1 }}. {{ item.question }}
+                </p>
+                <label class="checkborder" *ngFor="let option of item.options">
+                  <div class="form-check">
+                    <input
+                      type="radio"
+                      class="form-check-input"
+                      [value]="option"
+                      [formControlName]="'qn' + i"
+                      [name]="'qn' + i"
+                    />
+                    <label class="form-check-label m-2 mx-4 text-dark">{{
+                      option
+                    }}</label>
+                  </div>
+                </label>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- Section B -->
-      <div class="d-flex justify-content-center">
-        <button class="btn btn-success fw-bold btn-center" readonly>
-          Section - B (Technical Questions)
-        </button>
-      </div>
-      <!-- Navigation based on Questions numbers -->
-      <div class="container d-lg-none d-md-block">
-        <ul class="nav nav-pills d-flex justify-content-center">
-          <li
-            class="nav-item"
-            *ngFor="let item of technicalQnList; let i = index"
-          >
-            <a class="nav-link" [attr.href]="'/assessment#techquestion' + i">{{
-              i + 1
-            }}</a>
-          </li>
-        </ul>
-      </div>
-      <!-- List of Questions in Section B -->
-      <div class="container">
-        <div
-          data-bs-spy="scroll"
-          data-bs-target="#navbar-example2"
-          data-bs-offset="0"
-          class="scrollspy-example"
-          tabindex="0"
-        >
-          <div class="row">
-            <div
-              class="col-12 my-2"
-              [attr.id]="'techquestion' + i"
+        <!-- Section B -->
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-success fw-bold btn-center" readonly>
+            Section - B (Technical Questions)
+          </button>
+        </div>
+        <!-- Navigation based on Questions numbers -->
+        <div class="container d-lg-none d-md-block">
+          <ul class="nav nav-pills d-flex justify-content-center">
+            <li
+              class="nav-item"
               *ngFor="let item of technicalQnList; let i = index"
             >
-              <p class="fw-bold text-light disable-text-selection">{{ i + 1 }}. {{ item.question }}</p>
-              <label class="checkborder" *ngFor="let option of item.options">
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    [value]="option"
-                    [formControlName]="'qn' + (i + 5)"
-                    [name]="'qn' + (i + 5)"
-                  />
-                  <label class="form-check-label m-2 text-dark">{{
-                    option
-                  }}</label>
-                </div>
-              </label>
+              <a
+                class="nav-link"
+                [attr.href]="'/assessment#techquestion' + i"
+                >{{ i + 1 }}</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!-- List of Questions in Section B -->
+        <div class="container">
+          <div
+            data-bs-spy="scroll"
+            data-bs-target="#navbar-example2"
+            data-bs-offset="0"
+            class="scrollspy-example"
+            tabindex="0"
+          >
+            <div class="row">
+              <div
+                class="col-12 my-2"
+                [attr.id]="'techquestion' + i"
+                *ngFor="let item of technicalQnList; let i = index"
+              >
+                <p class="fw-bold text-light disable-text-selection">
+                  {{ i + 1 }}. {{ item.question }}
+                </p>
+                <label class="checkborder" *ngFor="let option of item.options">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      [value]="option"
+                      [formControlName]="'qn' + (i + generalQnList.length)"
+                      [name]="'qn' + (i + generalQnList.length)"
+                    />
+                    <label class="form-check-label m-2 mx-4 text-dark">{{
+                      option
+                    }}</label>
+                  </div>
+                </label>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- Submit Assessment Button -->
-      <!-- <div class="col-12">
+        <!-- Submit Assessment Button -->
+        <!-- <div class="col-12">
         <div class="d-flex justify-content-center m-4">
           <button
             type="submit"
@@ -141,149 +148,160 @@
           </button>
         </div>
       </div> -->
-    </form>
-  </div>
-  <div class="col-lg-3 fixed-top sticky-div d-none d-lg-block">
-    <div class="bg-light rounded-3 text-dark">
-      <div class="container container-fluid">
-        <p class="fw-bold">
-          Welcome, {{ questionList[0].firstName }}
-          {{ questionList[0].lastName }} !
-        </p>
-        <h3 class="badge bg-danger fs-1 align-items-center text-center">
-          {{ timeLeft | formatTime }}
-        </h3>
-        <div class="progress">
-          <div
-            [attr.class]="progressColor"
-            role="progressbar"
-            [style.width.%]="progressPercentage"
-          ></div>
+      </form>
+    </div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-3 fixed-top sticky-div d-none d-lg-block">
+      <div class="bg-light rounded-3 text-dark">
+        <div class="container container-fluid">
+          <p class="fw-bold">
+            Welcome, {{ questionList[0].firstName }}
+            {{ questionList[0].lastName }} !
+          </p>
+          <h3 class="badge bg-danger fs-1 align-items-center text-center">
+            {{ timeLeft | formatTime }}
+          </h3>
+          <div class="progress">
+            <div
+              [attr.class]="progressColor"
+              role="progressbar"
+              [style.width.%]="progressPercentage"
+            ></div>
+          </div>
+          <app-user-details></app-user-details>
         </div>
-        <app-user-details></app-user-details>
+      </div>
+      <!-- Section A -->
+      <div class="d-flex justify-content-center">
+        <button
+          class="btn btn-sm btn-success fw-bold btn-center cursor-auto"
+          readonly
+        >
+          Section - A (General Questions)
+        </button>
+      </div>
+      <!-- Navigation based on Questions numbers -->
+      <!-- <div class="container"> -->
+      <ul class="nav nav-pills d-flex justify-content-center">
+        <li class="nav-item" *ngFor="let item of generalQnList; let i = index">
+          <a class="nav-link" [attr.href]="'/assessment#genquestion' + i">{{
+            i + 1
+          }}</a>
+        </li>
+      </ul>
+      <!-- </div> -->
+      <!-- Section B -->
+      <div class="d-flex justify-content-center">
+        <button
+          class="btn btn-sm btn-success fw-bold btn-center cursorAuto"
+          readonly
+        >
+          Section - B (Technical Questions)
+        </button>
+      </div>
+      <!-- Navigation based on Questions numbers -->
+      <!-- <div class="container"> -->
+      <ul class="nav nav-pills d-flex justify-content-center">
+        <li
+          class="nav-item"
+          *ngFor="let item of technicalQnList; let i = index"
+        >
+          <a class="nav-link" [attr.href]="'/assessment#techquestion' + i">{{
+            i + 1
+          }}</a>
+        </li>
+      </ul>
+      <!-- </div> -->
+    </div>
+  </div>
+
+  <button (click)="stopTimer()" class="d-none" #stopBtn id="stopBtn">
+    Pause
+  </button>
+  <button (click)="startTimer()" class="d-none" #startBtn id="startBtn">
+    Start
+  </button>
+
+  <!-- Canvas  -->
+  <button
+    class="btn btn-primary d-none"
+    type="button"
+    data-bs-toggle="offcanvas"
+    #completeBtn
+    id="completeBtn"
+    data-bs-target="#completeCanvas"
+    aria-controls="completeCanvas"
+    (click)="showSummary()"
+  >
+    Assessment Complete
+  </button>
+
+  <div
+    class="offcanvas offcanvas-top h-auto"
+    tabindex="-1"
+    id="completeCanvas"
+    aria-labelledby="completeCanvasLabel"
+  >
+    <div
+      class="offcanvas-header d-flex justify-content-center align-items-center"
+    >
+      <!-- <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button> -->
+    </div>
+    <div
+      class="offcanvas-body d-flex justify-content-center align-items-center"
+    >
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tr class="text-center">
+            <td scope="row" class="p-3" colspan="3">
+              <h5 class="btn btn-warning cursor-auto bg-warning" disabled>
+                Assessment Summary
+              </h5>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="p-3">Total No. of Questions</th>
+            <td class="p-3">:</td>
+            <td class="p-3">{{ totalNoOfQns }}</td>
+          </tr>
+          <tr>
+            <th scope="row" class="p-3">No. of Questions Answered</th>
+            <td class="p-3">:</td>
+            <td class="p-3">{{ noOfQnsAnswered }}</td>
+          </tr>
+          <tr>
+            <th scope="row" class="p-3">No. of Questions not answered</th>
+            <td class="p-3">:</td>
+            <td class="p-3">{{ noOfQnsUnAnswered }}</td>
+          </tr>
+          <tr>
+            <th scope="row" class="p-3">Marks Earned / Total Marks</th>
+            <td class="p-3">:</td>
+            <td class="p-3">{{ totalMarkEarned }} / {{ totalMark }}</td>
+          </tr>
+          <tr class="text-center">
+            <td scope="row" class="p-3" colspan="3">
+              <button
+                class="btn btn-success bg-success"
+                routerLink="/"
+                (click)="onSubmit(true)"
+              >
+                OK
+              </button>
+            </td>
+          </tr>
+          <tr class="text-center">
+            <td scope="row" class="p-3" colspan="3">
+              <h5 class="btn btn-danger cursor-auto bg-danger" disabled>
+                Note: Click OK button to SAVE your results.
+              </h5>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
-    <!-- Section A -->
-    <div class="d-flex justify-content-center">
-      <button
-        class="btn btn-sm btn-success fw-bold btn-center cursor-auto"
-        readonly
-      >
-        Section - A (General Questions)
-      </button>
-    </div>
-    <!-- Navigation based on Questions numbers -->
-    <!-- <div class="container"> -->
-    <ul class="nav nav-pills d-flex justify-content-center">
-      <li class="nav-item" *ngFor="let item of generalQnList; let i = index">
-        <a class="nav-link" [attr.href]="'/assessment#genquestion' + i">{{
-          i + 1
-        }}</a>
-      </li>
-    </ul>
-    <!-- </div> -->
-    <!-- Section B -->
-    <div class="d-flex justify-content-center">
-      <button
-        class="btn btn-sm btn-success fw-bold btn-center cursorAuto"
-        readonly
-      >
-        Section - B (Technical Questions)
-      </button>
-    </div>
-    <!-- Navigation based on Questions numbers -->
-    <!-- <div class="container"> -->
-    <ul class="nav nav-pills d-flex justify-content-center">
-      <li class="nav-item" *ngFor="let item of technicalQnList; let i = index">
-        <a class="nav-link" [attr.href]="'/assessment#techquestion' + i">{{
-          i + 1
-        }}</a>
-      </li>
-    </ul>
-    <!-- </div> -->
+    <div
+      class="offcanvas-footer d-flex justify-content-center align-items-center my-3"
+    ></div>
   </div>
 </div>
-
-<button (click)='stopTimer()' class="d-none" #stopBtn id="stopBtn">Pause</button>
-<button (click)='startTimer()' class="d-none" #startBtn id="startBtn">Start</button>
-
-<!-- Canvas  -->
-<button
-  class="btn btn-primary d-none"
-  type="button"
-  data-bs-toggle="offcanvas"
-  #completeBtn
-  id="completeBtn"
-  data-bs-target="#completeCanvas"
-  aria-controls="completeCanvas"
-  (click)="showSummary()"
->
-  Assessment Complete
-</button>
-
-<div
-  class="offcanvas offcanvas-top h-auto"
-  tabindex="-1"
-  id="completeCanvas"
-  aria-labelledby="completeCanvasLabel"
->
-  <div
-    class="offcanvas-header d-flex justify-content-center align-items-center"
-  >
-    <!-- <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button> -->
-  </div>
-  <div class="offcanvas-body d-flex justify-content-center align-items-center">
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <tr class="text-center">
-          <td scope="row" class="p-3" colspan="3">
-            <h5 class="btn btn-warning cursor-auto bg-warning" disabled>
-              Assessment Summary
-            </h5>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row" class="p-3">Total No. of Questions</th>
-          <td class="p-3">:</td>
-          <td class="p-3">{{ totalNoOfQns }}</td>
-        </tr>
-        <tr>
-          <th scope="row" class="p-3">No. of Questions Answered</th>
-          <td class="p-3">:</td>
-          <td class="p-3">{{ noOfQnsAnswered }}</td>
-        </tr>
-        <tr>
-          <th scope="row" class="p-3">No. of Questions not answered</th>
-          <td class="p-3">:</td>
-          <td class="p-3">{{ noOfQnsUnAnswered }}</td>
-        </tr>
-        <tr>
-          <th scope="row" class="p-3">Marks Earned / Total Marks</th>
-          <td class="p-3">:</td>
-          <td class="p-3">{{ totalMarkEarned }} / {{ totalMark }}</td>
-        </tr>
-        <tr class="text-center">
-          <td scope="row" class="p-3" colspan="3">
-            <button
-              class="btn btn-success bg-success"
-              routerLink="/"
-              (click)="onSubmit(true)"
-            >
-              OK
-            </button>
-          </td>
-        </tr>
-        <tr class="text-center">
-          <td scope="row" class="p-3" colspan="3">
-            <h5 class="btn btn-danger cursor-auto bg-danger" disabled>
-              Note: Click OK button to SAVE your results.
-            </h5>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <div
-    class="offcanvas-footer d-flex justify-content-center align-items-center my-3"
-  ></div>
-</div></div>

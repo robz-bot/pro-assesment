@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 import Swal from "sweetalert2";
 import { AlertifyService } from "src/app/shared-service/alertify.service";
 import { ConnectableObservable } from "rxjs";
+import { DashboardService } from "../admin-dashboard/dashboard.service";
 
 @Component({
   selector: "app-home",
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private homeService: HomeService,
     private route: Router,
-    private alert: AlertifyService
+    private alert: AlertifyService,
+    private settingService: DashboardService
   ) {}
 
   registerForm!: FormGroup;
@@ -26,6 +28,8 @@ export class HomeComponent implements OnInit {
   isEmpCodeValid: boolean = true;
   isEmailValid: boolean = true;
   teamList: any;
+  settings:any
+  totalQns:number=0
   ngOnInit() {
     sessionStorage.clear();
     this.registerForm = new FormGroup({
@@ -41,6 +45,11 @@ export class HomeComponent implements OnInit {
 
     this.getAllTeams();
     this.getDialingCodes();
+    this.settingService.settings().subscribe((data: any) => {
+      console.log(data);
+      this.settings = data[0];
+      this.totalQns  = this.settings.genQns + this.settings.techQns
+    });
   }
 
   codes: any[] = [];
@@ -83,7 +92,7 @@ export class HomeComponent implements OnInit {
     this.registerValue.email = this.registerValue.email.trim().toLowerCase();
     Swal.fire({
       title: "Read Instruction",
-      html: `There are 30 overall questions.
+      html: `There are ${this.totalQns} overall questions.
       Each question carries 1 mark.
       Once an assessment has begun, it cannot be stopped`,
       showDenyButton: true,
@@ -189,7 +198,7 @@ export class HomeComponent implements OnInit {
             if (result.isConfirmed) {
               Swal.fire({
                 title: "Read Instruction",
-                html: `There are 30 overall questions.
+                html: `There are ${this.totalQns} overall questions.
             Each question carries 1 mark.
             Once an assessment has begun, it cannot be stopped`,
                 showDenyButton: true,
