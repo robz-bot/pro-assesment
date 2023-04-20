@@ -2,12 +2,10 @@
 <!-- <div class="container"> -->
 <div class="card">
   <div class="card-header">
-    <h6 class="text-center text-light">
-      General Question List(s)
-    </h6>
+    <h6 class="text-center text-light">General Question List(s)</h6>
   </div>
   <div class="card-body bg-light">
-    <form #f="ngForm" (ngSubmit)="searchByGenQn()" novalidate  >
+    <form #f="ngForm" (ngSubmit)="searchByGenQn()" novalidate>
       <div class="d-flex flex-wrap flex-row bd-highlight mb-3">
         <div class="p-2 bd-highlight text-dark">Search By:</div>
         <div class="p-2 bd-highlight text-dark">
@@ -22,7 +20,6 @@
             <option value="options">Options</option>
             <option value="answer">Answer</option>
             <option value="date">Date</option>
-
           </select>
         </div>
         <div class="p-2 bd-highlight">
@@ -54,11 +51,15 @@
             (click)="getAllGeneralQuestionsPage()"
           />
         </div>
+       
       </div>
     </form>
-    <div class="card-header row bg-dark align-items-center" *ngIf="generalList.length > 0">
+    <div
+      class="card-header row bg-dark align-items-center"
+      *ngIf="generalList.length > 0"
+    >
       <div class="col-lg-2 col-sm-12 col-md-4 d-flex align-items-center">
-        <label> Total Items: {{count}}</label>
+        <label> Total Items: {{ count }}</label>
       </div>
       <div
         class="col-lg-10 col-sm-12 col-md-4 d-flex justify-content-end align-items-center"
@@ -74,11 +75,11 @@
     </div>
     <div class="row my-2">
       <p
-      *ngIf="generalList.length == 0"
-      class="text-center badge bg-warning text-dark"
-    >
-      No record(s) found
-    </p>
+        *ngIf="generalList.length == 0"
+        class="text-center badge bg-warning text-dark"
+      >
+        No record(s) found
+      </p>
       <div
         class="col-12"
         *ngFor="
@@ -92,9 +93,9 @@
           let i = index
         "
       >
-      <div class="card bg-light">
-        <div class="card-body text-dark">
-          {{ (page - 1) * pageSize + i + 1 }}.
+        <div class="card bg-light">
+          <div class="card-body text-dark">
+            {{ (page - 1) * pageSize + i + 1 }}.
             <small class="card-text fw-bold">{{ item.question }}</small>
             <div class="row">
               <div class="col-lg-3 col-sm-12 col-md-6">
@@ -103,7 +104,10 @@
                   <span *ngIf="item.option1 != item.answer" class="mx-1">{{
                     item.option1
                   }}</span>
-                  <mark *ngIf="item.option1 == item.answer" class="mx-1 bg-dark text-light">
+                  <mark
+                    *ngIf="item.option1 == item.answer"
+                    class="mx-1 bg-dark text-light"
+                  >
                     {{ item.option1 }}
                   </mark>
                 </small>
@@ -114,9 +118,11 @@
                   <span *ngIf="item.option2 != item.answer" class="mx-1">{{
                     item.option2
                   }}</span>
-                  <mark *ngIf="item.option2 == item.answer" class="mx-1 bg-dark text-light">{{
-                    item.option2
-                  }}</mark>
+                  <mark
+                    *ngIf="item.option2 == item.answer"
+                    class="mx-1 bg-dark text-light"
+                    >{{ item.option2 }}</mark
+                  >
                 </small>
               </div>
               <div class="col-lg-3 col-sm-12 col-md-6">
@@ -125,9 +131,11 @@
                   <span *ngIf="item.option3 != item.answer" class="mx-1">{{
                     item.option3
                   }}</span>
-                  <mark *ngIf="item.option3 == item.answer" class="mx-1 bg-dark text-light">{{
-                    item.option3
-                  }}</mark>
+                  <mark
+                    *ngIf="item.option3 == item.answer"
+                    class="mx-1 bg-dark text-light"
+                    >{{ item.option3 }}</mark
+                  >
                 </small>
               </div>
               <div class="col-lg-3 col-sm-12 col-md-6">
@@ -136,13 +144,18 @@
                   <span *ngIf="item.option4 != item.answer" class="mx-1">{{
                     item.option4
                   }}</span>
-                  <mark *ngIf="item.option4 == item.answer" class="mx-1 bg-dark text-light">{{
-                    item.option4
-                  }}</mark>
+                  <mark
+                    *ngIf="item.option4 == item.answer"
+                    class="mx-1 bg-dark text-light"
+                    >{{ item.option4 }}</mark
+                  >
                 </small>
               </div>
             </div>
-            <span class="my-2 text-dark badge bg-light"><i class="bi bi-alarm-fill"></i> {{item.updatedon.split("T")[0]}}</span>
+            <span class="my-2 text-dark badge bg-light"
+              ><i class="bi bi-alarm-fill"></i>
+              {{ item.date }}</span
+            >
             <small hidden
               ><span class="badge bg-info text-dark">Answer</span>
               {{ item.answer }}</small
@@ -171,8 +184,11 @@
         </div>
       </div>
     </div>
-    <div class="card-header row bg-dark align-items-center" *ngIf="generalList.length > 0">
-      <div class="col-lg-2 col-sm-12 col-md-4 ">
+    <div
+      class="card-header row bg-dark align-items-center"
+      *ngIf="generalList.length > 0"
+    >
+      <div class="col-lg-2 col-sm-12 col-md-4">
         <label> Items per Page:</label>
         <select
           (change)="handlePageSizeChange($event)"
@@ -195,7 +211,6 @@
         ></pagination-controls>
       </div>
     </div>
-    
   </div>
   <div class="card-footer"></div>
 </div>

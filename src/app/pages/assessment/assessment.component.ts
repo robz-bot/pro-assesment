@@ -219,10 +219,12 @@ export class AssessmentComponent implements OnInit {
   }
 
   totalQuestionsCount = 0 
+  totalQnsList:any[] = []
   getAllAssessmentQns(userId: string, teamId: string) {
     this.assessmentService.getExamQns(userId, teamId).subscribe((data) => {
       console.log(data);
       this.questionList = data;
+      this.totalQnsList = data;
       this.totalQuestionsCount = data.length
       console.log(this.questionList.length);
 
@@ -247,14 +249,14 @@ export class AssessmentComponent implements OnInit {
       });
 
       let techQnlist = this.questionList
-      techQnlist = techQnlist.splice(0,this.techQnsCountFromBK)
+      this.technicalQnList = techQnlist.splice(this.genQnsCountFromBK,this.techQnsCountFromBK)
 
       //Load technicalQnList
-      techQnlist.forEach((element: any, index: any) => {
-        // if (index >= 5 && index <= 29) this.technicalQnList.push(element);
-        // if (index >= this.genQnsCountFromBK && index < this.techQnsCountFromBK) this.technicalQnList.push(element);
-        this.technicalQnList.push(element);
-      });
+      // techQnlist.forEach((element: any, index: any) => {
+      //   // if (index >= 5 && index <= 29) this.technicalQnList.push(element);
+      //   if (index >= this.genQnsCountFromBK && index < this.techQnsCountFromBK) this.technicalQnList.push(element);
+      //   // this.technicalQnList.push(element);
+      // });
 
       //Start the timer
       this.startTimer();
@@ -290,6 +292,9 @@ export class AssessmentComponent implements OnInit {
     //alert("inside on submit method");
     this.answerArray = [];
     this.questionList.forEach((element: any) => {
+      this.answerArray.push(element.answer);
+    });
+    this.technicalQnList.forEach((element: any) => {
       this.answerArray.push(element.answer);
     });
     this.answerValue = this.answerForm.value;

@@ -38,7 +38,7 @@
           <div class="input-group input-group-sm">
             <span class="input-group-text" id="basic-addon1">&ge;</span
             ><input
-              type="number"
+              type="text"
               class="form-control form-control-sm"
               [(ngModel)]="settings.passPercentage"
               (keyup)="changeFailPercent()"
@@ -55,7 +55,7 @@
             <span class="input-group-text" id="basic-addon1">&lt;</span>
             <input
             disabled=""
-              type="number"
+              type="text"
               class="form-control form-control-sm"
               [(ngModel)]="settings.failPercentage"
             />
