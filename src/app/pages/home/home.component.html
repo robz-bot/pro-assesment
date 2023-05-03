@@ -36,6 +36,7 @@
                         class="form-control form-control-sm"
                         placeholder="First Name"
                         formControlName="firstName"
+                        (keypress)="onlyAplhabetic($event)"
                       />
                       <div
                         *ngIf="
@@ -68,6 +69,7 @@
                         class="form-control form-control-sm"
                         placeholder="Last Name"
                         formControlName="lastName"
+                        (keypress)="onlyAplhabetic($event)"
                       />
                       <div
                         *ngIf="
@@ -263,6 +265,7 @@
                         class="form-control form-control-sm"
                         placeholder="Manager"
                         formControlName="manager"
+                        (keypress)="onlyAplhabetic($event)"
                       />
 
                       <div
