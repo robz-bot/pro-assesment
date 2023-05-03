@@ -16,6 +16,7 @@ import { DashboardService } from "../admin-dashboard/dashboard.service";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
+  numericPattern = /^[0-9]*$/;
   constructor(
     private homeService: HomeService,
     private route: Router,
@@ -28,8 +29,8 @@ export class HomeComponent implements OnInit {
   isEmpCodeValid: boolean = true;
   isEmailValid: boolean = true;
   teamList: any;
-  settings:any
-  totalQns:number=0
+  settings: any;
+  totalQns: number = 0;
   ngOnInit() {
     sessionStorage.clear();
     this.registerForm = new FormGroup({
@@ -48,7 +49,7 @@ export class HomeComponent implements OnInit {
     this.settingService.settings().subscribe((data: any) => {
       console.log(data);
       this.settings = data[0];
-      this.totalQns  = this.settings.genQns + this.settings.techQns
+      this.totalQns = this.settings.genQns + this.settings.techQns;
     });
   }
 
@@ -323,5 +324,19 @@ export class HomeComponent implements OnInit {
     sessionStorage.setItem("empcode", form.empCode);
     sessionStorage.setItem("teamId", form.teamId);
     sessionStorage.setItem("userId", resultData.id);
+  }
+
+  previousValue = "";
+
+  onlyAplhabetic(event: any) {
+    var inputValue = event.charCode;
+    if (
+      !(inputValue >= 65 && inputValue <= 90) &&
+      !(inputValue >= 97 && inputValue <= 122) &&
+      inputValue != 32 &&
+      inputValue != 0
+    ) {
+      event.preventDefault();
+    }
   }
 }
