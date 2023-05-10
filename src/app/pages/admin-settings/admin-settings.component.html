@@ -42,6 +42,8 @@
               class="form-control form-control-sm"
               [(ngModel)]="settings.passPercentage"
               (keyup)="changeFailPercent()"
+              (keypress)="onlyNumeric($event)"
+              maxlength="2"
             />
           </div>
         </div>
