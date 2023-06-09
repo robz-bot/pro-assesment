@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import { AlertifyService } from "src/app/shared-service/alertify.service";
 import { ConnectableObservable } from "rxjs";
 import { DashboardService } from "../admin-dashboard/dashboard.service";
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: "app-home",
@@ -17,12 +18,14 @@ import { DashboardService } from "../admin-dashboard/dashboard.service";
 })
 export class HomeComponent implements OnInit {
   numericPattern = /^[0-9]*$/;
+  adminRadio: any;
+
   constructor(
     private homeService: HomeService,
     private route: Router,
     private alert: AlertifyService,
     private settingService: DashboardService
-  ) {}
+  ) { }
 
   registerForm!: FormGroup;
   registerValue: register = new register();
@@ -31,6 +34,7 @@ export class HomeComponent implements OnInit {
   teamList: any;
   settings: any;
   totalQns: number = 0;
+  totalPrgQns: number = 0;
   ngOnInit() {
     sessionStorage.clear();
     this.registerForm = new FormGroup({
@@ -40,6 +44,7 @@ export class HomeComponent implements OnInit {
       email: new FormControl("", [Validators.required]),
       manager: new FormControl("", [Validators.required]),
       teamId: new FormControl("", [Validators.required]),
+      level: new FormControl("", [Validators.required]),
       // phnNumber: new FormControl("", [Validators.required]),
       // code: new FormControl("", [Validators.required]),
     });
@@ -50,6 +55,7 @@ export class HomeComponent implements OnInit {
       console.log(data);
       this.settings = data[0];
       this.totalQns = this.settings.genQns + this.settings.techQns;
+      this.totalPrgQns = this.settings.prgQns;
     });
   }
 
@@ -61,12 +67,24 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  navigateToProgramPage() {
+    if (this.registerForm && this.registerForm.get('lvlRadio')) {
+      const level = this.adminRadio.get('lvlRadio').value;
+      if (level === 'A') {
+        this.route.navigate(['/program']);
+      }
+    }
+  }
+
+
   getAllTeams() {
     this.homeService.getAllTeams().subscribe((data) => {
       console.log(data);
       this.teamList = data;
     });
   }
+
+
 
   resData: any;
   submitBtnValue: string = buttonValue.START_ASSESS;
@@ -91,11 +109,12 @@ export class HomeComponent implements OnInit {
 
     this.registerValue.empCode = this.registerValue.empCode.toUpperCase();
     this.registerValue.email = this.registerValue.email.trim().toLowerCase();
+    this.registerValue.level = this.registerValue.level
     Swal.fire({
       title: "Read Instruction",
-      html: `There are ${this.totalQns} overall questions.
+      html: this.registerValue.level == "L1" ? `There are ${this.totalQns} overall questions.
       Each question carries 1 mark.
-      Once an assessment has begun, it cannot be stopped`,
+      Once an assessment has begun, it cannot be stopped`: `There are ${this.totalPrgQns} overall question(s).`,
       showDenyButton: true,
       confirmButtonText: "Start",
       denyButtonText: `Cancel`,
@@ -265,6 +284,8 @@ export class HomeComponent implements OnInit {
     );
   }
 
+
+
   private saveUser(isFromAreadyAppread: string) {
     this.alert.showLoading();
     const params = isFromAreadyAppread;
@@ -276,13 +297,22 @@ export class HomeComponent implements OnInit {
         console.log(this.resData);
         if (this.resData.status == 0) {
           this.submitBtnValue = buttonValue.START_ASSESS;
+          if (this.registerValue.level == "L1") {
+            this.route.navigate([]).then((result: any) => {
+              window.open("/assessment", "_blank");
+            });
+
+          }
+          else {
+            this.route.navigate([]).then((result: any) => {
+              window.open("/program", "_blank");
+            });
+          }
+          // this.route.navigateByUrl("/assessment");
+          console.log(this.registerValue)
+          this.savedInSession(this.registerValue, this.resData);
           this.registerForm.reset();
 
-          this.route.navigate([]).then((result: any) => {
-            window.open("/assessment", "_blank");
-          });
-          // this.route.navigateByUrl("/assessment");
-          this.savedInSession(this.registerValue, this.resData);
           Swal.fire({
             position: "center",
             icon: "success",
@@ -324,6 +354,7 @@ export class HomeComponent implements OnInit {
     sessionStorage.setItem("empcode", form.empCode);
     sessionStorage.setItem("teamId", form.teamId);
     sessionStorage.setItem("userId", resultData.id);
+
   }
 
   previousValue = "";
