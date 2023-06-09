@@ -17,4 +17,5 @@ export class register {
   "updatedOn": string;
   "phnNumber":string;
   "code":string
+  "level": string;
 }

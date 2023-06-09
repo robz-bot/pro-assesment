@@ -34,6 +34,8 @@ import { BulkTechQnsComponent } from './pages/bulk-tech-qns/bulk-tech-qns.compon
 import { NgxFullscreenModule } from "@ultimate/ngx-fullscreen";
 import { AllProLinksComponent } from './pages/all-pro-links/all-pro-links.component';
 import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.component';
+import { ProgramComponent } from './pages/program/program.component';
+import { AngularEditorModule } from "angular-editor55";
 
 @NgModule({
   declarations: [
@@ -64,6 +66,7 @@ import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.co
     BulkTechQnsComponent,
     AllProLinksComponent,
     AdminSettingsComponent,
+    ProgramComponent,
   ],
   imports: [
     
@@ -75,7 +78,8 @@ import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.co
     ReactiveFormsModule,
     HttpClientModule,
     NgApexchartsModule,
-    NgxFullscreenModule 
+    NgxFullscreenModule,
+    AngularEditorModule
     
     
   ],

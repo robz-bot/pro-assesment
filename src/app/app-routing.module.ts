@@ -19,6 +19,7 @@ import { UsersListComponent } from "./pages/users-list/users-list.component";
 import { BulkTechQnsComponent } from "./pages/bulk-tech-qns/bulk-tech-qns.component";
 import { AllProLinksComponent } from "./pages/all-pro-links/all-pro-links.component";
 import { AdminSettingsComponent } from "./pages/admin-settings/admin-settings.component";
+import { ProgramComponent } from "./pages/program/program.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -41,10 +42,11 @@ const routes: Routes = [
   { path: "upload-gen-qns", component: MainComponent },
   { path: "upload-tech-qns", component: BulkTechQnsComponent },
   { path: "promantus-projects", component: AllProLinksComponent },
+  { path: "program", component: ProgramComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -6,144 +6,70 @@
       </h4>
     </div>
     <div class="card-body bg-light text-dark">
-      <form
-        [formGroup]="loginForm"
-        (ngSubmit)="onSubmit()"
-        *ngIf="loginFormInit"
-      >
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="loginFormInit">
         <fieldset>
           <div class="form-group">
             <label class="form-label mt-0">Email </label>
-            <input
-              type="email"
-              class="form-control"
-              placeholder="Email"
-              formControlName="email"
-              name="email"
-            />
-            <div
-              *ngIf="
+            <input type="email" class="form-control" placeholder="Email" formControlName="email" name="email" />
+            <div *ngIf="
                 !loginForm.controls['email'].valid &&
                 (loginForm.controls['email'].dirty ||
                   loginForm.controls['email'].touched)
-              "
-            >
-              <div
-                class="bg-danger"
-                [hidden]="!loginForm.controls['email'].errors?.['required']"
-              >
-                <small class="mx-2 text-light"
-                  >Email is required
-                  <i
-                    class="bi bi-exclamation-triangle float-end mx-2 text-light"
-                  ></i
-                ></small>
+              ">
+              <div class="bg-danger" [hidden]="!loginForm.controls['email'].errors?.['required']">
+                <small class="mx-2 text-light">Email is required
+                  <i class="bi bi-exclamation-triangle float-end mx-2 text-light"></i></small>
               </div>
-              <div
-                class="bg-danger"
-                [hidden]="!loginForm.controls['email'].errors?.['email']"
-              >
-                <small class="mx-2 text-light"
-                  >Invalid Email
-                  <i
-                    class="bi bi-exclamation-triangle float-end mx-2 text-light"
-                  ></i
-                ></small>
+              <div class="bg-danger" [hidden]="!loginForm.controls['email'].errors?.['email']">
+                <small class="mx-2 text-light">Invalid Email
+                  <i class="bi bi-exclamation-triangle float-end mx-2 text-light"></i></small>
               </div>
             </div>
           </div>
           <div class="form-group">
             <label class="form-label mt-4">Password </label>
-            <input
-              type="password"
-              class="form-control"
-              placeholder="Password"
-              formControlName="password"
-              name="password"
-            />
-            <div
-              *ngIf="
+            <input type="password" class="form-control" placeholder="Password" formControlName="password"
+              name="password" />
+            <div *ngIf="
                 !loginForm.controls['password'].valid &&
                 (loginForm.controls['password'].dirty ||
                   loginForm.controls['password'].touched)
-              "
-            >
-              <div
-                class="bg-danger"
-                [hidden]="!loginForm.controls['password'].errors?.['required']"
-              >
-                <small class="mx-2 text-light"
-                  >Password is required
-                  <i
-                    class="bi bi-exclamation-triangle float-end mx-2 text-light"
-                  ></i
-                ></small>
+              ">
+              <div class="bg-danger" [hidden]="!loginForm.controls['password'].errors?.['required']">
+                <small class="mx-2 text-light">Password is required
+                  <i class="bi bi-exclamation-triangle float-end mx-2 text-light"></i></small>
               </div>
-              <div
-                class="bg-danger"
-                [hidden]="!loginForm.controls['password'].errors?.['minlength']"
-              >
-                <small class="mx-2 text-light"
-                  >Minimum Length is 5
-                  <i
-                    class="bi bi-exclamation-triangle float-end mx-2 text-light"
-                  ></i
-                ></small>
+              <div class="bg-danger" [hidden]="!loginForm.controls['password'].errors?.['minlength']">
+                <small class="mx-2 text-light">Minimum Length is 5
+                  <i class="bi bi-exclamation-triangle float-end mx-2 text-light"></i></small>
               </div>
             </div>
           </div>
           <div class="form-group">
             <label class="form-label mt-4">Choose Your Role</label> <br />
             <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="adminRadio"
-                value="SA"
-                formControlName="adminRadio"
-                checked
-              />
-              <label class="form-check-label" for="inlineRadio1"
-                >Super Admin</label
-              >
+              <input class="form-check-input" type="radio" name="adminRadio" value="SA" formControlName="adminRadio"
+                checked />
+              <label class="form-check-label" for="inlineRadio1">Super Admin</label>
             </div>
             <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="adminRadio"
-                value="A"
-                formControlName="adminRadio"
-              />
+              <input class="form-check-input" type="radio" name="adminRadio" value="A" formControlName="adminRadio" />
               <label class="form-check-label" for="inlineRadio2">Admin</label>
             </div>
           </div>
         </fieldset>
-        <div
-          class="alert alert-danger alert-dismissible fade show my-2"
-          role="alert"
-          *ngIf="loginErr"
-        >
+        <div class="alert alert-danger alert-dismissible fade show my-2" role="alert" *ngIf="loginErr">
           Invalid Credentials
         </div>
         <fieldset class="text-center my-3">
           Don't have Admin Rights?
-          <a
-            class="text-primary"
-            href="javascript:void(0)"
-            data-bs-toggle="modal"
-            data-bs-target="#requestModal"
-            (click)="loadModalData()"
-          >
+          <a class="text-primary" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#requestModal"
+            (click)="loadModalData()">
             Raise a Request
           </a>
         </fieldset>
         <fieldset class="text-center my-3">
-          <button
-            type="submit"
-            class="btn btn-dark btn-md mt-0 text-center"
-            [disabled]="!loginForm.valid"
-          >
+          <button type="submit" class="btn btn-dark btn-md mt-0 text-center" [disabled]="!loginForm.valid">
             Get In
           </button>
         </fieldset>
@@ -158,152 +84,79 @@
 </div>
 
 <!-- Raise Request Modal -->
-<div
-  class="modal fade"
-  id="requestModal"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="requestModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Admin Request Form</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="closeReqModal()"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="closeReqModal()"></button>
       </div>
-      <form
-        [formGroup]="reqForm"
-        (ngSubmit)="onSubmitReq()"
-        *ngIf="reqFormInit"
-      >
+      <form [formGroup]="reqForm" (ngSubmit)="onSubmitReq()" *ngIf="reqFormInit">
         <div class="modal-body bg-light">
           <p class="text-dark">Fill the details below <span class="text-danger">(All are mandatory)</span></p>
           <fieldset>
             <div class="form-group">
               <label class="form-label mt-2 text-dark">Email </label>
-              <input
-                type="email"
-                class="form-control"
-                placeholder="Email"
-                formControlName="email"
-                name="email"
-              />
-              <div
-                *ngIf="
+              <input type="email" class="form-control" placeholder="Email" formControlName="email" name="email" />
+              <div *ngIf="
                   !reqForm.controls['email'].valid &&
                   (reqForm.controls['email'].dirty ||
                     reqForm.controls['email'].touched)
-                "
-              >
-                <div
-                  class="bg-danger"
-                  [hidden]="!reqForm.controls['email'].errors?.['required']"
-                >
-                  <small class="mx-2 text-light"
-                    >Email is required
-                    <i
-                      class="bi bi-exclamation-triangle float-end mx-2 text-light"
-                    ></i
-                  ></small>
+                ">
+                <div class="bg-danger" [hidden]="!reqForm.controls['email'].errors?.['required']">
+                  <small class="mx-2 text-light">Email is required
+                    <i class="bi bi-exclamation-triangle float-end mx-2 text-light"></i></small>
                 </div>
-                <div
-                  class="bg-danger"
-                  [hidden]="!reqForm.controls['email'].errors?.['email']"
-                >
-                  <small class="mx-2 text-light"
-                    >Invalid Email
-                    <i
-                      class="bi bi-exclamation-triangle float-end mx-2 text-light"
-                    ></i
-                  ></small>
+                <div class="bg-danger" [hidden]="!reqForm.controls['email'].errors?.['email']">
+                  <small class="mx-2 text-light">Invalid Email
+                    <i class="bi bi-exclamation-triangle float-end mx-2 text-light"></i></small>
                 </div>
               </div>
             </div>
             <div class="form-group">
               <label class="form-label mt-4 text-dark">Team </label>
-              <select
-                class="form-select"
-                formControlName="teamId"
-                name="teamId"
-                aria-label="Default select example"
-              >
+              <select class="form-select" formControlName="teamId" name="teamId" aria-label="Default select example">
                 <option value="">Select Team</option>
                 <option [value]="item.id" *ngFor="let item of teamList">
                   {{ item.team }}
                 </option>
               </select>
 
-              <div
-                *ngIf="
+              <div *ngIf="
                   !reqForm.controls['teamId'].valid &&
                   (reqForm.controls['teamId'].dirty ||
                     reqForm.controls['teamId'].touched)
-                "
-                class="bg-danger"
-              >
-                <div
-                  [hidden]="!reqForm.controls['teamId'].errors?.['required']"
-                >
-                  <small class="text-light mx-2">Team is required</small
-                  ><i
-                    class="bi bi-exclamation-triangle float-end mx-2 text-light"
-                  ></i>
+                " class="bg-danger">
+                <div [hidden]="!reqForm.controls['teamId'].errors?.['required']">
+                  <small class="text-light mx-2">Team is required</small><i
+                    class="bi bi-exclamation-triangle float-end mx-2 text-light"></i>
                 </div>
               </div>
             </div>
             <div class="form-group">
               <label class="form-label mt-4 text-dark">Reason </label>
-              <textarea
-                type="text"
-                class="form-control"
-                placeholder="Reason"
-                formControlName="reason"
-                name="reason"
-              ></textarea>
-              <div
-                *ngIf="
+              <textarea type="text" class="form-control" placeholder="Reason" formControlName="reason"
+                name="reason"></textarea>
+              <div *ngIf="
                   !reqForm.controls['reason'].valid &&
                   (reqForm.controls['reason'].dirty ||
                     reqForm.controls['reason'].touched)
-                "
-              >
-                <div
-                  class="bg-danger"
-                  [hidden]="!reqForm.controls['reason'].errors?.['required']"
-                >
-                  <small class="mx-2 text-light"
-                    >Reason is required
-                    <i
-                      class="bi bi-exclamation-triangle float-end mx-2 text-light"
-                    ></i
-                  ></small>
+                ">
+                <div class="bg-danger" [hidden]="!reqForm.controls['reason'].errors?.['required']">
+                  <small class="mx-2 text-light">Reason is required
+                    <i class="bi bi-exclamation-triangle float-end mx-2 text-light"></i></small>
                 </div>
               </div>
             </div>
           </fieldset>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-md btn-secondary"
-            data-bs-dismiss="modal"
-            (click)="closeReqModal()"
-          >
+          <button type="button" class="btn btn-md btn-secondary" data-bs-dismiss="modal" (click)="closeReqModal()">
             Cancel
           </button>
-          <button
-            type="submit"
-            class="btn btn-dark btn-md mt-0 text-center"
-            [disabled]="!reqForm.valid"
-          >
+          <button type="submit" class="btn btn-dark btn-md mt-0 text-center" [disabled]="!reqForm.valid">
             Raise a Request
           </button>
         </div>
