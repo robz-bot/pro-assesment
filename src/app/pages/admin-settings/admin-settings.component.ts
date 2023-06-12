@@ -47,10 +47,13 @@ export class AdminSettingsComponent implements OnInit {
     this.settings.failPercentage = this.settings.passPercentage - 1;
   }
 
-  onlyNumeric(event: any) {
-    console.log(event);
+  onlyNumeric(event:any){
+    console.log(event)
     var inputValue = event.charCode;
-    if (!(inputValue >= 48 && inputValue <= 57) && inputValue != 32) {
+    if (
+      !(inputValue >= 48 && inputValue <= 57) &&
+      inputValue != 32
+    ) {
       event.preventDefault();
     }
   }

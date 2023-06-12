@@ -34,6 +34,13 @@ import { BulkTechQnsComponent } from './pages/bulk-tech-qns/bulk-tech-qns.compon
 import { NgxFullscreenModule } from "@ultimate/ngx-fullscreen";
 import { AllProLinksComponent } from './pages/all-pro-links/all-pro-links.component';
 import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.component';
+import { ProgramComponent } from './pages/program/program.component';
+import { AngularEditorModule } from "angular-editor55";
+import { AddProgQnComponent } from './pages/add-prog-qn/add-prog-qn.component';
+import { BulkProgQnsComponent } from './pages/bulk-prog-qns/bulk-prog-qns.component';
+import { ProgQnListComponent } from './pages/prog-qn-list/prog-qn-list.component';
+import { UpdateProgQnComponent } from './pages/update-prog-qn/update-prog-qn.component';
+
 
 @NgModule({
   declarations: [
@@ -64,6 +71,11 @@ import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.co
     BulkTechQnsComponent,
     AllProLinksComponent,
     AdminSettingsComponent,
+    ProgramComponent,
+    AddProgQnComponent,
+    BulkProgQnsComponent,
+    ProgQnListComponent,
+    UpdateProgQnComponent,
   ],
   imports: [
     
@@ -75,8 +87,9 @@ import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.co
     ReactiveFormsModule,
     HttpClientModule,
     NgApexchartsModule,
-    NgxFullscreenModule 
-    
+    NgxFullscreenModule,
+    AngularEditorModule,
+    ReactiveFormsModule
     
   ],
   providers: [],

@@ -17,11 +17,15 @@ import { DashboardService } from "../admin-dashboard/dashboard.service";
 })
 export class HomeComponent implements OnInit {
   numericPattern = /^[0-9]*$/;
+  selectedValue: string = "";
+
   constructor(
     private homeService: HomeService,
     private route: Router,
     private alert: AlertifyService,
-    private settingService: DashboardService
+    private settingService: DashboardService,
+    
+    
   ) {}
 
   registerForm!: FormGroup;
@@ -31,6 +35,8 @@ export class HomeComponent implements OnInit {
   teamList: any;
   settings: any;
   totalQns: number = 0;
+
+  
   ngOnInit() {
     sessionStorage.clear();
     this.registerForm = new FormGroup({
@@ -67,6 +73,8 @@ export class HomeComponent implements OnInit {
       this.teamList = data;
     });
   }
+
+  
 
   resData: any;
   submitBtnValue: string = buttonValue.START_ASSESS;
@@ -339,4 +347,17 @@ export class HomeComponent implements OnInit {
       event.preventDefault();
     }
   }
+
+// Using Level Login
+
+navigateToPage() {
+
+  if (this.selectedValue === 'Level-I') {
+    this.route.navigate(['/assessment']);
+  } else if (this.selectedValue === 'Level-II') {
+    this.route.navigate(['/program']);
+  } 
+
+}
+
 }
