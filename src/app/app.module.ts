@@ -89,7 +89,8 @@ import { UpdateProgQnComponent } from './pages/update-prog-qn/update-prog-qn.com
     NgApexchartsModule,
     NgxFullscreenModule,
     AngularEditorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularEditorModule
     
   ],
   providers: [],

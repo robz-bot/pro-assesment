@@ -1,5 +1,82 @@
+
 <div class="container">
     <app-user-details></app-user-details>
     <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent" [config]="editorConfig"></angular-editor>
 </div>
 
+<div class="container my-3">
+    <div class="bg-light rounded-3 text-dark" #myAssess>
+        <!-- <div class="container container-fluid"> -->
+          <p class="fw-bold">
+            <!-- Welcome, {{ questionList[0].firstName }}
+            {{ questionList[0].lastName }} ! -->
+          </p>
+          <h3 class="badge bg-danger fs-1 align-items-center text-center">
+            <!-- {{ timeLeft | formatTime }} -->
+          </h3>
+          <div class="progress">
+            <!-- <div
+              [attr.class]="progressColor"
+              role="progressbar"
+              [style.width.%]="progressPercentage"
+            ></div> -->
+          </div>
+          <app-user-details></app-user-details>
+        </div>
+    <hr>
+    <!-- <div class="program">
+        <div class="card text-warning p-2">
+            <p>
+                Q1. write binomial series in python
+                and provide an output with proper explanation for the numerical series of 1,2,3,4,5,6,7,8,9 and allocate
+                to
+                iyts
+                number series of the value provider
+            </p>
+            <span class="text-end ">
+                <p class="badge badge-rounded badge-primary">Level: Beginner</p>
+            </span>
+        </div>
+        <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"
+            [config]="editorConfig"></angular-editor>
+    </div> -->
+    <form [formGroup]="programForm">
+    <div class="row">
+      <div
+        class="col-12 my-2 bg-dark"
+        [attr.id]="'progquestion' + i"
+        *ngFor="let item of programQnList; let i = index"
+      >
+        <p class="fw-bold text-light disable-text-selection">
+          {{ i + 1 }}. {{ item }}
+        </p>
+        <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"
+        [config]="editorConfig"
+        [formControlName]="'qn' + i">
+      </angular-editor>
+        
+        <hr class="line" style="height: 8px;" color="gold" >
+
+         <label class="checkborder" *ngFor="let option of item.options">
+
+           <div class="form-check">
+            <input
+              type="radio"
+              class="form-check-input"
+              [value]="option"
+              [formControlName]="'qn' + i"
+              [name]="'qn' + i"
+            /> 
+            <label class="form-check-label m-2 mx-4 text-dark">{{
+              option
+            }}</label>
+          </div>
+        </label> 
+      
+      </div>
+    <div class="text-center">
+        <button class="btn btn-sm btn-danger my-2 text-center">End</button>
+    </div>
+
+</div>
+</form>

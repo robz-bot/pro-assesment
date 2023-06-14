@@ -11,6 +11,9 @@ describe('ProgramComponent', () => {
       declarations: [ ProgramComponent ]
     })
     .compileComponents();
+      declarations: [ProgramComponent]
+    })
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -237,6 +237,8 @@ export class AssessmentComponent implements OnInit {
       sessionStorage.setItem("teamId", this.questionList[0].teamId);
       sessionStorage.setItem("team", this.questionList[0].team);
       sessionStorage.setItem("empCode", this.questionList[0].empCode);
+      sessionStorage.setItem("level","L1");
+
 
       //Calculating time based on questions
       //let say, 1 min for each qn

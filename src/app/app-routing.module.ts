@@ -22,6 +22,7 @@ import { AdminSettingsComponent } from "./pages/admin-settings/admin-settings.co
 import { ProgramComponent } from "./pages/program/program.component";
 import { AddProgQnComponent } from "./pages/add-prog-qn/add-prog-qn.component";
 
+
 const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "assessment", component: AssessmentComponent },
