@@ -1,0 +1,60 @@
+<app-admin-header></app-admin-header>
+<div class="container">
+  <div class="card">
+    <form class="row g-3" [formGroup]="progQnForm" (ngSubmit)="onSubmit()">
+      <div class="card-header">
+        <h4 class="text-center text-light">Add Program Question(s)</h4>
+        <div class="form-check form-switch float-end">
+          <input
+            class="form-check-input bg-warning"
+            type="checkbox"
+            formControlName="mulQn"
+          />
+          <label class="form-check-label text-light">Add 1 more question</label>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label">Question</label>
+            <textarea
+              rows="2"
+              class="form-control form-control-sm"
+              formControlName="question"
+            ></textarea>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Team</label>
+            <select class="form-select form-select-sm" formControlName="teamId">
+              <option [value]="">Select Team</option>
+              <option [value]="item.id" *ngFor="let item of filteredTeamList">
+                {{ item.team }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Program Level</label>
+            <select class="form-select form-select-sm" formControlName="questionLevel">
+              <option [value]="">Select Level</option>
+              <option value="B">Beginner</option>          
+              <option value="I">Intermediate</option>          
+              <option value="A">Advanced</option>
+              
+            </select>
+          </div>
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-sm btn-success">Save</button>
+            <button
+              type="button"
+              class="btn btn-sm btn-secondary mx-2"
+              (click)="goBack()"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="card-footer"></div>
+  </div>
+</div>

@@ -20,6 +20,8 @@ import { BulkTechQnsComponent } from "./pages/bulk-tech-qns/bulk-tech-qns.compon
 import { AllProLinksComponent } from "./pages/all-pro-links/all-pro-links.component";
 import { AdminSettingsComponent } from "./pages/admin-settings/admin-settings.component";
 import { ProgramComponent } from "./pages/program/program.component";
+import { AddProgQnComponent } from "./pages/add-prog-qn/add-prog-qn.component";
+
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -27,6 +29,7 @@ const routes: Routes = [
   { path: "admin-login", component: AdminLoginComponent },
   { path: "admin-dashboard", component: AdminDashboardComponent },
   { path: "add-gen-qn", component: AddGenQnComponent },
+  { path: "add-prog-qn", component: AddProgQnComponent },
   { path: "settings", component: AdminSettingsComponent },
   { path: "add-tech-qn", component: AddTechQnComponent },
   { path: "edit-gen-qn/:id", component: UpdateGenQnComponent },

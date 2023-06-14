@@ -1,23 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProgramComponent } from './program.component';
+import { AddProgQnComponent } from './add-prog-qn.component';
 
-describe('ProgramComponent', () => {
-  let component: ProgramComponent;
-  let fixture: ComponentFixture<ProgramComponent>;
+describe('AddProgQnComponent', () => {
+  let component: AddProgQnComponent;
+  let fixture: ComponentFixture<AddProgQnComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProgramComponent ]
+      declarations: [ AddProgQnComponent ]
     })
     .compileComponents();
-      declarations: [ProgramComponent]
-    })
-      .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProgramComponent);
+    fixture = TestBed.createComponent(AddProgQnComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
