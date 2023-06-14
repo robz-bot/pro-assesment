@@ -99,7 +99,7 @@ export class AssessmentComponent implements OnInit {
         "stopBtn"
       ) as HTMLElement;
       let completeBtnel: HTMLElement = document.getElementById(
-        "completeBtn"
+          "completeBtn"
       ) as HTMLElement;
       if (document.hidden) {
         // alert("Hidden")

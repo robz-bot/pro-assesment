@@ -1,10 +1,9 @@
-
-import { Component, OnInit } from '@angular/core';
 import { question } from './../assessment/question';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { browserRefresh } from 'src/app/app.component';
 import Swal from "sweetalert2";
+
 
 
 @Component({
@@ -13,31 +12,6 @@ import Swal from "sweetalert2";
   styleUrls: ['./program.component.css']
 })
 export class ProgramComponent implements OnInit {
-  htmlContent:any
-  editorConfig: any = {
-   
-    editable: true,
-      spellcheck: true,
-      height: 'auto',
-      minHeight: '0',
-      maxHeight: 'auto',
-      width: 'auto',
-      minWidth: '0',
-      translate: 'yes',
-      enableToolbar: true,
-      showToolbar: true,
-      placeholder: 'Enter text here...',
-      defaultParagraphSeparator: '',
-      defaultFontName: '',
-      defaultFontSize: '',
-      fonts: [
-        {class: 'arial', name: 'Arial'},
-        {class: 'times-new-roman', name: 'Times New Roman'},
-        {class: 'calibri', name: 'Calibri'},
-        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
-      ],
-      customClasses: [
-
   htmlContent: any
   questions: any
   programQnList: any = ['Question 1', 'Question 2', 'Question 3'];
@@ -77,7 +51,6 @@ export class ProgramComponent implements OnInit {
         tag: 'h1',
       },
     ],
-    insertImage:'',
     insertImage: '',
     sanitize: true,
     toolbarPosition: 'top',
@@ -85,25 +58,24 @@ export class ProgramComponent implements OnInit {
       ['bold', 'italic'],
       ['fontSize']
     ]
-};
-  constructor() { }
-
-  
-  ngOnInit(): void {
   };
   browserRefresh: any;
   router: any;
   programForm!: FormGroup;
+  startTime: any;
 
   constructor(
     private formBuilder: FormBuilder,
 
   ) { }
- @ViewChild("completeBtn")
+  @ViewChild("completeBtn")
   completeBtn!: ElementRef;
+  timeLeft: number = 0;
+  interval: any;
 
-    visiblitiyHiddenCount: number = 0;
-      @ViewChild("stopBtn") stopBtn!: ElementRef<HTMLElement>;
+
+  visiblitiyHiddenCount: number = 0;
+  @ViewChild("stopBtn") stopBtn!: ElementRef<HTMLElement>;
 
 
   ngOnInit(): void {
@@ -130,16 +102,16 @@ export class ProgramComponent implements OnInit {
       ) as HTMLElement;
 
 
- if (document.hidden) {
-        // alert("Hidden")
+      if (document.hidden) {
+         // alert("Hidden")
         visiblitiyHiddenCount++;
         if (visiblitiyHiddenCount <= 3) {
           stopBtnel.click();
           //Click fullscreen button through native element
           alert(
             "WARNING: " +
-              visiblitiyHiddenCount +
-              " You are not suppose to switch / Move from current tab\nAssessment will end after 3 warnings automatically"
+            visiblitiyHiddenCount +
+            " You are not suppose to switch / Move from current tab\nAssessment will end after 3 warnings automatically"
           );
 
           if (visiblitiyHiddenCount > 3) {
@@ -164,9 +136,39 @@ export class ProgramComponent implements OnInit {
       this.programForm.addControl(controlName, new FormControl(""));
     }
 
+    console.log(this.programForm)
+    //Calculating time for questions
+    this.timeLeft = this.programQnList.length * 900;
 
-    
+    // time starting here
+    this.startTimer();
 
+
+  }
+  stopTimer() {
+    clearInterval(this.interval);
+  }
+  timerSec: number = 0;
+  progressPercentage: number = 0;
+  progressColor: string = "";
+  startTimer() {
+    this.timerSec = 1000;
+    this.interval = setInterval(() => {
+      this.progressPercentage = Math.trunc((this.timeLeft / 1800) * 100);
+      this.timeLeft--;
+      this.progressColor = "progress-bar progress-bar-striped ";
+      if (this.progressPercentage >= 50) {
+        this.progressColor += "bg-success";
+      } else if (this.progressPercentage < 20) {
+        this.progressColor += "bg-danger";
+      } else if (this.progressPercentage > 20 && this.progressPercentage < 50) {
+        this.progressColor += "bg-warning";
+      }
+      console.log("timeLeft: " + this.timeLeft);
+      if (this.timeLeft < 1) {
+        clearInterval(this.interval);
+      }
+    }, this.timerSec);
   }
 
 }

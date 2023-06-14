@@ -32,6 +32,8 @@ export class AddProgQnComponent implements OnInit {
     this.role = sessionStorage.getItem("role")?.toString();
 
     this.progQnForm = new FormGroup({
+      program: new FormControl("", [Validators.required]),
+      programLevel: new FormControl("Select Level", [Validators.required]),
       question: new FormControl("", [Validators.required]),
       questionLevel: new FormControl("Select Level", [Validators.required]),
       teamId: new FormControl("Select Team", [Validators.required]),
@@ -78,14 +80,20 @@ export class AddProgQnComponent implements OnInit {
 
   onSubmit() {
     this.progQnValue = this.progQnForm.value;
+ 
+    this.progQnValue.program = this.progQnValue.program.trim();
+    this.progQnValue.programLevel = this.progQnValue.programLevel.trim();
+    console.log(this.progQnValue)
+    if (this.progQnValue.program == "") {
+      this.alert.customWarningMsgWithoutBtn("Program is required!");
+      return;
+    }
+    if (this.progQnValue.programLevel == "" || this.progQnValue.programLevel == "Select Level") {
+      this.alert.customWarningMsgWithoutBtn("Program Level is required!");
 
     this.progQnValue.question = this.progQnValue.question.trim();
     this.progQnValue.questionLevel = this.progQnValue.questionLevel.trim();
 
-    if (this.progQnValue.question == "") {
-      this.alert.customWarningMsgWithoutBtn("Question is required!");
-      return;
-    }
     if (this.progQnValue.questionLevel == "") {
       this.alert.customWarningMsgWithoutBtn("Question Level is required!");
       return;
@@ -140,5 +148,6 @@ export class AddProgQnComponent implements OnInit {
         });
       }
     );
+  }
   }
 }
