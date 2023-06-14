@@ -18,17 +18,12 @@ import { FormBuilder } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   numericPattern = /^[0-9]*$/;
-  selectedValue: string = "";
   adminRadio: any;
 
   constructor(
     private homeService: HomeService,
     private route: Router,
     private alert: AlertifyService,
-    private settingService: DashboardService,
-    
-    
-  ) {}
     private settingService: DashboardService
   ) { }
 
@@ -88,6 +83,8 @@ export class HomeComponent implements OnInit {
       this.teamList = data;
     });
   }
+
+
 
   resData: any;
   submitBtnValue: string = buttonValue.START_ASSESS;
@@ -373,17 +370,4 @@ export class HomeComponent implements OnInit {
       event.preventDefault();
     }
   }
-
-// Using Level Login
-
-navigateToPage() {
-
-  if (this.selectedValue === 'Level-I') {
-    this.route.navigate(['/assessment']);
-  } else if (this.selectedValue === 'Level-II') {
-    this.route.navigate(['/program']);
-  } 
-
-}
-
 }

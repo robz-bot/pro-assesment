@@ -9,10 +9,6 @@ import {ProgramQn } from "../add-prog-qn/prog-qn";
   providedIn: "root",
 })
 export class ProgService {
-  searchprogramQnsPage: any;
-  saveBulkProgramQuestions(resultList: import("../add-gen-qn/gen-qn").generalQn[]) {
-    throw new Error("Method not implemented.");
-  }
   constructor(private httpClient: HttpClient) {}
   //Home URL
   private addProgramQuestionUrl = baseUrl.BASE_URL + "addProgramQuestion";
@@ -25,7 +21,7 @@ export class ProgService {
   private searchProgramUrl = baseUrl.BASE_URL + "searchProgramQns";
   private activeProgramQuestionByIdUrl = baseUrl.BASE_URL + "activeProgramQuestionById";
   private inactiveProgramQuestionByIdUrl = baseUrl.BASE_URL + "inactiveProgramQuestionById";
-  private searchProgramQnPageUrl = baseUrl.BASE_URL + "searchProgramQnPage";
+  private searchProgramQuestionPageUrl = baseUrl.BASE_URL + "searchProgramQuestionPage";
   private saveBulkProgramQuestionsUrl = baseUrl.BASE_URL + "saveBulkProgramQuestions";
 
   addProgramQuestion(progQn:ProgramQn): Observable<Object> {
@@ -74,13 +70,13 @@ export class ProgService {
   }
   
   searchDto:searchDto = new searchDto()
-  searchprogQnsPage(
+  searchProgramQusetionPage(
     type: string,
     keyword: string,
     params: any
   ): Observable<Object> {
     this.searchDto.keyword=keyword;
     this.searchDto.type=type;
-    return this.httpClient.post(`${this.searchProgramQnPageUrl}`, this.searchDto, { params });
+    return this.httpClient.post(`${this.searchProgramQuestionPageUrl}`, this.searchDto, { params });
   }
 }
