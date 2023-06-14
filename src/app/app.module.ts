@@ -36,6 +36,11 @@ import { AllProLinksComponent } from './pages/all-pro-links/all-pro-links.compon
 import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.component';
 import { ProgramComponent } from './pages/program/program.component';
 import { AngularEditorModule } from "angular-editor55";
+import { AddProgQnComponent } from './pages/add-prog-qn/add-prog-qn.component';
+import { BulkProgQnsComponent } from './pages/bulk-prog-qns/bulk-prog-qns.component';
+import { ProgQnListComponent } from './pages/prog-qn-list/prog-qn-list.component';
+import { UpdateProgQnComponent } from './pages/update-prog-qn/update-prog-qn.component';
+
 
 @NgModule({
   declarations: [
@@ -67,6 +72,10 @@ import { AngularEditorModule } from "angular-editor55";
     AllProLinksComponent,
     AdminSettingsComponent,
     ProgramComponent,
+    AddProgQnComponent,
+    BulkProgQnsComponent,
+    ProgQnListComponent,
+    UpdateProgQnComponent,
   ],
   imports: [
     
@@ -79,8 +88,9 @@ import { AngularEditorModule } from "angular-editor55";
     HttpClientModule,
     NgApexchartsModule,
     NgxFullscreenModule,
+    AngularEditorModule,
+    ReactiveFormsModule,
     AngularEditorModule
-    
     
   ],
   providers: [],

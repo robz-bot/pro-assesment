@@ -1,9 +1,10 @@
+
+import { Component, OnInit } from '@angular/core';
 import { question } from './../assessment/question';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { browserRefresh } from 'src/app/app.component';
 import Swal from "sweetalert2";
-
 
 
 @Component({
@@ -12,6 +13,31 @@ import Swal from "sweetalert2";
   styleUrls: ['./program.component.css']
 })
 export class ProgramComponent implements OnInit {
+  htmlContent:any
+  editorConfig: any = {
+   
+    editable: true,
+      spellcheck: true,
+      height: 'auto',
+      minHeight: '0',
+      maxHeight: 'auto',
+      width: 'auto',
+      minWidth: '0',
+      translate: 'yes',
+      enableToolbar: true,
+      showToolbar: true,
+      placeholder: 'Enter text here...',
+      defaultParagraphSeparator: '',
+      defaultFontName: '',
+      defaultFontSize: '',
+      fonts: [
+        {class: 'arial', name: 'Arial'},
+        {class: 'times-new-roman', name: 'Times New Roman'},
+        {class: 'calibri', name: 'Calibri'},
+        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+      ],
+      customClasses: [
+
   htmlContent: any
   questions: any
   programQnList: any = ['Question 1', 'Question 2', 'Question 3'];
@@ -51,6 +77,7 @@ export class ProgramComponent implements OnInit {
         tag: 'h1',
       },
     ],
+    insertImage:'',
     insertImage: '',
     sanitize: true,
     toolbarPosition: 'top',
@@ -58,6 +85,11 @@ export class ProgramComponent implements OnInit {
       ['bold', 'italic'],
       ['fontSize']
     ]
+};
+  constructor() { }
+
+  
+  ngOnInit(): void {
   };
   browserRefresh: any;
   router: any;

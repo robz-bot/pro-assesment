@@ -1,0 +1,92 @@
+<app-admin-header></app-admin-header>
+<div class="container my-3">
+  <h3 class="text-center">Upload Multiple Technical Questions</h3>
+  <div
+    class="d-flex flex-wrap flex-row bd-highlight mb-3 justify-content-center"
+  >
+    <div class="d-flex p-2 bd-highlight">
+      <select class="form-select form-select-sm" [(ngModel)]="teamId">
+        <option value="0">Select Team</option>
+        <option [value]="item.id" *ngFor="let item of filteredTeamList">
+          {{ item.team }}
+        </option>
+      </select>
+    </div>
+    <div class="d-flex p-2 bd-highlight">
+      <div class="form-group file-area">
+        <input
+          type="file"
+          name="images"
+          id="images"
+          required="required"
+          (change)="onFileChange($event)"
+          multiple="false"
+          #myInput
+        />
+        <div class="file-dummy">
+          <div class="success">
+            Great, your file is selected. Keep on.
+            <i class="bi bi-emoji-laughing-fill"></i>
+          </div>
+          <div class="default">Select or drag file here (.xlsx)</div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex p-2 bd-highlight text-dark">
+      <button
+        class="btn btn-lg btn-secondary mx-2 text-center"
+        (click)="clearInput()"
+      >
+        Reset
+      </button>
+    </div>
+  </div>
+
+  <div class="text-center table-responsive" *ngIf="data.length == 0">
+    <p class="m-3">
+      Upload an excel file that matches the screenshot below, then save it all
+      in one shot <i class="bi bi-emoji-smile-fill"></i>
+    </p>
+
+    <img src="assets/img/xlsheet.png" style="height: 500px; width: 450px" />
+  </div>
+
+  <div class="table-responsive my-2">
+    <table class="table table-hover sjs-table" *ngIf="data.length > 0">
+      <tbody>
+        <tr>
+          <td [colSpan]="6">
+            <button
+              (click)="saveBulkQn()"
+              class="btn btn-sm btn-warning float-end"
+              *ngIf="enableSaveBtn"
+            >
+              Save All
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>Question</td>
+          <td>Option 1</td>
+          <td>Option 2</td>
+          <td>Option 3</td>
+          <td>Option 4</td>
+          <td>Answer</td>
+        </tr>
+        <!-- <tr *ngFor="let item of resultList">
+          <td>{{item.question}}</td>
+          <td>Option 1</td>
+          <td>Option 2</td>
+          <td>Option 3</td>
+          <td>Option 4</td>
+          <td>Answer</td>
+        </tr> -->
+        <tr *ngFor="let row of data">
+          <td *ngFor="let val of row">
+            {{ val }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
