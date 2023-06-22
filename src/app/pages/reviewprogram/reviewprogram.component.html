@@ -1,0 +1,39 @@
+<app-admin-header></app-admin-header>
+<div class="container ">
+  <div class="card p-3">
+    <div class="card-header">
+      <h6 class="text-center text-light">Program review</h6>
+    </div>
+    <label for="">Question</label>
+    <textarea disabled rows="2" cols="50" class="">{{prog.question}}</textarea>
+    <br>
+    <label for="">Answer</label>
+    <textarea disabled rows="6" cols="100" class="container">{{prog.answer}}</textarea>
+    <br>
+
+    <div class="form">
+      <div class="form-group row">
+        <label for="proglevel" class="col-sm-2 ">Total Mark :</label>
+        <div class="col-sm-2">
+          <input type="text" disabled class="form-control form-control-sm" id="proglevel" value={{prog.totalMark}}>
+        </div>
+        <label for="proglevel" class="col-sm-2 ">Program Level :</label>
+        <div class="col-sm-6">
+          <input type="text" disabled class="form-control form-control-sm" id="proglevel" value={{prog.level}}>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="proglevel" class="col-sm-2 ">Scored Mark :</label>
+        <div class="col-sm-2">
+          <input type="text" class="form-control form-control-sm" id="proglevel">
+        </div>
+        <label for="proglevel" class="col-sm-2 ">Remarks :</label>
+        <div class="col-sm-6">
+          <textarea class="form-control form-control-sm" id="proglevel"></textarea>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-sm btn-success w-50 d-flex align-items-center justify-content-center">Save
+      Review</button>
+  </div>
+</div>

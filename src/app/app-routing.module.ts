@@ -24,6 +24,9 @@ import { AddProgQnComponent } from "./pages/add-prog-qn/add-prog-qn.component";
 import { UpdateProgQnComponent } from "./pages/update-prog-qn/update-prog-qn.component";
 import { ProgQnListComponent } from "./pages/prog-qn-list/prog-qn-list.component";
 // import { BulkProgQnsComponent } from "./pages/bulk-prog-qns/bulk-prog-qns.component";
+import { ProgramreportComponent } from "./pages/programreport/programreport.component";
+import { DatewiseremarkComponent } from "./pages/datewiseremark/datewiseremark.component";
+import { ReviewprogramComponent } from "./pages/reviewprogram/reviewprogram.component";
 const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "assessment", component: AssessmentComponent },
@@ -51,6 +54,10 @@ const routes: Routes = [
   // { path: "upload-prog-qns", component: BulkProgQnsComponent },
   { path: "promantus-projects", component: AllProLinksComponent },
   { path: "program", component: ProgramComponent },
+  { path: "programreport", component: ProgramreportComponent },
+  { path: "datewisereport/:date/:userId", component: DatewiseremarkComponent },
+  { path: "reviewprogram/:id", component: ReviewprogramComponent },
+
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

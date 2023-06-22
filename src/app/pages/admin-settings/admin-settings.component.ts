@@ -47,6 +47,10 @@ export class AdminSettingsComponent implements OnInit {
     this.settings.failPercentage = this.settings.passPercentage - 1;
   }
 
+  changeProgFailPercent() {
+    this.settings.progFailPercentage = this.settings.progPassPercentage - 1;
+  }
+
   onlyNumeric(event:any){
     console.log(event)
     var inputValue = event.charCode;
