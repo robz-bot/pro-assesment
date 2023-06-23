@@ -33,6 +33,10 @@ export class DatewiseremarkComponent implements OnInit {
     )
   }
 
+  goBack(){
+    history.back()
+  }
+
   gotoUpdatereport(item: any) {
     console.log(item)
     this.router.navigateByUrl("/reviewprogram/" + item.id);

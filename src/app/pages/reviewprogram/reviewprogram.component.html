@@ -5,11 +5,13 @@
       <h6 class="text-center text-light">Program review</h6>
     </div>
     <label for="">Question</label>
-    <textarea disabled rows="2" cols="50" class="">{{prog.question}}</textarea>
+    <div disabled rows="6" cols="100" class="container" [innerHTML]="prog.question"></div>
+    <!-- <textarea disabled rows="2" cols="50" class="container">{{prog.question}}</textarea> -->
     <br>
     <label for="">Answer</label>
-    <textarea disabled rows="6" cols="100" class="container">{{prog.answer}}</textarea>
-    <br>
+    <!-- <textarea disabled rows="6" cols="100" class="container" [innerHTML]="prog.answer"></textarea> -->
+    <div disabled rows="6" cols="100" class="container" [innerHTML]="prog.answer"></div>
+    <hr>
 
     <div class="form">
       <div class="form-group row">
@@ -25,15 +27,18 @@
       <div class="form-group row">
         <label for="proglevel" class="col-sm-2 ">Scored Mark :</label>
         <div class="col-sm-2">
-          <input type="text" class="form-control form-control-sm" id="proglevel">
+          <input type="text" class="form-control form-control-sm" id="scoredMark" [(ngModel)]="prog.scoredMark">
         </div>
         <label for="proglevel" class="col-sm-2 ">Remarks :</label>
         <div class="col-sm-6">
-          <textarea class="form-control form-control-sm" id="proglevel"></textarea>
+          <textarea class="form-control form-control-sm" id="remarks" [(ngModel)]="prog.remarks"></textarea>
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-sm btn-success w-50 d-flex align-items-center justify-content-center">Save
-      Review</button>
+    <div class="d-flex align-items-center justify-content-center ">
+      <button type="button" class="btn btn-sm btn-success" (click)="updateProgReport()">Update
+        Review</button>
+      <button type="button" class="btn btn-sm btn-danger mx-2" (click)="goBack()">Cancel</button>
+    </div>
   </div>
 </div>

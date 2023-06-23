@@ -266,6 +266,8 @@ export class ProgQnListComponent implements OnInit {
       })
       .then((result: any) => {
         if (result.isConfirmed) {
+          this.page = 1
+          this.pageSize = 3
           this.callingDeleteService(qnId);
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           this.swalWithBootstrapButtons.fire(

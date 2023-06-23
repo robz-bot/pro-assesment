@@ -385,7 +385,7 @@ export class ProgramComponent implements OnInit {
     this.repService.addProgReports(this.answerList).subscribe(
       (data) => {
         console.log(data);
-        // window.close();
+         window.close();
         // this.router.navigate([]).then((result: any) => {
         //   window.open("/", "_self");
         // });

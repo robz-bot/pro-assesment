@@ -34,11 +34,24 @@ export class AdminSettingsComponent implements OnInit {
       .updateSettings(this.settings)
       .subscribe((data: any) => {
         console.log(data);
-        Swal.fire(data.message).then((data) => {
-          // if(data.isConfirmed){
-          //   this.router.navigate(['/admin-dashboard']);
-          // }
-        });
+        if(data.status == 1){
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            text: data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }else{
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            text: data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+       
       });
     // this.router.navigate(['/admin-dashboard']);
   }

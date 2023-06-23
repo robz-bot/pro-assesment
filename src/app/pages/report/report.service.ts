@@ -18,6 +18,7 @@ export class ReportService {
   private getProgByReportedOnUrl = baseUrl.BASE_URL + "getProgByReportedOn";
   private addProgReportsUrl = baseUrl.BASE_URL + "addProgReports";
   private getProgReportsByIdUrl = baseUrl.BASE_URL + "getProgReportsById";
+  private updateProgReportsUrl = baseUrl.BASE_URL + "updateProgReports";
 
   getProgReportsById(id: string) {
     return this.httpClient.get(`${this.getProgReportsByIdUrl}/${id}`);
@@ -25,6 +26,10 @@ export class ReportService {
 
   addProgReports(request: any) {
     return this.httpClient.post(this.addProgReportsUrl, request);
+  }
+
+  updateProgReports(request: any) {
+    return this.httpClient.put(this.updateProgReportsUrl, request);
   }
 
   getAllReports() {

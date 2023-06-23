@@ -91,14 +91,11 @@ export class AddProgQnComponent implements OnInit {
     }
     if (this.progQnValue.programLevel == "" || this.progQnValue.programLevel == "Select Level") {
       this.alert.customWarningMsgWithoutBtn("Program Level is required!");
+    }
 
       this.progQnValue.question = this.progQnValue.question.trim();
       this.progQnValue.questionLevel = this.progQnValue.questionLevel.trim();
 
-      if (this.progQnValue.questionLevel == "") {
-        this.alert.customWarningMsgWithoutBtn("Question Level is required!");
-        return;
-      }
       if (this.progQnValue.teamId == "") {
         this.alert.customWarningMsgWithoutBtn("Team is required!");
         return;
@@ -150,5 +147,4 @@ export class AddProgQnComponent implements OnInit {
         }
       );
     }
-  }
 }
