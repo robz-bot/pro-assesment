@@ -19,7 +19,7 @@ export class AddProgQnComponent implements OnInit {
     private progService: ProgService,
     private alert: AlertifyService,
     private router: Router
-  ) {}
+  ) { }
   teamList: any;
   teamId: any;
   role: any;
@@ -74,13 +74,14 @@ export class AddProgQnComponent implements OnInit {
     );
   }
 
+
   goBack() {
     history.back();
   }
 
   onSubmit() {
     this.progQnValue = this.progQnForm.value;
- 
+
     this.progQnValue.program = this.progQnValue.program.trim();
     this.progQnValue.programLevel = this.progQnValue.programLevel.trim();
     console.log(this.progQnValue)
@@ -90,64 +91,60 @@ export class AddProgQnComponent implements OnInit {
     }
     if (this.progQnValue.programLevel == "" || this.progQnValue.programLevel == "Select Level") {
       this.alert.customWarningMsgWithoutBtn("Program Level is required!");
-
-    this.progQnValue.question = this.progQnValue.question.trim();
-    this.progQnValue.questionLevel = this.progQnValue.questionLevel.trim();
-
-    if (this.progQnValue.questionLevel == "") {
-      this.alert.customWarningMsgWithoutBtn("Question Level is required!");
-      return;
     }
-    if (this.progQnValue.teamId == "") {
-      this.alert.customWarningMsgWithoutBtn("Team is required!");
-      return;
-    }
-    console.log(this.progQnValue);
-    this.alert.showLoading();
-    this.progService.addProgramQuestion(this.progQnValue).subscribe(
-      (data: any) => {
-        Swal.close();
-        console.log(data);
 
-        if (data.status == 0) {
-          //After added
-          Swal.fire({
-            title: data.message,
-            showDenyButton: false,
-            showCancelButton: false,
-            allowOutsideClick: false,
-          }).then((result) => {
-            if (result.isConfirmed) {
-              if (!this.progQnForm.value.mulQn) {
-                this.router.navigateByUrl("/prog-qn-list");
-              } else {
-                this.progQnForm.reset();
+      this.progQnValue.question = this.progQnValue.question.trim();
+      this.progQnValue.questionLevel = this.progQnValue.questionLevel.trim();
+
+      if (this.progQnValue.teamId == "") {
+        this.alert.customWarningMsgWithoutBtn("Team is required!");
+        return;
+      }
+      console.log(this.progQnValue);
+      this.alert.showLoading();
+      this.progService.addProgramQuestion(this.progQnValue).subscribe(
+        (data: any) => {
+          Swal.close();
+          console.log(data);
+
+          if (data.status == 0) {
+            //After added
+            Swal.fire({
+              title: data.message,
+              showDenyButton: false,
+              showCancelButton: false,
+              allowOutsideClick: false,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                if (!this.progQnForm.value.mulQn) {
+                  this.router.navigateByUrl("/prog-qn-list");
+                } else {
+                  this.progQnForm.reset();
+                }
               }
-            }
-          });
-        } else if (data.status == 1) {
+            });
+          } else if (data.status == 1) {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              text: data.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        },
+        (err) => {
+          console.log("Error :");
+          console.log(err);
           Swal.fire({
             position: "center",
             icon: "error",
-            text: data.message,
+            title: message.SOMETHING_WRONG,
+            text: err,
             showConfirmButton: false,
             timer: 1500,
           });
         }
-      },
-      (err) => {
-        console.log("Error :");
-        console.log(err);
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: message.SOMETHING_WRONG,
-          text: err,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    );
-  }
-  }
+      );
+    }
 }
